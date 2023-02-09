@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="udf_account_move_inherit_form">
+            <field name="name">udf.account.move.inherit.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@id='header_right_group']" position="inside">
+                    <field name="for_analytic" attrs="{'invisible': [('move_type','!=','entry')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='product_id']" position="after">
+                    <field name="spesifikasi"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="udf_account_move_inherit_tree">
+            <field name="name">udf.account.move.inherit.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="for_analytic" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

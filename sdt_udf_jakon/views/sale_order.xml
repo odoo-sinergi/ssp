@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="udf_sale_order_inherit_form">
+            <field name="name">udf.sale.order.inherit.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='partner_details']" position="inside">
+                    <field name="for_project"/>
+                    <field name="for_department"/>
+                    <field name="for_location"/>    
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='name']" position="after">
+                    <field name="spesifikasi"/>
+                    <field name="analytic_project_id"/>
+                    <field name="analytic_department_id"/>
+                    <field name="analytic_location_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="udf_sale_order_inherit_tree2">
+            <field name="name">udf.sale.order.inherit.tree2</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="for_project"/>
+                    <field name="for_department"/>
+                    <field name="for_location"/>    
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="udf_sale_order_inherit_tree">
+            <field name="name">udf.sale.order.inherit.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="for_project"/>
+                    <field name="for_department"/>
+                    <field name="for_location"/>    
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

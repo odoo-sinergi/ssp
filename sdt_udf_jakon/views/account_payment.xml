@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="udf_account_payment_inherit_form">
+            <field name="name">udf.account.payment.inherit.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_id']" position="after">
+                    <field name="n_ppn"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
