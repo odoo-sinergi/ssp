@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "SDT UDF Jasa Kontruksi",
+    'name': "SDT UDF SSP",
 
     'summary': """
-        SDT UDF Jasa Kontruksi """,
+        SDT UDF SSP """,
 
     'description': """
         STD UDF all module by PT. Sinergi Data Totalindo
