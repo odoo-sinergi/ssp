@@ -12,6 +12,9 @@
                 <field name="origin" position="after">
                     <field name="work_base_structure" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                 </field>
+                <field name="owner_id" position="after">
+                    <field name="jitcall" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                </field>
             </field>
         </record>
     </data>

@@ -4,6 +4,7 @@ class StockPicking(models.Model):
     _inherit='stock.picking'
 
     work_base_structure = fields.Many2one('account.analytic.account', string='Work Base Structure')
+    jitcall = fields.Char(string='JIT Call')
 
 
     def button_validate(self):
