@@ -18,10 +18,10 @@ _STATES = [
 ]
 
 
-class GoodsIssued(models.Model):
-    _name = 'goods.issued'
+class SDTGoodsIssued(models.Model):
+    _name = 'sdt.goods.issued'
     _description = 'Goods Issued'
-    _order = 'date_issued desc, name desc, id desc'
+    _order = 'name desc, id desc'
     _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin', 'sequence.mixin']
 
     @api.model
@@ -30,18 +30,19 @@ class GoodsIssued(models.Model):
 
     @api.model
     def _get_default_name(self):
-        return self.env['ir.sequence'].next_by_code('goods.issued')
+        return self.env['ir.sequence'].next_by_code('sdt.goods.issued')
 
     name = fields.Char('Name', size=32, required=True, default=_get_default_name, track_visibility='onchange',copy=True,index=True)
+    date = fields.Date('Date', default=fields.Date.context_today, track_visibility='onchange')
     partner_id = fields.Many2one('res.partner', string='Vendor', track_visibility='onchange')
-    date_issued = fields.Date('Issued Date', default=fields.Date.context_today, track_visibility='onchange')
+    # date_issued = fields.Date('Issued Date', default=fields.Date.context_today, track_visibility='onchange')
     force_date = fields.Date('Force Date', default=fields.Date.context_today, track_visibility='onchange')
     picking_type_id = fields.Many2one('stock.picking.type', string='Operation Type', domain="[('code', '=', 'internal'),('default_location_dest_id.usage', '=', 'inventory')]")
     location_from = fields.Many2one('stock.location', string='Location From', domain="[('usage', '=', 'internal')]")
     location_to = fields.Many2one('stock.location', string='Location To', track_visibility='onchange')
     picking_id = fields.Many2one('stock.picking', 'Picking', track_visibility='onchange')
     description = fields.Text('Description')
-    line_ids = fields.One2many('goods.issued.line', 'issued_id', string='Products to Issued', states={'open': [('readonly', False)]}, copy=True, readonly=True, check_company=True,)
+    line_ids = fields.One2many('sdt.goods.issued.line', 'issued_id', string='Products to Issued', states={'open': [('readonly', False)]}, copy=True, readonly=True,)
     state = fields.Selection(selection=_STATES,string='Status',index=True,track_visibility='onchange',required=True,copy=False,default='open')
     company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.company)
     
@@ -56,7 +57,7 @@ class GoodsIssued(models.Model):
     #             if line[2]["lot_id"]==False:
     #                 raise UserError('Product %s need a lot number, not allow empty' % (cek_lot.product_tmpl_id.name))
         
-    #     res = super(GoodsIssued, self).create(vals)
+    #     res = super(SDTGoodsIssued, self).create(vals)
     #     return res
 
     #@api.multi
@@ -77,8 +78,8 @@ class GoodsIssued(models.Model):
     #     self.env.cr.execute(sql_query, (docnum,))
     #     cek = self.env.cr.fetchone()[0]
     #     if cek>1 :
-    #         vals['name']=self.env['ir.sequence'].next_by_code('goods.issued')
-    #     res = super(GoodsIssued, self).write(vals)
+    #         vals['name']=self.env['ir.sequence'].next_by_code('sdt.goods.issued')
+    #     res = super(SDTGoodsIssued, self).write(vals)
     #     return res
 
     # @api.onchange('picking_type_id')
@@ -100,6 +101,7 @@ class GoodsIssued(models.Model):
 
     def canceled(self):
         #1. Update Stock Quant - Location Source
+        self.ensure_one()
         sql_query="""select count(1) from stock_move_line a left join stock_quant b on a.product_id=b.product_id and a.location_id=b.location_id and a.lot_id=b.lot_id
             where a.picking_id=%s and b.product_id is null
             """
@@ -168,12 +170,14 @@ class GoodsIssued(models.Model):
         self.state='canceled'
 
     def validate(self):
+        self.ensure_one()
         header_trans = {}
         pick_id = self.picking_type_id.id
         header_trans = {'name': self.name,
-                        # 'company_id': self.company_id.id,
-                        'scheduled_date': self.date_issued,
-                        'force_date': self.force_date,
+                        'company_id': self.company_id.id,
+                        # 'scheduled_date': self.date_issued,
+                        'scheduled_date': self.date,
+                        # 'force_date': self.force_date,
                         'location_id': self.location_from.id,
                         'location_dest_id': self.location_to.id,
                         'picking_type_id': self.picking_type_id.id,
@@ -233,7 +237,7 @@ class GoodsIssued(models.Model):
         #     else:
         #         po = po+', '+ res['name']
 
-        # po_number = self.env['goods.issued.line'].search([('issued_id','=', self.id)])
+        # po_number = self.env['sdt.goods.issued.line'].search([('issued_id','=', self.id)])
         # if po_number:
         #     for line in po_number:
         #         line.write({
@@ -245,45 +249,46 @@ class GoodsIssued(models.Model):
          
 
 
-class GoodsIssuedLine(models.Model):
-    _name = "goods.issued.line"
+class SDTGoodsIssuedLine(models.Model):
+    _name = "sdt.goods.issued.line"
     _description = "Goods Issued Line"
     _order = "id desc, name desc"
     _rec_names_search = ['name', 'issued_id', 'product_id']
-    # _inherit = ['mail.thread']
 
-    issued_id = fields.Many2one(comodel_name='goods.issued', string='Goods Issued', ondelete='cascade', required=True, index=True, copy=False, auto_join=True, check_company=True)
+    issued_id = fields.Many2one(comodel_name='sdt.goods.issued', string='Goods Issued', ondelete='cascade', required=True, index=True, copy=False, auto_join=True, check_company=True)
     name = fields.Char('Description')
     sequence = fields.Integer(string='Sequence', default=10)
     display_type = fields.Selection([
         ('line_section', "Section"),
         ('line_note', "Note")], default=False, help="Technical field for UX purpose.")
     product_id = fields.Many2one('product.product', 'Material Name',domain=[('type', '=', 'product')])
-    product_uom_id = fields.Many2one(comodel_name='uom.uom', inverse_name='id', string='UoM', store=True)
-    # lot_id = fields.Many2one(comodel_name='stock.production.lot', inverse_name='id', string='Lot', store=True)
+    product_uom_id = fields.Many2one(comodel_name='uom.uom', string='UoM', store=True)
+    lot_id = fields.Many2one(comodel_name='stock.lot', string='Lot', store=True)
     qty = fields.Float(string='Qty', digits=dp.get_precision('Product Unit of Measure'))
     account_id = fields.Many2one('account.account', string='Account', index=True,)
-    analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account', index=True,)
-    analytic_tag_id = fields.Many2one('account.analytic.tag', string='Analytic Tag',)
+    # analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account', index=True,)
+    # analytic_tag_id = fields.Many2one('account.analytic.tag', string='Analytic Tag',)
     move_id = fields.Many2one('stock.move', string='Move Id', index=True,)
     company_id = fields.Many2one('res.company', required=True, related='issued_id.company_id', store=True, default=lambda self: self.env.company)
 
 
-    # @api.onchange('product_id')
-    # def onchange_product_id(self):
-    #     if not self.product_id:
-    #         return
-    #     if self.issued_id.location_from.id==False:
-    #         raise UserError('Location From is empty, not allowed')
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        if not self.product_id:
+            return
+        if self.issued_id.location_from.id==False:
+            raise UserError('Location From is empty, not allowed')
 
-    #     self.product_uom_id=self.product_id.uom_id.id
-    #     domain = {}
-    #     lot_list = []
-    #     sql_query="""select distinct lot_id from stock_quant where quantity-reserved_quantity>0 and product_id=%s and location_id=%s
-    #         """
-    #     self.env.cr.execute(sql_query,(self.product_id.id,self.issued_id.location_from.id,))
-    #     res_lot=self.env.cr.dictfetchall()
-    #     for lot in res_lot:
-    #         lot_list.append(lot['lot_id'])
-    #     domain = {'lot_id': [('id', '=', lot_list)]}
-    #     return {'domain': domain}
+        self.product_uom_id=self.product_id.uom_id.id
+        domain = {}
+        lot_list = []
+        sql_query="""select distinct lot_id from stock_quant where quantity-reserved_quantity>0 and product_id=%s and location_id=%s
+            """
+        self.env.cr.execute(sql_query,(self.product_id.id,self.issued_id.location_from.id,))
+        res_lot=self.env.cr.dictfetchall()
+        for lot in res_lot:
+            lot_list.append(lot['lot_id'])
+        product_uom_ids = self.env['uom.uom'].search([('category_id','=',self.product_id.uom_id.category_id.id)]).ids
+        domain = {'product_uom_id': [('id', 'in', product_uom_ids)]}
+        domain.update({'lot_id': [('id', '=', lot_list)]})
+        return {'domain': domain}
