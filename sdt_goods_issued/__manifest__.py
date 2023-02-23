@@ -17,6 +17,7 @@
         'data/return_goods_issued_sequence_data.xml',
         'views/goods_issued_view.xml',
         'views/return_goods_issued_view.xml',
+        'views/stock.xml',
     ],
     'depends': ['base','stock','account','account_accountant',],
     'installable': True,

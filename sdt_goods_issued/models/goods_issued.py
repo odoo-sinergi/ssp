@@ -191,6 +191,8 @@ class SDTGoodsIssued(models.Model):
                         'product_id': line.product_id.id,
                         'product_uom_qty': line.qty,
                         'product_uom': line.product_uom_id.id,
+                        'analytic_product_id': line.analytic_product_id.id,
+                        'analytic_project_id': line.analytic_project_id_id.id,
                         'state': 'assigned',
                         'picking_id': picking_id,
                         'location_id': self.location_from.id,
@@ -220,10 +222,14 @@ class SDTGoodsIssued(models.Model):
             account_move=self.env['account.move'].search([('stock_move_id','=',move_id)])
             account_move_line=self.env['account.move.line'].search([('move_id','=',account_move.id),('product_id','=',line.product_id.id),('debit','>',0)])
             if account_move_line:
+                all_analytic = {}
+                for dep in line.analytic_product_id:
+                    all_analytic.update({str(line.analytic_product_id.id) : 100})
+                for dep in line.analytic_project_id:
+                    all_analytic.update({str(line.analytic_project_id.id) : 100})
                 account_move_line.write({
                     'account_id':line.account_id.id,
-                    'analytic_account_id':line.analytic_account_id.id,
-                    'analytic_tag_ids':[(6, 0, line.analytic_tag_id.ids)]
+                    'analytic_distribution':all_analytic
                 })
         
         # sql_query = """SELECT name FROM goods_issued_line_fifo INNER JOIN purchase_order ON goods_issued_line_fifo.po_id = purchase_order.id
@@ -270,6 +276,8 @@ class SDTGoodsIssuedLine(models.Model):
     # analytic_tag_id = fields.Many2one('account.analytic.tag', string='Analytic Tag',)
     move_id = fields.Many2one('stock.move', string='Move Id', index=True,)
     company_id = fields.Many2one('res.company', required=True, related='issued_id.company_id', store=True, default=lambda self: self.env.company)
+    analytic_product_id = fields.Many2one('account.analytic.account', string='Analytic Product', domain="[('plan_id.name','=','Product')]")
+    analytic_project_id = fields.Many2one('account.analytic.account', string='Analytic Project', domain="[('plan_id.name','=','Project')]")
 
 
     @api.onchange('product_id')
