@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <odoo>
-        <record model="ir.ui.view" id="view_return_goods_issued_form">
-            <field name="name">return_goods_issued_form</field>
-            <field name="model">return.goods.issued</field>
+        <record model="ir.ui.view" id="view_sdt_return_goods_issued_form">
+            <field name="name">sdt_return_goods_issued_form</field>
+            <field name="model">sdt.return.goods.issued</field>
             <field name="arch" type="xml">
                 <form string="Return Goods Issued" version="7.0">
                     <header>
@@ -24,8 +24,8 @@
                         <group>
                             <group>
                                 <field name="partner_id" attrs="{'readonly': [('state','!=', 'open')]}" invisible="1"/>
-                                <field name="date_issued" attrs="{'readonly': [('state','!=', 'open')]}"/>
-                                <field name="force_date" attrs="{'readonly': [('state','!=', 'open')]}"/>
+                                <field name="date" attrs="{'readonly': [('state','!=', 'open')]}"/>
+                                <!-- <field name="force_date" attrs="{'readonly': [('state','!=', 'open')]}"/> -->
                                 <field name="description" attrs="{'readonly': [('state','!=', 'open')]}"/>
                             </group>
                             <group>
@@ -58,8 +58,10 @@
                                         <field name="issued_number" invisible="1"/>
                                         <field name="po_numbers" invisible="1"/>
                                         <field name="account_id" attrs="{'required': [('display_type', '=', False)]}"/>
-                                        <field name="analytic_account_id" attrs="{'required': [('display_type', '=', False)]}" invisible="1"/>
-                                        <field name="analytic_tag_id" attrs="{'required': [('display_type', '=', False)]}"/>
+                                        <field name="analytic_product_id"/>
+                                        <field name="analytic_project_id"/>
+                                        <!-- <field name="analytic_account_id" attrs="{'required': [('display_type', '=', False)]}" invisible="1"/>
+                                        <field name="analytic_tag_id" attrs="{'required': [('display_type', '=', False)]}"/> -->
                                     </tree>
                                 </field>
                             </page>
@@ -73,13 +75,13 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="view_return_goods_issued_tree">
-            <field name="name">return_goods_issued_tree</field>
-            <field name="model">return.goods.issued</field>
+        <record model="ir.ui.view" id="view_sdt_return_goods_issued_tree">
+            <field name="name">sdt_return_goods_issued_tree</field>
+            <field name="model">sdt.return.goods.issued</field>
             <field name="arch" type="xml">
                 <tree decoration-info="state in ('open')" string="Return Goods Issued">
                     <field name="name"/>
-                    <field name="date_issued"/>
+                    <field name="date"/>
                     <field name="description"/>
                     <field name="company_id"/>
                     <field name="state"/>
@@ -87,9 +89,9 @@
           </field>
         </record>
 
-        <record id="view_return_goods_issued_search" model="ir.ui.view">
+        <record id="view_sdt_return_goods_issued_search" model="ir.ui.view">
             <field name="name">Return_goods_issued_list_select</field>
-            <field name="model">return.goods.issued</field>
+            <field name="model">sdt.return.goods.issued</field>
             <field name="arch" type="xml">
                 <search string="Search Return Goods Issued">
                     <field name="name" string="Goods Issued"/>
@@ -106,18 +108,18 @@
                     <filter name="state_done" string="Done"
                             domain="[('state','=','valid')]"/>
                     <group expand="0" string="Group By...">
-                        <filter string="Date Issued" name="date_issued" icon="terp-go-month" domain="[]" context="{'group_by':'date_issued'}"/>
+                        <filter string="Date Issued" name="date_issued" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
                     </group>
                 </search>
             </field>
         </record>
 
 
-        <record model="ir.actions.act_window" id="return_goods_issued_form_action">
+        <record model="ir.actions.act_window" id="sdt_return_goods_issued_form_action">
             <field name="name">Return Goods Issued</field>
-            <field name="res_model">return.goods.issued</field>
+            <field name="res_model">sdt.return.goods.issued</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_return_goods_issued_search"/>
+            <field name="search_view_id" ref="view_sdt_return_goods_issued_search"/>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Click to start a new Return Good Issued process.
@@ -152,18 +154,18 @@
             <!--</field>-->
         <!--</record>-->
 
-        <record model="ir.rule" id="return_goods_issued_comp_rule">
+        <record model="ir.rule" id="sdt_return_goods_issued_comp_rule">
             <field name="name">SDT Return Goods Issued Company Rule</field>
-            <field name="model_id" ref="model_return_goods_issued"/>
+            <field name="model_id" ref="model_sdt_return_goods_issued"/>
             <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
         </record>
 
         <menuitem
-            id="menu_return_goods_issued_act"
+            id="menu_sdt_return_goods_issued_act"
             sequence="3"
             name="Return Goods Issued"
             parent="stock.menu_stock_warehouse_mgmt"
-            action="return_goods_issued_form_action"
+            action="sdt_return_goods_issued_form_action"
             groups="base.group_user"
             />
 
