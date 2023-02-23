@@ -196,7 +196,7 @@ class SDTReturnGoodsIssued(models.Model):
                         'product_uom_qty': line.qty,
                         'product_uom': line.product_uom_id.id,
                         'analytic_product_id': line.analytic_product_id.id,
-                        'analytic_project_id': line.analytic_project_id_id.id,
+                        'analytic_project_id': line.analytic_project_id.id,
                         'state': 'assigned',
                         'picking_id': picking_id,
                         'location_id': self.location_from.id,
