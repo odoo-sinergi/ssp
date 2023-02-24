@@ -229,6 +229,8 @@ class SDTGoodsIssued(models.Model):
                     all_analytic.update({str(line.analytic_project_id.id) : 100})
                 account_move_line.write({
                     'account_id':line.account_id.id,
+                    'analytic_product_id':line.analytic_product_id.id,
+                    'analytic_project_id':line.analytic_project_id.id,
                     'analytic_distribution':all_analytic
                 })
         
