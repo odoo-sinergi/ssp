@@ -18,6 +18,7 @@
         'views/goods_issued_view.xml',
         'views/return_goods_issued_view.xml',
         'views/stock.xml',
+        'views/account_move.xml',
     ],
     'depends': ['base','stock','account','account_accountant',],
     'installable': True,

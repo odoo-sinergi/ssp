@@ -192,7 +192,7 @@ class SDTGoodsIssued(models.Model):
                         'product_uom_qty': line.qty,
                         'product_uom': line.product_uom_id.id,
                         'analytic_product_id': line.analytic_product_id.id,
-                        'analytic_project_id': line.analytic_project_id_id.id,
+                        'analytic_project_id': line.analytic_project_id.id,
                         'state': 'assigned',
                         'picking_id': picking_id,
                         'location_id': self.location_from.id,
@@ -229,6 +229,8 @@ class SDTGoodsIssued(models.Model):
                     all_analytic.update({str(line.analytic_project_id.id) : 100})
                 account_move_line.write({
                     'account_id':line.account_id.id,
+                    'analytic_product_id':line.analytic_product_id.id,
+                    'analytic_project_id':line.analytic_project_id.id,
                     'analytic_distribution':all_analytic
                 })
         
@@ -251,6 +253,13 @@ class SDTGoodsIssued(models.Model):
         #         })
         return      
         
+
+    @api.onchange('picking_type_id')
+    def _onchange_picking_type_id(self):
+        if not self.picking_type_id:
+            return
+        self.location_from = self.picking_type_id.default_location_src_id.id
+        self.location_to = self.picking_type_id.default_location_dest_id.id
         
          
 
