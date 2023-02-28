@@ -253,6 +253,13 @@ class SDTGoodsIssued(models.Model):
         #         })
         return      
         
+
+    @api.onchange('picking_type_id')
+    def _onchange_picking_type_id(self):
+        if not self.picking_type_id:
+            return
+        self.location_from = self.picking_type_id.default_location_src_id.id
+        self.location_to = self.picking_type_id.default_location_dest_id.id
         
          
 
