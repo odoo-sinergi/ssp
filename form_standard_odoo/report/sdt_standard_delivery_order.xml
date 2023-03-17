@@ -1,0 +1,152 @@
+<odoo>
+    <data>
+        <report id="report_standard_do_menu"
+                string="SDT Standard - Delivery Order"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                file="stock.picking"
+                name="form_standard_odoo.standard_do_report"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+                print_report_name="'SDT Standard - Delivery Order - %s' % (object.name)">
+        </report>
+
+        <template id="standard_do_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.standard_do_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <template id="standard_do_document">
+            <t t-call="web.external_layout">
+            <!--<t t-call="form_standard_odoo.custom_external_layout">-->
+                <div style="font-Size:11px;" class="page">
+                    <style type="text/css">
+                        tr, td
+                        {
+                            padding: 4px;
+                            padding-left: 7px;
+                            padding-right: 7px;
+                        }
+                    </style>
+                    <style type="text/css">
+                        th
+                        {
+                            padding: 4px;
+                            padding-left: 7px;
+                            padding-right: 7px;
+                            color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                        table
+                        {
+                            width: 100%;
+                            margin-top: 5px;
+                            margin-bottom: 10px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-8" align="left">
+                            <span><h5><strong>PT SHIN SAM-PLUS INDUSTRY</strong></h5></span>
+                            <span>JL. PERMATA RAYA LOT E1 KIIC</span><br/>
+                            <span>KARAWANG (0267) 8057292</span>
+                        </div>
+                        <div class="col-4" align="right">
+                            <span><strong>FPPIC-015</strong></span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6" align="left">
+                        </div>
+                        <div class="col-6" align="left">
+                            <span>KEPADA YTH:</span><br/>
+                            <span t-field="doc.partner_id.name"/><br/>
+                            <span t-field="doc.partner_id.street"/>, 
+                            <span t-field="doc.partner_id.city"/>, 
+                            <span t-field="doc.partner_id.state_id.name"/>, 
+                            <span t-field="doc.partner_id.zip"/><br/>
+                            <span t-field="doc.partner_id.country_id.name"/>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-8" align="center">
+                            <h5><strong>DELIVERY ORDER</strong></h5>
+                        </div>
+                        <div class="col-1" align="left">
+                            <strong><span>Date :</span></strong><br/>
+                            <strong><span>DO No :</span></strong><br/>
+                            <strong><span>DO Rev :</span></strong><br/>
+                            <strong><span>PO No :</span></strong><br/>
+                            <strong><span>Status :</span></strong>
+                        </div>
+                        <div class="col-3" align="left">
+                            <span t-field="doc.force_date"/><br/>
+                            <strong><span t-field="doc.name"/></strong><br/>
+                            <strong>-</strong><br/>
+                            <strong><span t-field="doc.origin"/></strong><br/>
+                            <strong><span>SALES</span></strong>
+                        </div>
+                    </div>
+                    <br/>
+                    <table class="table" width="100%">
+                        <thead>
+                            <th width="8%">No</th>
+                            <th width="12%">QTY</th>
+                            <th width="12%">BOX/TRO</th>
+                            <th width="28%">PART NO</th>
+                            <th width="40%">ITEM</th>
+                        </thead>
+                        <t t-set="LineNum" t-value="1"/>
+                        <tr t-foreach="doc.move_ids_without_package" t-as="line">
+                            <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                            <td><strong><span t-field="line.quantity_done"/></strong></td>
+                            <td><strong><span t-field="line.product_uom.name"/></strong></td>
+                            <td></td>
+                            <td><span t-field="line.product_id.name"/></td>
+                            <t t-set="LineNum" t-value="LineNum+1"/>
+                        </tr>
+                    </table>
+                    <br/>
+                    <span><strong>Driver</strong></span><br/>
+                    <span><strong>No POL</strong></span>
+                    <br/>
+                    <div class="row">
+                        <div class="col-1" align="center">
+                        </div>
+                        <div class="col-1" align="center">
+                            <span><strong>PREPARED</strong></span>
+                        </div>
+                        <div class="col-1" align="center">
+                        </div>
+                        <div class="col-1" align="center">
+                            <span><strong>CHECKED</strong></span>
+                        </div>
+                        <div class="col-1" align="center">
+                        </div>
+                        <div class="col-1" align="center">
+                            <span><strong>APPROVED</strong></span>
+                        </div>
+                        <div class="col-1" align="center">
+                        </div>
+                        <div class="col-2" align="center">
+                            <span><strong>SECURITY SSPI</strong></span>
+                        </div>
+                        <div class="col-1" align="center">
+                        </div>
+                        <div class="col-1" align="center">
+                            <span><strong>RECEIVED</strong></span>
+                        </div>
+                        <div class="col-1" align="center">
+                        </div>
+                        
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
