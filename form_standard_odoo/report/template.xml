@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <!-- Header -->
+        <template id="sdt_header_internal_layout" inherit_id="web.internal_layout" primary="True">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header" style="margin-top:10px; margin-bottom:15px;">
+                    <div class="row">
+
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -33,17 +33,6 @@
             </t>
         </template>
 
-        <!-- Header -->
-        <template id="sdt_header_internal_layout" inherit_id="web.internal_layout" primary="True">
-            <xpath expr="//div[@class='header']" position="replace">
-                <div class="header" style="margin-top:10px; margin-bottom:15px;">
-                    <div class="row">
-
-                    </div>
-                </div>
-            </xpath>
-        </template>
-
         <template id="standard_prep_do_it_document">
             <!-- <t t-call="web.external_layout"> -->
             <t t-call="form_standard_odoo.sdt_header_internal_layout">
