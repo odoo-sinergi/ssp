@@ -65,13 +65,13 @@
                                 <tr>
                                     <td>Terms of Payment</td>
                                     <td>
-                                        <!-- <span t-field="doc.payment_term_id.name"/> -->
+                                        <span t-field="doc.invoice_payment_term_id.name"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>PO No.</td>
                                     <td>
-                                        <!-- <span t-field="doc.client_order_ref"/> -->
+                                        <span t-field="doc.payment_reference"/>
                                     </td>
                                 </tr>
                             </table>
