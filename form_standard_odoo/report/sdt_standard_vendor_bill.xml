@@ -71,7 +71,7 @@
                                 <tr>
                                     <td>PO No.</td>
                                     <td>
-                                        <span t-field="doc.payment_reference"/>
+                                        <span t-field="doc.invoice_origin"/>
                                     </td>
                                 </tr>
                             </table>
