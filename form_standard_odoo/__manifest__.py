@@ -41,6 +41,7 @@
         'report/sdt_standard_form_voucher.xml',
         'report/sdt_standard_delivery_order.xml',
         'report/sdt_standard_cash_advance.xml',
+        'report/sdt_standard_vendor_bill.xml',
     ],
     # only loaded in demonstration mode
 }
