@@ -12,8 +12,10 @@ class AccountPaymentRegister(models.TransientModel):
         planner = super(AccountPaymentRegister, self).action_create_payments()
         for i in self :
             account_payment_obj = i.env['account.payment'].search([('ref', '=', i.communication)])
-            if account_payment_obj :
-                account_payment_obj.description = i.description
+            for account_payment in account_payment_obj :
+                if account_payment :
+                    account_payment.description = i.description
+                    account_payment.bill_id = i.line_ids.move_id.id
         return planner
     
     # def _create_payment_vals_from_wizard(self):

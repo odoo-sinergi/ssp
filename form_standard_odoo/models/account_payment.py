@@ -7,6 +7,7 @@ class AccountPayment(models.Model):
     _template = 'form_standard_odoo.payment_report_document'
 
     description = fields.Text(string='Description',)
+    bill_id = fields.Many2one('account.move',string='Bill',)
     
     def terbilang_idr(self):
         return terbilang.terbilang(self.amount, 'idr', 'id')

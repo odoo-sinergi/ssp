@@ -148,7 +148,7 @@
                                     <td>Terms of Payment</td>
                                     <td>:</td>
                                     <td style="border-right: 1px solid;">
-                                        <!-- <span t-field="doc.partner_id.phone"/> -->
+                                        <span t-field="doc.payment_term_id.phone"/>
                                     </td>
                                 </tr>
                                 <tr>

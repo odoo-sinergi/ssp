@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <field name="ref" position="after">
                     <field name="description"/>
+                    <field name="bill_id" invisible="1"/>
                 </field>
             </field>
         </record>
