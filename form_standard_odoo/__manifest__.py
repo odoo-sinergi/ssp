@@ -31,7 +31,6 @@
 
         # 'report/sdt_standard_good_receipt.xml',
         # 'report/sdt_standard_inventory_transfer.xml',
-        # 'report/sdt_standard_payment_receipt.xml',
         'report/template.xml',
         'wizard/sdt_payment.xml',
         'views/account_payment.xml',
@@ -42,6 +41,7 @@
         'report/sdt_standard_delivery_order.xml',
         'report/sdt_standard_cash_advance.xml',
         'report/sdt_standard_vendor_bill.xml',
+        'report/sdt_standard_good_issue.xml',
     ],
     # only loaded in demonstration mode
 }
