@@ -1,13 +1,13 @@
 <odoo>
     <data>
         <report id="report_standard_good_issue_menu"
-                string="SDT Standard - Good Issue"
+                string="SDT Standard - Transfer"
                 model="stock.picking"
                 report_type="qweb-pdf"
                 file="stock.picking"
                 name="form_standard_odoo.standard_good_issue_report"
                 paperformat="form_standard_odoo.paperformat_sdt_standard_form"
-                print_report_name="'SDT Standard - Good Issue - %s' % (object.name)">
+                print_report_name="'SDT Standard - Transfer - %s' % (object.name)">
         </report>
 
         <template id="standard_good_issue_report">
