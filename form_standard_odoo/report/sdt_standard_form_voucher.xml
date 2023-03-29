@@ -122,7 +122,7 @@
                             <!-- <span><u>                                                                                                                                                                                                        </u></span><br/> -->
                             <span t-field="doc.partner_id.name"/><br/>
                             <span t-field="doc.amount"/><br/>
-                            <span t-field="doc.ref"/><br/>
+                            <span t-field="doc.bill_id.name"/><br/>
                             <span t-esc="doc.get_day(doc.date)"/><br/>
                             <span t-field="doc.description"/><br/>
                             <span><u>                                                                                                                                                                                                        </u></span>
