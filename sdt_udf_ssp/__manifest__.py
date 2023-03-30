@@ -29,7 +29,6 @@
     'data': [
         # 'security/ir.model.access.csv',
         # 'security/user_groups.xml',
-        # 'views/account_move.xml',
         # 'views/purchase_order.xml',
         # 'views/sale_order.xml',
         # 'views/account_payment.xml',
@@ -38,6 +37,7 @@
         # 'views/product.xml',
         # 'views/mrp_bom.xml',
         'views/stock.xml',
+        'views/account_move.xml',
         # 'views/account_analytic_account.xml',
     ],
     # only loaded in demonstration mode

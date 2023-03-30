@@ -5,22 +5,16 @@
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//group[@id='header_right_group']" position="inside">
-                    <field name="for_analytic" attrs="{'invisible': [('move_type','!=','entry')]}"/>
+                <xpath expr="//div[@name='journal_div']" position="after">
+                    <field name="picking_tt"/>
                 </xpath>
-                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='product_id']" position="after">
-                    <field name="spesifikasi"/>
-                </xpath>
-            </field>
-        </record>
-        <record model="ir.ui.view" id="udf_account_move_inherit_tree">
-            <field name="name">udf.account.move.inherit.tree</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_tree"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='journal_id']" position="after">
-                    <field name="for_analytic" optional="show"/>
-                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page string="Picking DO" name="studio_page_hNkgX" attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('picking_tt','=',False)]}">
+                      <group name="picking_tt">
+                        <field name="stock_picking_tt_ids"  widget="many2many_tags" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                      </group>
+                    </page>
+                  </xpath>
             </field>
         </record>
     </data>

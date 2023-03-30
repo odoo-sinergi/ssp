@@ -112,7 +112,7 @@
                                     <td style="border-left: 1px solid;">Attn</td>
                                     <td>:</td>
                                     <td>
-                                        <!-- <span t-field="doc.partner_id.phone"/> -->
+                                        <span>-</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -247,7 +247,7 @@
 
                     <div class="row">
                         <div class="col-6">
-                            <span>1. Pengiriman barang harus sesuai dengan syarat , harga dan metode pembayaran  syarat sesuai dengan spesifikasi yang diminta <strong>PT. Shin Sum Plus Industry</strong></span><br/><br/>
+                            <span>1. Pengiriman barang harus sesuai dengan syarat , harga dan metode pembayaran  syarat sesuai dengan spesifikasi yang diminta <strong>PT. Shin Sam Plus Industry</strong></span><br/><br/>
                             <span>2. Memberitahu kami semua setelah menerima  <strong>Purchase Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong> yang kami  terbitkan</span><br/><br/>
                             <span>3. Untuk semua korespondensi harus di alamatkan ke bagian Pembelian dengan alamat email: purchasing@samplusind.com</span>
                         </div>
