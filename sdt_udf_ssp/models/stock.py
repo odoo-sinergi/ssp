@@ -9,6 +9,7 @@ class StockPicking(models.Model):
     picking_do_id = fields.Many2one('stock.picking',string='Picking DO',)
     invoice_id = fields.Many2one('account.move',string='No. Invoice',)
     is_picking_do_id = fields.Boolean(string='Picking DO',)
+    no_polisi = fields.Char(string='No. Pol')
 
     
     @api.onchange('picking_do_id','is_picking_do_id')

@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <report id="report_standard_vendor_bill_menu"
-                string="SDT Standard - Vendor Bil"
+                string="SDT Standard - Vendor Bill"
                 model="account.move"
                 report_type="qweb-pdf"
                 file="account.move"
