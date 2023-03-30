@@ -21,15 +21,14 @@
         <template id="standard_good_issue_document">
             <t t-call="web.external_layout">
                 <div class="page" style="font-Size:11px;">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-9" align="right">
                             <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:500px;height:100px" />
                         </div>
                         <div class="col-3" align="right">
-                            <!-- <span>No. Doc : FPUR-006</span> -->
                         </div>
                     </div>
-                    <br/>
+                    <br/> -->
                     <div class="row justify-content-end mb16">
                         <div class="col-4" name="right_box">
                             <!-- <div t-field="o.name" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:50px;'}"/> -->
@@ -75,6 +74,10 @@
                         <div class="col-auto" name="div_sched_date">
                             <strong>Scheduled Date:</strong>
                             <p t-field="o.scheduled_date"/>
+                        </div>
+                        <div class="col-auto" name="div_tanggal">
+                            <strong>Tanggal:</strong>
+                            <p t-field="o.force_date"/>
                         </div>
                     </div>
                     <table class="table table-sm" t-if="o.move_line_ids and o.move_ids_without_package">
@@ -171,11 +174,11 @@
                     <p t-if="o.state in ['draft', 'waiting', 'confirmed'] or no_reserved_product"><i class="fa fa-exclamation-triangle"/>
                         All products could not be reserved. Click on the "Check Availability" button to try to reserve products.
                     </p>
-                    <p t-field="o.note"/>
-                    <br/>
+                    <!-- <p t-field="o.note"/>
+                    <br/> -->
                     <br/>
                     <div class="row">
-                        <div class="col-8">
+                        <!-- <div class="col-8">
                             <table width="100%" style="border: 1px solid;">
                                 <tr>
                                     <td width="25%" class="text-center" style="padding : 5px">
@@ -206,7 +209,40 @@
                             </table>
                         </div>
                         <div class="col-4">
-                        </div>
+                        </div> -->
+                        <table width="100%" style="border: 1px solid;">
+                            <tr>
+                                <td width="20%" class="text-center" style="padding : 5px">
+                                    Yang Meminta
+                                </td>
+                                <td width="20%" class="text-center" style="padding : 5px">
+                                    Disetujui
+                                </td>
+                                <td width="20%" class="text-center" style="padding : 5px">
+                                    Yang Menerima
+                                </td>
+                                <td width="20%" class="text-center" style="padding : 5px">
+                                    Yang Menyerahkan
+                                </td>
+                                <td width="20%" class="text-center" style="padding : 5px">
+                                  Note
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/><br/><br/><br/><br/></td>
+                                <td><br/><br/><br/><br/><br/></td>
+                                <td><br/><br/><br/><br/><br/></td>
+                                <td><br/><br/><br/><br/><br/></td>
+                                <td rowspan="2" style="padding : 5px"><span t-field="o.note"/></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" style="padding : 5px">Operator</td>
+                                <td class="text-center" style="padding : 5px">Supervisor/Manager</td>
+                                <td class="text-center" style="padding : 5px">Operator</td>
+                                <td class="text-center" style="padding : 5px">Bagian Gudang</td>
+                                <!--<td></td>-->
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </t>

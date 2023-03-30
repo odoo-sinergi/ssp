@@ -98,14 +98,18 @@
                             <strong><span>DO No :</span></strong><br/>
                             <strong><span>DO Rev :</span></strong><br/>
                             <strong><span>PO No :</span></strong><br/>
-                            <strong><span>Status :</span></strong>
+                            <strong><span>Status :</span></strong><br/>
+                            <strong><span>Driver :</span></strong><br/>
+                            <strong><span>No.Pol :</span></strong>
                         </div>
                         <div class="col-3" align="left">
-                            <span t-field="doc.force_date"/><br/>
+                            <strong><span t-field="doc.force_date"/></strong><br/>
                             <strong><span t-field="doc.name"/></strong><br/>
-                            <strong>-</strong><br/>
+                            <strong><span>-</span></strong><br/>
                             <strong><span t-field="doc.origin"/></strong><br/>
-                            <strong><span>SALES</span></strong>
+                            <strong><span>SALES</span></strong><br/>
+                            <strong><span t-field="doc.driver"/></strong><br/>
+                            <strong><span t-field="doc.no_polisi"/></strong>
                         </div>
                     </div>
                     <br/>
@@ -127,9 +131,6 @@
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                     </table>
-                    <br/>
-                    <span><strong>Driver</strong></span><br/>
-                    <span><strong>No POL</strong></span>
                     <br/>
                     <div class="row">
                         <div class="col-1" align="center">
