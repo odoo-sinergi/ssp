@@ -146,6 +146,7 @@
                             </table>
                         </div>
                     </div>
+                    <p><i><strong>Terbilang : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
                     <br/>
                     <br/>
                     <table style="border: 1px solid" class="table" width="100%">
