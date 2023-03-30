@@ -93,7 +93,12 @@
                                 <span>* Bank Address   : Jl. Taman Cibeunying Sel. No. 31 Lingkar Selatan, Bandung Wetan</span><br/><br/><br/>
                                 <span><strong>Please Kindly Inform the Bill Number during Payment (Bank Note)</strong></span>
                             </td>
-                            <td></td>
+                            <td>
+                                <span t-field="doc.partner_id.name"/><br/>
+                                <span t-field="doc.partner_id.street"/><br/>
+                                <span t-field="doc.partner_id.phone"/><br/>
+                                <span t-field="doc.partner_id.mobile"/>
+                            </td>
                         </tr>
                     </table>
                     <br/>
