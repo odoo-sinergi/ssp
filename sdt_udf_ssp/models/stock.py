@@ -10,6 +10,7 @@ class StockPicking(models.Model):
     invoice_id = fields.Many2one('account.move',string='No. Invoice',)
     is_picking_do_id = fields.Boolean(string='Picking DO',)
     no_polisi = fields.Char(string='No. Pol')
+    driver = fields.Char(string='Driver')
 
     
     @api.onchange('picking_do_id','is_picking_do_id')
