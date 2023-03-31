@@ -13,18 +13,17 @@ class StockPicking(models.Model):
     driver = fields.Char(string='Driver')
 
     
-    @api.onchange('picking_do_id','is_picking_do_id')
-    def onchange_picking_do_id(self):
-        if self.is_picking_do_id:
-            picking_obj = self.env['stock.picking'].search([('group_id', '=', self.group_id.id),('picking_type_code', '=', 'internal')])
-            picking_list=[]
-            for line in picking_obj:
-                picking_list.append(line.id)
-            domain = {'picking_do_id': [('id', '=', picking_list)]}
-            # self.get_line()
-            return {'domain': domain}
-        else :
-            pass
+    # @api.onchange('picking_do_id','is_picking_do_id')
+    # def onchange_picking_do_id(self):
+    #     if self.is_picking_do_id:
+    #         picking_obj = self.env['stock.picking'].search([('group_id', '=', self.group_id.id),('picking_type_code', '=', 'internal')])
+    #         picking_list=[]
+    #         for line in picking_obj:
+    #             picking_list.append(line.id)
+    #         domain = {'picking_do_id': [('id', '=', picking_list)]}
+    #         return {'domain': domain}
+    #     else :
+    #         pass
     
     # def get_line (self) :
     #     self.move_ids_without_package._action_cancel()
