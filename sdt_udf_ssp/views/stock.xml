@@ -17,7 +17,7 @@
                     <field name="driver" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                     <field name="jitcall" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                     <field name="is_picking_do_id" force_save="1" attrs="{'invisible':[('picking_type_code','!=','outgoing')],'readonly':[('state','in',['done','cancel'])]}" invisible="1" />
-                    <field name="picking_do_id" force_save="1" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                    <field name="picking_do_id" force_save="1" attrs="{'readonly':[('state','in',['done','cancel'])]}" domain="[('group_id','=',group_id),('picking_type_code','=','internal')]"/>
                     <field name="invoice_id" force_save="1" attrs="{'invisible':[('picking_type_code','!=','internal')]}" readonly="1"/>
                 </field>
             </field>
