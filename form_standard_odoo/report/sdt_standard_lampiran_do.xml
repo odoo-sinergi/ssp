@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+        <report id="report_standard_lampiran_do_menu"
+                string="SDT Standard - Lampiran Delivery Order"
+                model="account.move"
+                report_type="qweb-pdf"
+                file="account.move"
+                name="form_standard_odoo.standard_lampiran_do_report"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form_cash_advance"
+                print_report_name="'SDT Standard - Invoices - %s' % (object.name)">
+        </report>
+        <template id="standard_lampiran_do_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.standard_lampiran_do_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <template id="standard_lampiran_do_document">
+            <t t-call="web.external_layout">
+                <div name="address" class="col-xs-5 col-xs-offset-7"/>
+                <div style="font-Size:12px;" class="page">
+                    <style type="text/css">
+                      tr, td
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                        }
+                    </style>
+                    <style type="text/css">
+                      th
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                           color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                      table
+                        {
+                           width: 100%;
+                           margin-top: 5px;
+                           margin-bottom: 10px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-2" align="left">
+                            <img t-att-src="'/form_standard_odoo/static/description/logo.png'" style="width:90px;height:90px" /><br/>
+                        </div>
+                        <div class="col-8" align="center">
+                            <!-- <span align="center">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <strong>PT. SHIN SUM PLUS INDUSTRY</strong> <br/>
+                                JL. PERMATA RAYA LOT E-1 KIIC, SUKALUYU TELUKJAMBE TIMUR KARAWANG
+                            </span> -->
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" align="center" style="font-Size:18px;">
+                            <p style="border-top: 2px solid;border-bottom: 2px solid">
+                            </p>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12" align="center" style="font-Size:22px;">
+                           <strong> <span>Delivery Order List</span></strong>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12" align="left">
+                            
+                            <strong><span style="font-Size:15px;">Customer : </span><span style="font-Size:15px;" t-field="doc.partner_id.name"/></strong><br/><br/>
+                            <span style="font-Size:15px;">Invoice No : </span> <span style="font-Size:15px;" t-field="doc.payment_reference"/><br/>
+                        </div>
+                    </div>
+                    <br/>
+                    <table class="table" width="100%" style="border: 1px solid">
+                        <thead>
+                            <tr>
+                                <th style="border: 1px solid" class="text-center" width="2%">No</th>
+                                <th style="border: 1px solid" class="text-center" width="20%">DO NUMBER</th>
+                                <th style="border: 1px solid" class="text-center" width="20%">DO DATE</th>
+                                <th style="border: 1px solid" class="text-center" width="18%">JITCALL NUMBER</th>
+                                <th style="border: 1px solid" class="text-center" width="20%">PO Number</th>
+                                <th style="border: 1px solid" class="text-center" width="20%">REMARK</th>
+                            </tr>
+                        </thead>
+                        <tbody class="lines_tbody">
+                            <t t-set="LineNum" t-value="1"/>
+                            <tr t-foreach="doc.stock_picking_tt_ids" t-as="line">
+                                <td style="border: 1px solid" class="text-center"><span><t t-esc="LineNum"/></span></td>
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.name"/></td>
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.force_date"/></td>
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.jitcall"/></td>
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.origin"/></td>
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.note"/></td>
+                                <t t-set="LineNum" t-value="LineNum+1"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
