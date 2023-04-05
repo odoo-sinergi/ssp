@@ -11,7 +11,7 @@
                 <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
                     <page string="Delivery Order" name="delivery_order" attrs="{'readonly': [('state', '!=', 'draft')]}">
                       <group name="picking_tt">
-                        <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('origin','=',invoice_origin),('picking_type_code', '=', 'outgoing'),('state', '=', 'done')]"/>
+                        <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False)]"/>
                       </group>
                     </page>
                   </xpath>
