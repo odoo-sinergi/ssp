@@ -9,12 +9,15 @@
                     <field name="picking_tt"/>
                 </xpath> -->
                 <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
-                    <page string="Delivery Order" name="studio_page_hNkgX" attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('picking_tt','=',False)]}">
+                    <page string="Delivery Order" name="delivery_order" attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('picking_tt','=',False)]}">
                       <group name="picking_tt">
                         <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('origin','=',invoice_origin),('picking_type_code', '=', 'outgoing'),('state', '=', 'done')]"/>
                       </group>
                     </page>
                   </xpath>
+                <xpath expr="//button[@name='action_post']" position="before">
+                  <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data"/>
+                </xpath>
 
                   <xpath expr="//field[@name='stock_picking_tt_ids']" position="inside">
                     <tree string="Picking list" multi_edit="1" sample="1">
