@@ -18,6 +18,14 @@ class AccountMove(models.Model):
         self.invoice_line_ids.unlink()
         self.create_invoice_line()
     
+    def unlink_invoice_number_picking (self):
+        for stock_picking_tt_id in self.stock_picking_tt_ids :
+            if stock_picking_tt_id :
+                stock_picking_tt_id.invoice_id = False
+        self.invoice_line_ids.sudo().unlink()
+        self.stock_picking_tt_ids = False
+        
+    
     def action_post(self):
         res = super().action_post()
         for data in self:

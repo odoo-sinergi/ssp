@@ -16,8 +16,9 @@
                     </page>
                   </xpath>
                 <xpath expr="//button[@name='action_post']" position="before">
-                  <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data"/>
-                </xpath>
+                  <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                  <button name="unlink_invoice_number_picking" class="oe_highlight" type="object" string="Remove Data DO" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+              </xpath>
 
                   <xpath expr="//field[@name='stock_picking_tt_ids']" position="inside">
                     <tree string="Picking list" multi_edit="1" sample="1">
