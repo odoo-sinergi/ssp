@@ -66,15 +66,108 @@ class AccountMove(models.Model):
     #             })
     #     self.filter_invoice_line()
 
+    # def create_invoice_line (self):
+    #     aml_obj = self.env["account.move.line"]
+    #     move_id = []
+    #     for stock_picking_tt_id in self.stock_picking_tt_ids :
+    #         for stock_move in stock_picking_tt_id.move_ids_without_package :
+    #             move_id.append(stock_move.id )
+    #             account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
+    #             so_line = stock_move.sale_line_id
+    #             invoices = aml_obj.create({
+    #                 "name": so_line.name,
+    #                 "move_id": self.id,
+    #                 "account_id": account,
+    #                 "price_unit": so_line.price_unit,
+    #                 "quantity": stock_move.quantity_done,
+    #                 "currency_id": so_line.currency_id.id,
+    #                 "product_uom_id": so_line.product_uom.id,
+    #                 "product_id": so_line.product_id.id,
+    #                 "sale_line_ids": [(6, 0, so_line.ids)],
+    #                 "tax_ids": [(6, 0, so_line.tax_id.ids)],
+    #             })
+        
+    #     if move_id:
+    #         stock_move_2 = self.env['stock.move'].search([('origin_returned_move_id', 'in', tuple(move_id))])
+    #         if stock_move_2 :
+    #             for sm2 in stock_move_2 :
+    #                 account_2 = sm2.product_id.property_account_income_id.id or sm2.product_id.categ_id.property_account_income_categ_id.id
+    #                 so_line_2 = sm2.sale_line_id
+    #                 invoices = aml_obj.create({
+    #                     "name": so_line_2.name,
+    #                     "move_id": self.id,
+    #                     "account_id": account_2,
+    #                     "price_unit": so_line_2.price_unit,
+    #                     "quantity": sm2.quantity_done * -1,
+    #                     "currency_id": so_line_2.currency_id.id,
+    #                     "product_uom_id": so_line_2.product_uom.id,
+    #                     "product_id": so_line_2.product_id.id,
+    #                     "sale_line_ids": [(6, 0, so_line_2.ids)],
+    #                     "tax_ids": [(6, 0, so_line_2.tax_id.ids)],
+    #                 })
+    #     self.filter_invoice_line()
+
+    # @api.model
+    # def filter_invoice_line (self):
+    #     pack = []
+    #     total_qty = 0
+
+    #     for record in self.invoice_line_ids:
+    #         if not pack :
+    #             total_qty = record.quantity
+    #             total_qty = record.quantity
+    #             pack.append((0,0,{
+    #                 "name": record.name,
+    #                 "move_id": record.id,
+    #                 "account_id": record.account_id.id,
+    #                 "price_unit": record.price_unit,
+    #                 "quantity": record.quantity,
+    #                 "currency_id": record.currency_id.id,
+    #                 "product_uom_id": record.product_uom_id.id,
+    #                 "product_id": record.product_id.id,
+    #                 "sale_line_ids": [(4,record.sale_line_ids.id)],
+    #                 "tax_ids": [(6, 0, record.tax_ids.ids)],
+    #             }))
+    #         else :
+    #             check_data = [d for d in pack if d[2]['product_id'] == record.product_id.id]
+    #             if not check_data :
+    #                 total_qty = record.quantity
+    #                 pack.append((0,0,{
+    #                     "name": record.name,
+    #                     "move_id": record.id,
+    #                     "account_id": record.account_id.id,
+    #                     "price_unit": record.price_unit,
+    #                     "quantity": total_qty,
+    #                     "currency_id": record.currency_id.id,
+    #                     "product_uom_id": record.product_uom_id.id,
+    #                     "product_id": record.product_id.id,
+    #                     "sale_line_ids": [(4, record.sale_line_ids.id)],
+    #                     "tax_ids": [(6, 0, record.tax_ids.ids)],
+    #                 }))
+    #             else :
+    #                 qty_var = check_data[0][2]['quantity'] + record.quantity
+    #                 for pk in pack :
+    #                     if pk[2]['product_id'] == record.product_id.id :
+    #                         pk[2]['quantity'] = qty_var
+                            
+    #     self.invoice_line_ids.sudo().unlink()
+    #     self.invoice_line_ids = pack
+    #     for stock_picking_tt_id in self.stock_picking_tt_ids :
+    #         if stock_picking_tt_id :
+    #             stock_picking_tt_id.invoice_id = self.id
+    #     x = 1
+
+    
     def create_invoice_line (self):
         aml_obj = self.env["account.move.line"]
         move_id = []
+        semua_data_invoice = []
         for stock_picking_tt_id in self.stock_picking_tt_ids :
             for stock_move in stock_picking_tt_id.move_ids_without_package :
                 move_id.append(stock_move.id )
                 account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
                 so_line = stock_move.sale_line_id
-                invoices = aml_obj.create({
+                semua_data_invoice.append((0,0,{
                     "name": so_line.name,
                     "move_id": self.id,
                     "account_id": account,
@@ -85,15 +178,15 @@ class AccountMove(models.Model):
                     "product_id": so_line.product_id.id,
                     "sale_line_ids": [(6, 0, so_line.ids)],
                     "tax_ids": [(6, 0, so_line.tax_id.ids)],
-                })
-        
+                }))
+
         if move_id:
             stock_move_2 = self.env['stock.move'].search([('origin_returned_move_id', 'in', tuple(move_id))])
             if stock_move_2 :
                 for sm2 in stock_move_2 :
                     account_2 = sm2.product_id.property_account_income_id.id or sm2.product_id.categ_id.property_account_income_categ_id.id
                     so_line_2 = sm2.sale_line_id
-                    invoices = aml_obj.create({
+                    semua_data_invoice.append((0,0,{
                         "name": so_line_2.name,
                         "move_id": self.id,
                         "account_id": account_2,
@@ -104,61 +197,52 @@ class AccountMove(models.Model):
                         "product_id": so_line_2.product_id.id,
                         "sale_line_ids": [(6, 0, so_line_2.ids)],
                         "tax_ids": [(6, 0, so_line_2.tax_id.ids)],
-                    })
-        self.filter_invoice_line()
+                    }))
 
-    # @api.model
-    def filter_invoice_line (self):
-        pack = []
+        pack= []
         total_qty = 0
-
-        for record in self.invoice_line_ids:
+        for record in semua_data_invoice:
             if not pack :
-                total_qty = record.quantity
-                total_qty = record.quantity
+                total_qty = record[2]['quantity']
                 pack.append((0,0,{
-                    "name": record.name,
-                    "move_id": record.id,
-                    "account_id": record.account_id.id,
-                    "price_unit": record.price_unit,
-                    "quantity": record.quantity,
-                    "currency_id": record.currency_id.id,
-                    "product_uom_id": record.product_uom_id.id,
-                    "product_id": record.product_id.id,
-                    "sale_line_ids": [(4,record.sale_line_ids.id)],
-                    "tax_ids": [(6, 0, record.tax_ids.ids)],
+                    "name": record[2]['name'],
+                    "move_id": record[2]['move_id'],
+                    "account_id": record[2]['account_id'],
+                    "price_unit": record[2]['price_unit'],
+                    "quantity": record[2]['quantity'],
+                    "currency_id": record[2]['currency_id'],
+                    "product_uom_id": record[2]['product_uom_id'],
+                    "product_id": record[2]['product_id'],
+                    "sale_line_ids": record[2]['sale_line_ids'],
+                    "tax_ids": record[2]['tax_ids'],
                 }))
             else :
-                check_data = [d for d in pack if d[2]['product_id'] == record.product_id.id]
+                check_data = [d for d in pack if d[2]['product_id'] == record[2]['product_id']]
                 if not check_data :
-                    total_qty = record.quantity
+                    total_qty = record[2]['quantity']
                     pack.append((0,0,{
-                        "name": record.name,
-                        "move_id": record.id,
-                        "account_id": record.account_id.id,
-                        "price_unit": record.price_unit,
-                        "quantity": total_qty,
-                        "currency_id": record.currency_id.id,
-                        "product_uom_id": record.product_uom_id.id,
-                        "product_id": record.product_id.id,
-                        "sale_line_ids": [(4, record.sale_line_ids.id)],
-                        "tax_ids": [(6, 0, record.tax_ids.ids)],
+                        "name": record[2]['name'],
+                        "move_id": record[2]['move_id'],
+                        "account_id": record[2]['account_id'],
+                        "price_unit": record[2]['price_unit'],
+                        "quantity": record[2]['quantity'],
+                        "currency_id": record[2]['currency_id'],
+                        "product_uom_id": record[2]['product_uom_id'],
+                        "product_id": record[2]['product_id'],
+                        "sale_line_ids": record[2]['sale_line_ids'],
+                        "tax_ids": record[2]['tax_ids'],
                     }))
                 else :
-                    qty_var = check_data[0][2]['quantity'] + record.quantity
+                    qty_var = check_data[0][2]['quantity'] + record[2]['quantity']
                     for pk in pack :
-                        if pk[2]['product_id'] == record.product_id.id :
+                        if pk[2]['product_id'] == record[2]['product_id'] :
                             pk[2]['quantity'] = qty_var
                             
-        self.invoice_line_ids.sudo().unlink()
         self.invoice_line_ids = pack
         for stock_picking_tt_id in self.stock_picking_tt_ids :
             if stock_picking_tt_id :
                 stock_picking_tt_id.invoice_id = self.id
         x = 1
-
-    
-
     
     
 
