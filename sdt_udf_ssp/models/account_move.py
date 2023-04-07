@@ -46,10 +46,32 @@ class AccountMove(models.Model):
                 self.invoice_payment_term_id = order.partner_id.property_payment_term_id
                 self.ref = order.client_order_ref or ''
                 
+    # def create_invoice_line (self):
+    #     aml_obj = self.env["account.move.line"]
+    #     for stock_picking_tt_id in self.stock_picking_tt_ids :
+    #         for stock_move in stock_picking_tt_id.move_ids_without_package :
+    #             account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
+    #             so_line = stock_move.sale_line_id
+    #             invoices = aml_obj.create({
+    #                 "name": so_line.name,
+    #                 "move_id": self.id,
+    #                 "account_id": account,
+    #                 "price_unit": so_line.price_unit,
+    #                 "quantity": stock_move.quantity_done,
+    #                 "currency_id": so_line.currency_id.id,
+    #                 "product_uom_id": so_line.product_uom.id,
+    #                 "product_id": so_line.product_id.id,
+    #                 "sale_line_ids": [(6, 0, so_line.ids)],
+    #                 "tax_ids": [(6, 0, so_line.tax_id.ids)],
+    #             })
+    #     self.filter_invoice_line()
+
     def create_invoice_line (self):
         aml_obj = self.env["account.move.line"]
+        move_id = []
         for stock_picking_tt_id in self.stock_picking_tt_ids :
             for stock_move in stock_picking_tt_id.move_ids_without_package :
+                move_id.append(stock_move.id )
                 account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
                 so_line = stock_move.sale_line_id
                 invoices = aml_obj.create({
@@ -64,6 +86,25 @@ class AccountMove(models.Model):
                     "sale_line_ids": [(6, 0, so_line.ids)],
                     "tax_ids": [(6, 0, so_line.tax_id.ids)],
                 })
+        
+        if move_id:
+            stock_move_2 = self.env['stock.move'].search([('origin_returned_move_id', 'in', tuple(move_id))])
+            if stock_move_2 :
+                for sm2 in stock_move_2 :
+                    account_2 = sm2.product_id.property_account_income_id.id or sm2.product_id.categ_id.property_account_income_categ_id.id
+                    so_line_2 = sm2.sale_line_id
+                    invoices = aml_obj.create({
+                        "name": so_line_2.name,
+                        "move_id": self.id,
+                        "account_id": account_2,
+                        "price_unit": so_line_2.price_unit,
+                        "quantity": sm2.quantity_done * -1,
+                        "currency_id": so_line_2.currency_id.id,
+                        "product_uom_id": so_line_2.product_uom.id,
+                        "product_id": so_line_2.product_id.id,
+                        "sale_line_ids": [(6, 0, so_line_2.ids)],
+                        "tax_ids": [(6, 0, so_line_2.tax_id.ids)],
+                    })
         self.filter_invoice_line()
 
     # @api.model
