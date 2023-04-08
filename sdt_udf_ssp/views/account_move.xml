@@ -8,11 +8,16 @@
                 <!-- <xpath expr="//div[@name='journal_div']" position="after">
                     <field name="picking_tt"/>
                 </xpath> -->
+                <xpath expr="//field[@name='l10n_id_replace_invoice_id']" position="after">
+                  <field name="sale_id" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('state','=','sale')]"/>
+                  <field name="sale_procurement_group_id" invisible="1"/>
+                </xpath>
                 <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
                     <page string="Delivery Order" name="delivery_order" attrs="{'readonly': [('state', '!=', 'draft')]}">
                       <group name="picking_tt">
                         <!-- <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False)]"/> -->
-                        <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False)]"/>
+                        <!-- <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False)]"/> -->
+                        <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]"/>
                       </group>
                     </page>
                   </xpath>

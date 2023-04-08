@@ -23,6 +23,7 @@
         'base',
         'stock',
         'account',
+        'sale',
     ],
 
     # always loaded
