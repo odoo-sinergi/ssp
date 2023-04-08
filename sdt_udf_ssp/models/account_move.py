@@ -36,17 +36,17 @@ class AccountMove(models.Model):
                     stock_picking_tt_id.invoice_id = data.id
         return res
 
-    @api.onchange('stock_picking_tt_ids')
-    def onchange_stock_picking_tt_ids(self):
-        for stock_picking_tt_id in self.stock_picking_tt_ids :
-            if stock_picking_tt_id:
-                order = stock_picking_tt_id.move_ids_without_package.sale_line_id.order_id
-                partner = order.partner_invoice_id
-                self.partner_id = partner.id
-                self.invoice_date = stock_picking_tt_id.force_date
-                self.date = stock_picking_tt_id.force_date
-                self.invoice_payment_term_id = order.partner_id.property_payment_term_id
-                self.ref = order.client_order_ref or ''
+    # @api.onchange('stock_picking_tt_ids')
+    # def onchange_stock_picking_tt_ids(self):
+    #     for stock_picking_tt_id in self.stock_picking_tt_ids :
+    #         if stock_picking_tt_id:
+    #             order = stock_picking_tt_id.move_ids_without_package.sale_line_id.order_id
+    #             partner = order.partner_invoice_id
+    #             self.partner_id = partner.id
+    #             self.invoice_date = stock_picking_tt_id.force_date
+    #             self.date = stock_picking_tt_id.force_date
+    #             self.invoice_payment_term_id = order.partner_id.property_payment_term_id
+    #             self.ref = order.client_order_ref or ''
                 
     # def create_invoice_line (self):
     #     aml_obj = self.env["account.move.line"]
