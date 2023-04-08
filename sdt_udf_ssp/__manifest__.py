@@ -39,7 +39,8 @@
         # 'views/mrp_bom.xml',
         'views/stock.xml',
         'views/account_move.xml',
-        # 'views/account_analytic_account.xml',
+        'views/sale_order.xml',
+        'views/purchase_order.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
