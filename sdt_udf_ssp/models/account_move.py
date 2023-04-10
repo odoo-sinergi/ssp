@@ -234,7 +234,7 @@ class AccountMove(models.Model):
                     "tax_ids": record[2]['tax_ids'],
                 }))
             else :
-                check_data = [d for d in pack if d[2]['product_id'] == record[2]['product_id'] and d[2]['price_unit'] == record[2]['price_unit']]
+                check_data = [d for d in pack if d[2]['product_id'] == record[2]['product_id'] and d[2]['price_unit'] == record[2]['price_unit'] and d[2]['name'] == record[2]['name']]
                 if not check_data :
                     pack.append((0,0,{
                         "name": record[2]['name'],
@@ -251,7 +251,7 @@ class AccountMove(models.Model):
                 else :
                     qty_var = check_data[0][2]['quantity'] + record[2]['quantity']
                     for pk in pack :
-                        if pk[2]['product_id'] == record[2]['product_id'] and pk[2]['price_unit'] == record[2]['price_unit'] :
+                        if pk[2]['product_id'] == record[2]['product_id'] and pk[2]['price_unit'] == record[2]['price_unit'] and pk[2]['name'] == record[2]['name'] :
                             pk[2]['quantity'] = qty_var
                             
         self.invoice_line_ids = pack
