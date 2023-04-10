@@ -23,13 +23,13 @@
         'base',
         'stock',
         'account',
+        'sale',
     ],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'security/user_groups.xml',
-        # 'views/account_move.xml',
+        'security/user_groups.xml',
         # 'views/purchase_order.xml',
         # 'views/sale_order.xml',
         # 'views/account_payment.xml',
@@ -38,7 +38,9 @@
         # 'views/product.xml',
         # 'views/mrp_bom.xml',
         'views/stock.xml',
-        # 'views/account_analytic_account.xml',
+        'views/account_move.xml',
+        'views/sale_order.xml',
+        'views/purchase_order.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -13,8 +13,23 @@
                     <field name="work_base_structure" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                 </field> -->
                 <field name="owner_id" position="after">
+                    <field name="no_polisi" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                    <field name="driver" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                     <field name="jitcall" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                    <!-- <field name="is_picking_do_id" force_save="1" attrs="{'invisible':[('picking_type_code','!=','outgoing')],'readonly':[('state','in',['done','cancel'])]}" invisible="1" /> -->
+                    <!-- <field name="picking_do_id" force_save="1" attrs="{'readonly':[('state','in',['done','cancel'])]}" domain="[('group_id','=',group_id),('picking_type_code','=','internal')]"/> -->
+                    <!-- <field name="picking_do_id" force_save="1" attrs="{'readonly':[('state','in',['done','cancel'])]}" domain="[('group_id','=',procurement_group_id),('picking_type_code','=','internal'),('state','=','done')]"/> -->
+                    <field name="invoice_id" force_save="1" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}" readonly="1"/>
+                    <field name="procurement_group_id" invisible="1"/>
                 </field>
+
+                <xpath expr="//button[@name='button_validate'][1]" position="replace">
+                    <button name="button_validate" attrs="{'invisible': ['|', ('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False)]}" string="Validate" type="object" class="oe_highlight" groups="sdt_udf_ssp.group_picking_button_validate" data-hotkey="v"/>
+                </xpath>
+                <xpath expr="//button[@name='button_validate'][2]" position="replace">
+                    <button name="button_validate" attrs="{'invisible': ['|', ('state', 'not in', ('waiting', 'confirmed')), ('show_validate', '=', False)]}" string="Validate" type="object" groups="sdt_udf_ssp.group_picking_button_validate" class="o_btn_validate" data-hotkey="v"/>
+                </xpath>
+                
             </field>
         </record>
     </data>
