@@ -200,45 +200,61 @@ class AccountMove(models.Model):
                         "sale_line_ids": [(6, 0, so_line_2.ids)],
                         "tax_ids": [(6, 0, so_line_2.tax_id.ids)],
                     }))
-
+        
         pack= []
-        total_qty = 0
         for record in semua_data_invoice:
-            if not pack :
-                total_qty = record[2]['quantity']
-                pack.append((0,0,{
-                    "name": record[2]['name'],
-                    "move_id": record[2]['move_id'],
-                    "account_id": record[2]['account_id'],
-                    "price_unit": record[2]['price_unit'],
-                    "quantity": record[2]['quantity'],
-                    "currency_id": record[2]['currency_id'],
-                    "product_uom_id": record[2]['product_uom_id'],
-                    "product_id": record[2]['product_id'],
-                    "sale_line_ids": record[2]['sale_line_ids'],
-                    "tax_ids": record[2]['tax_ids'],
-                }))
-            else :
-                check_data = [d for d in pack if d[2]['product_id'] == record[2]['product_id']]
-                if not check_data :
-                    total_qty = record[2]['quantity']
-                    pack.append((0,0,{
-                        "name": record[2]['name'],
-                        "move_id": record[2]['move_id'],
-                        "account_id": record[2]['account_id'],
-                        "price_unit": record[2]['price_unit'],
-                        "quantity": record[2]['quantity'],
-                        "currency_id": record[2]['currency_id'],
-                        "product_uom_id": record[2]['product_uom_id'],
-                        "product_id": record[2]['product_id'],
-                        "sale_line_ids": record[2]['sale_line_ids'],
-                        "tax_ids": record[2]['tax_ids'],
-                    }))
-                else :
-                    qty_var = check_data[0][2]['quantity'] + record[2]['quantity']
-                    for pk in pack :
-                        if pk[2]['product_id'] == record[2]['product_id'] :
-                            pk[2]['quantity'] = qty_var
+            total_qty = record[2]['quantity']
+            pack.append((0,0,{
+                "name": record[2]['name'],
+                "move_id": record[2]['move_id'],
+                "account_id": record[2]['account_id'],
+                "price_unit": record[2]['price_unit'],
+                "quantity": record[2]['quantity'],
+                "currency_id": record[2]['currency_id'],
+                "product_uom_id": record[2]['product_uom_id'],
+                "product_id": record[2]['product_id'],
+                "sale_line_ids": record[2]['sale_line_ids'],
+                "tax_ids": record[2]['tax_ids'],
+            }))
+
+        # pack= []
+        # total_qty = 0
+        # for record in semua_data_invoice:
+        #     if not pack :
+        #         total_qty = record[2]['quantity']
+        #         pack.append((0,0,{
+        #             "name": record[2]['name'],
+        #             "move_id": record[2]['move_id'],
+        #             "account_id": record[2]['account_id'],
+        #             "price_unit": record[2]['price_unit'],
+        #             "quantity": record[2]['quantity'],
+        #             "currency_id": record[2]['currency_id'],
+        #             "product_uom_id": record[2]['product_uom_id'],
+        #             "product_id": record[2]['product_id'],
+        #             "sale_line_ids": record[2]['sale_line_ids'],
+        #             "tax_ids": record[2]['tax_ids'],
+        #         }))
+        #     else :
+        #         check_data = [d for d in pack if d[2]['product_id'] == record[2]['product_id']]
+        #         if not check_data :
+        #             total_qty = record[2]['quantity']
+        #             pack.append((0,0,{
+        #                 "name": record[2]['name'],
+        #                 "move_id": record[2]['move_id'],
+        #                 "account_id": record[2]['account_id'],
+        #                 "price_unit": record[2]['price_unit'],
+        #                 "quantity": record[2]['quantity'],
+        #                 "currency_id": record[2]['currency_id'],
+        #                 "product_uom_id": record[2]['product_uom_id'],
+        #                 "product_id": record[2]['product_id'],
+        #                 "sale_line_ids": record[2]['sale_line_ids'],
+        #                 "tax_ids": record[2]['tax_ids'],
+        #             }))
+        #         else :
+        #             qty_var = check_data[0][2]['quantity'] + record[2]['quantity']
+        #             for pk in pack :
+        #                 if pk[2]['product_id'] == record[2]['product_id'] :
+        #                     pk[2]['quantity'] = qty_var
                             
         self.invoice_line_ids = pack
         for stock_picking_tt_id in self.stock_picking_tt_ids :
