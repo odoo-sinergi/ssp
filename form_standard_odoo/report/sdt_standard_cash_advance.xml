@@ -1,0 +1,255 @@
+<odoo>
+    <data>
+        <record id="paperformat_sdt_standard_form_cash_advance" model="report.paperformat">
+            <field name="name">SDT Standard Form Cash Advance</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report id="report_standard_cash_advance_menu"
+                string="SDT Standard - CASH ADVANCE"
+                model="account.move"
+                report_type="qweb-pdf"
+                file="account.move"
+                name="form_standard_odoo.standard_cash_advance_report"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form_cash_advance"
+                print_report_name="'SDT Standard - Invoices - %s' % (object.name)">
+        </report>
+        <template id="standard_cash_advance_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.standard_cash_advance_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <template id="standard_cash_advance_document">
+            <t t-call="web.external_layout">
+                <div name="address" class="col-xs-5 col-xs-offset-7"/>
+                <div style="font-Size:12px;" class="page">
+                    <style type="text/css">
+                      tr, td
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                        }
+                    </style>
+                    <style type="text/css">
+                      th
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                           color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                      table
+                        {
+                           width: 100%;
+                           margin-top: 5px;
+                           margin-bottom: 10px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-2" align="left">
+                            <img t-att-src="'/form_standard_odoo/static/description/logo.png'" style="width:90px;height:90px" /><br/>
+                        </div>
+                        <div class="col-8" align="center">
+                            <span align="center">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <strong>PT. SHIN SUM PLUS INDUSTRY</strong> <br/>
+                                JL. PERMATA RAYA LOT E-1 KIIC, SUKALUYU TELUKJAMBE TIMUR KARAWANG
+                            </span>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" align="center">
+                            <span>
+                                <p style="border-top: 2px solid;border-bottom: 2px solid">
+                                    <strong>FORMULIR CASH ADVANCE</strong>
+                                </p>
+                            </span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-2" align="left">
+                            <span>Nama Karyawan</span><br/>
+                            <span>Bagian</span><br/>
+                            <span>Jabatan</span>
+                        </div>
+                        <div class="col-4" align="left">
+                            : <span t-field="doc.partner_id"/><br/>
+                            : <span t-field="doc.partner_id.department"/><br/>
+                            : <span t-field="doc.partner_id.function"/>
+                        </div>
+                        <div class="col-2" align="left">
+                            <span>No Voucher CA</span><br/>
+                            <span>Tanggal</span><br/>
+                            <span>Jumlah Dianggarkan</span>
+                        </div>
+                        <div class="col-4" align="left">
+                            : <span>CA- / <span t-field="doc.name"/></span><br/>
+                            : <span t-field="doc.date"/><br/>
+                            <!-- <span t-field="doc.partner_id"/> -->
+                        </div>
+                    </div>
+                    <br/>
+                    <table class="table" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="2%">No</th>
+                                <th width="58%">KETERANGAN</th>
+                                <th width="20%">DEBIT</th>
+                                <th width="20%">CREDIT</th>
+                            </tr>
+                        </thead>
+                        <tbody class="lines_tbody">
+                            <t t-set="LineNum" t-value="1"/>
+                            <t t-set="total_debit" t-value="0"/>
+                            <t t-set="total_credit" t-value="0"/>
+
+                            <tr t-foreach="doc.line_ids" t-as="line">
+                                <td class="text-center"><span><t t-esc="LineNum"/></span></td>
+                                <td><span t-field="line.account_id.code"/> <span t-field="line.account_id.name"/></td>
+                                <td class="text-end o_price_total"><span class="text-nowrap" t-esc="abs(line.debit)" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
+                                <td class="text-end o_price_total"><span class="text-nowrap" t-esc="abs(line.credit)" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
+                                <t t-set="LineNum" t-value="LineNum+1"/>
+                                <t t-set="total_debit" t-value="total_debit + line.debit"/>
+                                <t t-set="total_credit" t-value="total_credit + line.credit"/>
+                                <!-- <t t-set="subtotal" t-value="subtotal + abs(line.amount_currency) or 0.0"/> -->
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-end o_price_total">
+                                    <span class="text-nowrap">Total : </span>
+                                </td>
+                                <td class="text-end o_price_total">
+                                    <span t-esc="total_debit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/>
+                                </td>
+                                <td class="text-end o_price_total">
+                                    <span t-esc="total_debit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <div class="row">
+                        <div class="col-2">
+                            <table class="table" width="100%" style="border: 1px solid">
+                                <tr>
+                                    <th style="border: 1px solid">PEMOHON</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid"><p></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-2">
+                            <table class="table" width="100%" style="border: 1px solid">
+                                <tr>
+                                    <th style="border: 1px solid">MENGETAHUI</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid"><p></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            <table class="table" width="100%" style="border: 1px solid">
+                                <tr>
+                                    <th style="border: 1px solid">MENYETUJUI</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid"><p></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-2">
+                            <table class="table" width="100%" style="border: 1px solid">
+                                <tr>
+                                    <th style="border: 1px solid">DIBAYAR OLEH</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid"><p></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-2">
+                            <table class="table" width="100%" style="border: 1px solid">
+                                <tr>
+                                    <th style="border: 1px solid">DITERIMA OLEH</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid"><p></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

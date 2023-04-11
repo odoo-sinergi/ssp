@@ -1,0 +1,292 @@
+<odoo>
+    <data>
+        <record id="paperformat_sdt_standard_form" model="report.paperformat">
+            <field name="name">SDT Standard Form</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">37</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="report_standard_po_menu"
+            string="SDT Standard - Purchase Order"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="purchase.order"
+            name="form_standard_odoo.purchase_order_report"
+            paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+            print_report_name="'SDT Standard - Purchase Order - %s' % (object.name)">
+        </report>
+
+        <template id="purchase_order_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.purchase_order_report_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <!-- <template id="sdt_header_internal_layout" inherit_id="web.internal_layout" primary="True">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-9" align="center">
+                            <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:500px;height:100px" />
+                        </div>
+                        <div class="col-3">
+                            <span>No. Doc : FPUR-006</span>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template> -->
+
+
+        <template id="purchase_order_report_document">
+            <t t-call="web.external_layout">
+                <div name="address" class="col-5 col-offset-7" />
+                <div style="font-Size:12px;" class="page">
+                    <style type="text/css">
+                        tr, td
+                        {
+                        padding: 4px;
+                        padding-left: 7px;
+                        padding-right: 7px;
+                        }
+                    </style>
+                    <style type="text/css">
+                        th
+                        {
+                        padding: 4px;
+                        padding-left: 7px;
+                        padding-right: 7px;
+                        color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                        table
+                        {
+                        font-Size:11px;
+                        width: 100%;
+                        margin-top: 5px;
+                        margin-bottom: 10px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-9" align="right">
+                            <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:500px;height:100px" />
+                        </div>
+                        <div class="col-3" align="right">
+                            <span>No. Doc : FPUR-006</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <span align="center">
+                        <p style="border-top: 1px solid">
+                            JL. PERMATA RAYA LOT E-1 KIIC RT 00 RW 00, SUKALUYU TELUKJAMBE TIMUR KARAWANG JAWA BARAT
+                        </p>
+                    </span>
+                    <span align="center">
+                        <p style="border-bottom: 1px solid">
+                            Telp: +6221-8911-2100 (Hunting) Fax. +6267-8637-292
+                        </p>
+                    </span>
+                    <span><strong>Purchase Order No : <span t-field="doc.name"/></strong></span>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="table">
+                                <tr>
+                                    <td style="border-top: 1px solid; border-left: 1px solid;">To</td>
+                                    <td style="border-top: 1px solid">:</td>
+                                    <td style="border-top: 1px solid"><span t-field="doc.partner_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left: 1px solid;">Attn</td>
+                                    <td>:</td>
+                                    <td>
+                                        <span>-</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left: 1px solid;">Telp</td>
+                                    <td>:</td>
+                                    <td><span t-field="doc.partner_id.phone"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left: 1px solid;"><span>Fax</span></td>
+                                    <td>:</td>
+                                    <td><span t-field="doc.partner_id.x_studio_fax"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left: 1px solid;">From</td>
+                                    <td>:</td>
+                                    <td>Purchasing</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left: 1px solid; border-bottom: 1px solid;">Send Date</td>
+                                    <td style="border-bottom: 1px solid;">:</td>
+                                    <td style="border-bottom: 1px solid;"><span t-field="doc.date_planned"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="table">
+                                <tr>
+                                    <td style="border-top: 1px solid">Place of Delivery</td>
+                                    <td style="border-top: 1px solid">:</td>
+                                    <td style="border-top: 1px solid; border-right: 1px solid;"><span>PT. Shin Sam Plus Industry</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Terms of Payment</td>
+                                    <td>:</td>
+                                    <td style="border-right: 1px solid;">
+                                        <span t-field="doc.payment_term_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Currency</td>
+                                    <td>:</td>
+                                    <td style="border-right: 1px solid;"><span t-field="doc.currency_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Your Reff</span></td>
+                                    <td>:</td>
+                                    <td style="border-right: 1px solid;"><span t-field="doc.partner_ref"/></td>
+                                </tr>
+                                <tr>
+                                    <td>PR. No</td>
+                                    <td>:</td>
+                                    <td style="border-right: 1px solid;">Purchasing</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom: 1px solid;">Due Date</td>
+                                    <td style="border-bottom: 1px solid;">:</td>
+                                    <td style="border-bottom: 1px solid; border-right: 1px solid;"><span t-field="doc.date_order"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <table class="table" width="100%">
+                        <thead>
+                            <tr style="border: 1px solid">
+                                <th width="2%" style="border-top: 1px solid">No.</th>
+                                <th width="40%" style="border-top: 1px solid">Descriptions of Goods/ Services</th>
+                                <th width="10%" style="border-top: 1px solid">QTY</th>
+                                <th width="13%" style="border-top: 1px solid">Unit</th>
+                                <th width="15%" style="border-top: 1px solid">Unit Price</th>
+                                <th width="20%" style="border-top: 1px solid">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="lines_tbody">
+                            <t t-set="LineNum" t-value="1"/>
+                            <tr style="border: 1px solid" t-foreach="doc.order_line" t-as="line">
+                                <td class="text-center"><span><t t-esc="LineNum"/></span></td>
+                                <td><span t-field="line.name"/></td>
+                                <td class="text-right"><span t-field="line.product_qty"/></td>
+                                <td><span t-field="line.product_uom"/></td>
+                                <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
+                                <td align ="right"><span t-field="line.price_subtotal"/></td>
+                                <t t-set="LineNum" t-value="LineNum+1"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <table class="table" width="100%">
+                        <tr>
+                            <td width="42%">
+                            </td>
+                            <td width="28%"></td>
+                            <td width="10%"></td>
+                            <td width="20%"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">
+                                <span>1. Pengiriman barang harus sesuai dengan syarat , harga dan metode pembayaran  syarat sesuai dengan spesifikasi yang diminta <strong>PT. Shin Sum Plus Industry</strong></span>
+                            </td>
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><span t-field="doc.amount_untaxed"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Ppn</strong></td>
+                            <td><span t-field="doc.amount_tax"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Grand Total</strong></td>
+                            <td><span t-field="doc.amount_total"/></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">
+                                <span>2. Memberitahu kami semua setelah menerima <strong>Purchase Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong> yang kami  terbitkan</span>
+                            </td>
+                            <td colspan="2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2">
+                                <p style="border: 1px solid"/>
+                                <br/>Authorized by :
+                            </td>
+                        </tr>
+                    </table> -->
+
+                    <div class="row">
+                        <div class="col-6">
+                            <span>1. Pengiriman barang harus sesuai dengan syarat , harga dan metode pembayaran  syarat sesuai dengan spesifikasi yang diminta <strong>PT. Shin Sam Plus Industry</strong></span><br/><br/>
+                            <span>2. Memberitahu kami semua setelah menerima  <strong>Purchase Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong> yang kami  terbitkan</span><br/><br/>
+                            <span>3. Untuk semua korespondensi harus di alamatkan ke bagian Pembelian dengan alamat email: purchasing@samplusind.com</span>
+                        </div>
+                        <div class="col-6">
+                            <table class="table" width="100%">
+                                <tr>
+                                    <td width="60%"><strong>Total</strong></td>
+                                    <td><span t-field="doc.amount_untaxed"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ppn</strong></td>
+                                    <td><span t-field="doc.amount_tax"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Grand Total</strong></td>
+                                    <td><span t-field="doc.amount_total"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span align="right">                                                          <u>                                                                    </u></span>
+                            <br/>
+                            <span>                                                          Authorized by :</span>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span>                                                          <strong>Ign. Dadio Pranoto</strong></span>
+                            <br/>
+                            <br/>
+                            <span>Confirmed by Supplier, .....................................................</span>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

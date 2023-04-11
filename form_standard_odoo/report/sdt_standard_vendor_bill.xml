@@ -1,0 +1,187 @@
+<odoo>
+    <data>
+        <report id="report_standard_vendor_bill_menu"
+                string="SDT Standard - Vendor Bill"
+                model="account.move"
+                report_type="qweb-pdf"
+                file="account.move"
+                name="form_standard_odoo.standard_vendor_bill_report"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+                print_report_name="'SDT Standard - Vendor Bil - %s' % (object.name)">
+        </report>
+        <template id="standard_vendor_bill_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.standard_vendor_bill_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <template id="standard_vendor_bill_document">
+            <t t-call="web.external_layout">
+                <div name="address" class="col-xs-5 col-xs-offset-7"/>
+                <div style="font-Size:12px;" class="page">
+                    <style type="text/css">
+                      tr, td
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                        }
+                    </style>
+                    <style type="text/css">
+                      th
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                           color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                      table
+                        {
+                           width: 100%;
+                           margin-top: 5px;
+                           margin-bottom: 10px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-8" align="left">
+                            <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:350px;height:80px" /><br/>
+                            <span>JL. PERMATA RAYA LOT E-1, SUKALUYU TELUKJAMBE TIMUR</span><br/>
+                            <span>KAWASAN INDUSTRI KICC, KARAWANG 41361 WEST JAVA INDONESIA</span>
+                        </div>
+                        <div class="col-4">
+                            <table class="table" width="100%" style="border: 1px solid;">
+                                <tr>
+                                    <td width="60%" >Invoice No.</td>
+                                    <td width="40%" ><span t-field="doc.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date</td>
+                                    <td><span t-field="doc.invoice_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Terms of Payment</td>
+                                    <td>
+                                        <span t-field="doc.invoice_payment_term_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>PO No.</td>
+                                    <td>
+                                        <span t-field="doc.invoice_origin"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3 align="center"><strong><u>COMMERCIAL BILL</u></strong></h3>
+                    <br/>
+                    <table class="table" width="100%" style="border: 1px solid">
+                        <tr>
+                            <th class="text-center" width="50%">Please Transfer the Amount Below to Our Account :</th>
+                            <th class="text-center" width="50%">CONSIGNEE</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>* Bank Name      : OCBC NISP</span><br/>
+                                <span>* Account Number : 010 800008 10 3</span><br/>
+                                <span>* Beneficiary    : PT. Shin Sam Plus Industry</span><br/>
+                                <span>* Bank Address   : Jl. Taman Cibeunying Sel. No. 31 Lingkar Selatan, Bandung Wetan</span><br/><br/><br/>
+                                <span><strong>Please Kindly Inform the Bill Number during Payment (Bank Note)</strong></span>
+                            </td>
+                            <td>
+                                <span t-field="doc.partner_id.name"/><br/>
+                                <span t-field="doc.partner_id.street"/><br/>
+                                <span t-field="doc.partner_id.phone"/><br/>
+                                <span t-field="doc.partner_id.mobile"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table class="table" width="100%" style="border: 1px solid">
+                        <tr>
+                            <th width="2%">No</th>
+                            <th width="10">Qty</th>
+                            <th width="10">Unit</th>
+                            <th width="40">Description</th>
+                            <th width="20">Unit Price</th>
+                            <th width="18">Amount</th>
+                        </tr>
+                        <t t-set="LineNum" t-value="1"/>
+                        <tr style="border: 1px solid" t-foreach="doc.invoice_line_ids" t-as="line">
+                            <td class="text-center"><span><t t-esc="LineNum"/></span></td>
+                            <td class="text-right"><span t-field="line.quantity"/></td>
+                            <td class="text-left"><span t-field="line.product_uom_id.name"/></td>
+                            <td><span t-field="line.name"/></td>
+                            <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
+                            <td align ="right"><span t-field="line.price_subtotal"/></td>
+                            <t t-set="LineNum" t-value="LineNum+1"/>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <div class="col-8">
+                        </div>
+                        <div class="col-4">
+                            <table class="table" width="100%">
+                                <tr>
+                                    <td width="33%"><strong>Sub Total</strong></td>
+                                    <td width="67%"><span t-field="doc.amount_untaxed"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pph</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ppn</strong></td>
+                                    <td><span t-field="doc.amount_tax"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Grand Total</strong></td>
+                                    <td><span t-field="doc.amount_total"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p><i><strong>Terbilang : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
+                    <br/>
+                    <br/>
+                    <table style="border: 1px solid" class="table" width="100%">
+                        <tr>
+                            <th>Acknowledge by :</th>
+                            <th>NOTES / Remark</th>
+                        </tr>  
+                        <tr>
+                            <th>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                Annisul Fuad
+                            </th>
+                            <th>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                Please kindly email the transfer copy to :<br/>
+                                <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
+                            </th>
+                        </tr>                      
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,194 @@
+<odoo>
+    <data>
+        <report id="report_standard_form_voucher_menu"
+                string="SDT Standard - Form Voucher"
+                model="account.payment"
+                report_type="qweb-pdf"
+                file="account.payment"
+                name="form_standard_odoo.standard_form_voucher_report"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+                print_report_name="'SDT Standard - Form Voucher - %s' % (object.name)">
+        </report>
+        <template id="standard_form_voucher_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.standard_form_voucher_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <template id="standard_form_voucher_document">
+            <t t-call="web.external_layout">
+                <div name="address" class="col-xs-5 col-xs-offset-7"/>
+                <div style="font-Size:12px;" class="page">
+                    <style type="text/css">
+                      tr, td
+                        {
+                           padding: 5px;
+                           padding-left: 5px;
+                           padding-right: 5px;
+                        }
+                    </style>
+                    <style type="text/css">
+                      th
+                        {
+                           padding: 5px;
+                           padding-left: 5px;
+                           padding-right: 5px;
+                           color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                      table
+                        {
+                           width: 100%;
+                           margin-top: 5px;
+                           margin-bottom: 5px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-8" align="left">
+                            <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:350px;height:80px" /><br/>
+                            <span>JL. PERMATA RAYA LOT E-1, SUKALUYU TELUKJAMBE TIMUR</span><br/>
+                            <span>KAWASAN INDUSTRI KICC, KARAWANG 41361 WEST JAVA INDONESIA</span>
+                        </div>
+                        <div class="col-4">
+                            <table class="table" width="100%" style="border: 2px solid;">
+                                <tr>
+                                    <td class="text-center">
+                                        <span><h5><strong>PAYMENT VOUCHER</strong></h5></span>
+                                        <span><h5><strong>IDR(Rp)</strong></h5></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6" align="left">
+                            <table class="table" width="100%">
+                                <tr>
+                                    <td width="50%">
+                                        <input type="checkbox"></input>
+                                        <span>: BANK</span>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="checkbox"></input>
+                                        <span>: MANDIRI</span>
+                                        <br/>
+                                        <input type="checkbox"></input>
+                                        <span>: OCBC NISP</span>
+                                        <br/>
+                                        <input type="checkbox"></input>
+                                        <span>: DBS</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-2" align="left">
+                        </div>
+                        <div class="col-4" align="left">
+                            <table class="table" width="100%" style="border: 1px solid;">
+                                <tr>
+                                    <td width="50%">Prepared Date :</td>
+                                    <td width="50%"></td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Date :</td>
+                                    <td><span t-field="doc.date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Voucher No. :</td>
+                                    <td><span t-field="doc.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>CHQ/ BG. No. :</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-2" align="left">
+                            <span>Payment To :</span><br/>
+                            <span>Amount :</span><br/>
+                            <span>Inv No. :</span><br/>
+                            <span>Inv Month :</span><br/>
+                            <span>Description :</span><br/>
+                            <span>Remarks :</span>
+                        </div>
+                        <div class="col-6" align="left">
+                            <!-- <span><u>                                                                                                                                                                                                        </u></span><br/> -->
+                            <span t-field="doc.partner_id.name"/><br/>
+                            <span t-field="doc.amount"/><br/>
+                            <span t-field="doc.bill_id.ref"/><br/>
+                            <span t-esc="doc.get_day(doc.date)"/><br/>
+                            <span t-field="doc.description"/><br/>
+                            <span><u>                                                                                                                      </u></span>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            <strong><u>INCLUDE</u></strong><br/>
+                            <input type="checkbox"></input>
+                            <span>: PPN</span><br/>
+                            <input type="checkbox"></input>
+                            <span>: PPH</span><br/>
+                            <input type="checkbox"></input>
+                            <span>: Rp Deduction/Discount</span><br/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-1" align="left">
+                        </div>
+                        <div class="col-3" align="center">
+                            <table class="table" width="100%" style="border: 1px solid;">
+                                <tr>
+                                    <td class="text-center">Prepared by :</td>
+                                </tr>
+                                <tr height="60px">
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Acc and Finance Staff</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-1" align="left">
+                        </div>
+                        <div class="col-3" align="center">
+                            <table class="table" width="100%" style="border: 1px solid;">
+                                <tr>
+                                    <td class="text-center">Checked by :</td>
+                                </tr>
+                                <tr height="60px">
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Acc and Finance Mngr / Ass. Mngr</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-1" align="center">
+                        </div>
+                        <div class="col-3" align="center">
+                            <table class="table" width="100%" style="border: 1px solid;">
+                                <tr>
+                                    <td class="text-center">Approved by :</td>
+                                </tr>
+                                <tr height="60px">
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Head Division / Director</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="form_account_payment_view_inherit">
+            <field name="name">form.account.payment.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="description"/>
+                    <field name="bill_id" readonly="1" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- views account -> vendor/Customer -> Payment-->
+        <!-- <record model="ir.ui.view" id="udf_view_view_account_payment_tree_inherit">
+            <field name="name">udf.account.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="doc_num" />
+                </xpath>
+            </field>
+        </record> -->
+
+    </data>
+</odoo>
