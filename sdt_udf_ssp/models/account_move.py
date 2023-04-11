@@ -8,7 +8,7 @@ from lxml import etree
 class AccountMove(models.Model):
     _inherit='account.move'
 
-    picking_tt_ids = fields.Many2many(string='Stock Picking DO',comodel_name='stock.picking', relation='account_move_stock_picking_tt',column1='move_id',column2='Picking_tt_id',)
+    # picking_tt_ids = fields.Many2many(string='Stock Picking DO',comodel_name='stock.picking', relation='account_move_stock_picking_tt',column1='move_id',column2='Picking_tt_id',)
     # fields fix
     stock_picking_tt_ids = fields.Many2many(string='DO',comodel_name='stock.picking', relation='account_picking_tt_rel',column1='move_id',column2='picking_id',)
     picking_tt = fields.Boolean(string='Picking DO',)
