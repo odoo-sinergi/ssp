@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-4" align="left">
                             : <span t-field="doc.partner_id"/><br/>
-                            : <span t-field="doc.partner_id.department"/><br/>
+                            : <span/><br/>
                             : <span t-field="doc.partner_id.function"/>
                         </div>
                         <div class="col-2" align="left">
