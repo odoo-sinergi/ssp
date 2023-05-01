@@ -16,6 +16,9 @@
                     <field name="skt" attrs="{'invisible':[('company_type','=','person')]}"/>
                     <field name="sppkp" attrs="{'invisible':[('company_type','=','person')]}"/>
                 </field>
+                <!-- <field name="function" position="after">
+                    <field name="department"/>
+                </field> -->
             </field>
         </record>
 
