@@ -12,6 +12,7 @@ class StockPicking(models.Model):
     no_polisi = fields.Char(string='No. Pol')
     driver = fields.Char(string='Driver')
     procurement_group_id = fields.Integer(string='Procurement Group', related='group_id.id', readonly=True, store=True )
+    surat_jalan = fields.Char(string='Surat Jalan',)
 
     
     # @api.onchange('picking_do_id','is_picking_do_id')

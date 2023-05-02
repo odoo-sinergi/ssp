@@ -21,6 +21,7 @@
                     <!-- <field name="picking_do_id" force_save="1" attrs="{'readonly':[('state','in',['done','cancel'])]}" domain="[('group_id','=',procurement_group_id),('picking_type_code','=','internal'),('state','=','done')]"/> -->
                     <field name="invoice_id" force_save="1" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}" readonly="1"/>
                     <field name="procurement_group_id" invisible="1"/>
+                    <field name="surat_jalan" attrs="{'invisible': [('picking_type_code', '=', 'internal')],'readonly':[('state','in',['done','cancel'])]}"/>
                 </field>
 
                 <xpath expr="//button[@name='button_validate'][1]" position="replace">
