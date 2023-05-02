@@ -13,6 +13,7 @@ class StockPicking(models.Model):
     driver = fields.Char(string='Driver')
     procurement_group_id = fields.Integer(string='Procurement Group', related='group_id.id', readonly=True, store=True )
     surat_jalan = fields.Char(string='Surat Jalan',)
+    client_order_ref = fields.Char(string='Customer Reference',)
 
     
     # @api.onchange('picking_do_id','is_picking_do_id')
