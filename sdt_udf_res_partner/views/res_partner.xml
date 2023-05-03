@@ -10,6 +10,7 @@
                     <field name="fax"/>
                     <field name="attn"/>
                 </xpath>
+                
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[1]" position="after">
                     <field name="siup" attrs="{'invisible':[('company_type','=','person')]}"/>
                     <field name="tdp" attrs="{'invisible':[('company_type','=','person')]}"/>
