@@ -10,6 +10,7 @@
                     <field name="fax"/>
                     <field name="attn"/>
                 </xpath>
+
                 
                 <field name="vat" position="after">
                     <field name="siup" attrs="{'invisible':[('company_type','=','person')]}"/>
