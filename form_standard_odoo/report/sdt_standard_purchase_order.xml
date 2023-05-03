@@ -111,9 +111,8 @@
                                 <tr>
                                     <td style="border-left: 1px solid;">Attn</td>
                                     <td>:</td>
-                                    <td>
-                                        <span>-</span>
-                                    </td>
+                                    <td><span t-field="doc.partner_id.x_studio_attn"/></td>
+
                                 </tr>
                                 <tr>
                                     <td style="border-left: 1px solid;">Telp</td>
