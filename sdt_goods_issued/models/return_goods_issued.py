@@ -278,9 +278,8 @@ class SDTReturnGoodsIssuedLine(models.Model):
     company_id = fields.Many2one('res.company', required=True, related='issued_id.company_id', store=True, default=lambda self: self.env.company)
     analytic_product_id = fields.Many2one('account.analytic.account', string='Analytic Product', domain="[('plan_id.name','=','Product')]")
     analytic_project_id = fields.Many2one('account.analytic.account', string='Analytic Project', domain="[('plan_id.name','=','Project')]")
-    analytic_selction_id = fields.Many2one('account.analytic.account', string='Analytic Section', domain="[('plan_id.name','=','Section')]")
+    analytic_section_id = fields.Many2one('account.analytic.account', string='Analytic Section', domain="[('plan_id.name','=','Section')]")
     analytic_departement_id = fields.Many2one('account.analytic.account', string='Analytic Departement', domain="[('plan_id.name','=','Departement')]")
-
 
     @api.onchange('product_id')
     def onchange_product_id(self):

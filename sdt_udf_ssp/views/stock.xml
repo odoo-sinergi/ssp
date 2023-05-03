@@ -13,8 +13,8 @@
                     <field name="work_base_structure" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                 </field> -->
                 <field name="owner_id" position="after">
-                    <field name="no_polisi" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
-                    <field name="driver" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                    <field name="no_polisi" attrs="{'readonly':[('state','in',['done','cancel'])]}" invisible="1"/>
+                    <field name="driver" attrs="{'readonly':[('state','in',['done','cancel'])]}" invisible="1"/>
                     <field name="jitcall" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                     <field name="client_order_ref" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                     <!-- <field name="is_picking_do_id" force_save="1" attrs="{'invisible':[('picking_type_code','!=','outgoing')],'readonly':[('state','in',['done','cancel'])]}" invisible="1" /> -->

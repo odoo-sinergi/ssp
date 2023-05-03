@@ -10,6 +10,7 @@ class SaleOrder(models.Model):
                 for picking_id in i.picking_ids :
                     picking_id.client_order_ref = i.client_order_ref
         return res
+        
 # class SaleAdvancePaymentInv(models.TransientModel):
 #     _inherit = "sale.advance.payment.inv"
 

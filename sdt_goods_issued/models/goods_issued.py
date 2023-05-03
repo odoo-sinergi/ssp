@@ -193,6 +193,8 @@ class SDTGoodsIssued(models.Model):
                         'product_uom': line.product_uom_id.id,
                         'analytic_product_id': line.analytic_product_id.id,
                         'analytic_project_id': line.analytic_project_id.id,
+                        'analytic_section_id': line.analytic_section_id.id,
+                        'analytic_departement_id': line.analytic_departement_id.id,
                         'state': 'assigned',
                         'picking_id': picking_id,
                         'location_id': self.location_from.id,
@@ -227,10 +229,16 @@ class SDTGoodsIssued(models.Model):
                     all_analytic.update({str(line.analytic_product_id.id) : 100})
                 for dep in line.analytic_project_id:
                     all_analytic.update({str(line.analytic_project_id.id) : 100})
+                for dep in line.analytic_section_id:
+                    all_analytic.update({str(line.analytic_section_id.id) : 100})
+                for dep in line.analytic_departement_id:
+                    all_analytic.update({str(line.analytic_departement_id.id) : 100})
                 account_move_line.write({
                     'account_id':line.account_id.id,
                     'analytic_product_id':line.analytic_product_id.id,
                     'analytic_project_id':line.analytic_project_id.id,
+                    'analytic_section_id':line.analytic_section_id.id,
+                    'analytic_departement_id':line.analytic_departement_id.id,
                     'analytic_distribution':all_analytic
                 })
         
@@ -287,7 +295,7 @@ class SDTGoodsIssuedLine(models.Model):
     company_id = fields.Many2one('res.company', required=True, related='issued_id.company_id', store=True, default=lambda self: self.env.company)
     analytic_product_id = fields.Many2one('account.analytic.account', string='Analytic Product', domain="[('plan_id.name','=','Product')]")
     analytic_project_id = fields.Many2one('account.analytic.account', string='Analytic Project', domain="[('plan_id.name','=','Project')]")
-    analytic_selction_id = fields.Many2one('account.analytic.account', string='Analytic Section', domain="[('plan_id.name','=','Section')]")
+    analytic_section_id = fields.Many2one('account.analytic.account', string='Analytic Section', domain="[('plan_id.name','=','Section')]")
     analytic_departement_id = fields.Many2one('account.analytic.account', string='Analytic Departement', domain="[('plan_id.name','=','Departement')]")
 
 
