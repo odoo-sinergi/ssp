@@ -15,8 +15,15 @@ class StockPicking(models.Model):
     surat_jalan = fields.Char(string='Surat Jalan',)
     client_order_ref = fields.Char(string='Customer Reference',)
 
+    @api.onchange('move_ids_without_package')
+    def _onchange_move_ids_without_package(self):
+        for i in self :
+            for move_ids in i.move_ids_without_package :
+                if move_ids.quantity_done > move_ids.product_uom_qty :
+                    raise UserError(_("Qty Done tidak boleh lebih besar dari pada Qty Demand!"))
+                    
     
-    # @api.onchange('picking_do_id','is_picking_do_id')
+        # @api.onchange('picking_do_id','is_picking_do_id')
     # def onchange_picking_do_id(self):
     #     if self.is_picking_do_id:
     #         picking_obj = self.env['stock.picking'].search([('group_id', '=', self.group_id.id),('picking_type_code', '=', 'internal')])
