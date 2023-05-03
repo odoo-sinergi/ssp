@@ -10,15 +10,13 @@
                     <field name="fax"/>
                     <field name="attn"/>
                 </xpath>
-
-                
-                <field name="vat" position="after">
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[1]" position="after">
                     <field name="siup" attrs="{'invisible':[('company_type','=','person')]}"/>
                     <field name="tdp" attrs="{'invisible':[('company_type','=','person')]}"/>
                     <field name="nib" attrs="{'invisible':[('company_type','=','person')]}"/>
                     <field name="skt" attrs="{'invisible':[('company_type','=','person')]}"/>
                     <field name="sppkp" attrs="{'invisible':[('company_type','=','person')]}"/>
-                </field>
+                </xpath>
                 <!-- <field name="function" position="after">
                     <field name="department"/>
                 </field> -->
