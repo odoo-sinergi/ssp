@@ -18,9 +18,10 @@ class StockPicking(models.Model):
     @api.onchange('move_ids_without_package')
     def _onchange_move_ids_without_package(self):
         for i in self :
-            for move_ids in i.move_ids_without_package :
-                if move_ids.quantity_done > move_ids.product_uom_qty :
-                    raise UserError(_("Qty Done tidak boleh lebih besar dari pada Qty Demand!"))
+            if i.picking_type_code == 'incoming':
+                for move_ids in i.move_ids_without_package :
+                    if move_ids.quantity_done > move_ids.product_uom_qty :
+                        raise UserError(_("Qty Done tidak boleh lebih besar dari pada Qty Demand !!"))
                     
 
     
