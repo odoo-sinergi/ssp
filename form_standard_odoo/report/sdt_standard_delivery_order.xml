@@ -94,24 +94,24 @@
                             <h5><strong>DELIVERY ORDER</strong></h5>
                         </div>
                         <div class="col-1" align="left">
-                            <strong><span>Customer Reference :</span></strong><br/>
-                            <strong><span>Date :</span></strong><br/>
-                            <strong><span>DO No :</span></strong><br/>
-                            <strong><span>DO Rev :</span></strong><br/>
-                            <strong><span>PO No :</span></strong><br/>
-                            <strong><span>Status :</span></strong><br/>
-                            <strong><span>Driver :</span></strong><br/>
-                            <strong><span>No.Pol :</span></strong>
+                            <strong><span>Cust. Ref.</span></strong><br/>
+                            <strong><span>Date</span></strong><br/>
+                            <strong><span>DO No</span></strong><br/>
+                            <strong><span>DO Rev</span></strong><br/>
+                            <strong><span>PO No</span></strong><br/>
+                            <strong><span>Status</span></strong><br/>
+                            <strong><span>Driver</span></strong><br/>
+                            <strong><span>No.Pol</span></strong>
                         </div>
                         <div class="col-3" align="left">
-                            <strong><span t-field="doc.client_order_ref"/></strong><br/>
-                            <strong><span t-field="doc.force_date"/></strong><br/>
-                            <strong><span t-field="doc.name"/></strong><br/>
-                            <strong><span>-</span></strong><br/>
-                            <strong><span t-field="doc.origin"/></strong><br/>
-                            <strong><span>SALES</span></strong><br/>
-                            <strong><span t-field="doc.driver"/></strong><br/>
-                            <strong><span t-field="doc.no_polisi"/></strong>
+                            <strong>: <span t-field="doc.client_order_ref"/></strong><br/>
+                            <strong>: <span t-field="doc.force_date"/></strong><br/>
+                            <strong>: <span t-field="doc.name"/></strong><br/>
+                            <strong>: <span>-</span></strong><br/>
+                            <strong>: <span t-field="doc.origin"/></strong><br/>
+                            <strong>: <span>SALES</span></strong><br/>
+                            <strong>: <span t-field="doc.driver"/></strong><br/>
+                            <strong>: <span t-field="doc.no_polisi"/></strong>
                         </div>
                     </div>
                     <br/>
