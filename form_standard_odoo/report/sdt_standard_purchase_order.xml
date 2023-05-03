@@ -131,7 +131,7 @@
                                     <td>Purchasing</td>
                                 </tr>
                                 <tr>
-                                    <td style="border-left: 1px solid; border-bottom: 1px solid;">Send Date</td>
+                                    <td style="border-left: 1px solid; border-bottom: 1px solid;">Due Date</td>
                                     <td style="border-bottom: 1px solid;">:</td>
                                     <td style="border-bottom: 1px solid;"><span t-field="doc.date_planned"/></td>
                                 </tr>
@@ -167,7 +167,7 @@
                                     <td style="border-right: 1px solid;">Purchasing</td>
                                 </tr>
                                 <tr>
-                                    <td style="border-bottom: 1px solid;">Due Date</td>
+                                    <td style="border-bottom: 1px solid;">Send Date</td>
                                     <td style="border-bottom: 1px solid;">:</td>
                                     <td style="border-bottom: 1px solid; border-right: 1px solid;"><span t-field="doc.date_order"/></td>
                                 </tr>
