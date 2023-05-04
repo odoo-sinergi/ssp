@@ -127,7 +127,7 @@
                                 <tr>
                                     <td style="border-left: 1px solid;">From</td>
                                     <td>:</td>
-                                    <td>Purchasing</td>
+                                    <td><span>Purchasing</span></td>
                                 </tr>
                                 <tr>
                                     <td style="border-left: 1px solid; border-bottom: 1px solid;">Send Date</td>
