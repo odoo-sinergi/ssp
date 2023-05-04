@@ -12,7 +12,7 @@
           <field name="date_order" string="Purchase Order Date" force_save="1" />
         </field>
         <xpath expr="//field[@name='name']" position="attributes">
-          <attribute name="readonly">True</attribute>
+            <attribute name="readonly">True</attribute>
         </xpath>
       </field>
     </record>
