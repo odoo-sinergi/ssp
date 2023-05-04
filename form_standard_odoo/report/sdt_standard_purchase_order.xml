@@ -15,13 +15,30 @@
             <field name="header_spacing">37</field>
             <field name="dpi">90</field>
         </record>
+
+        <record id="paperformat_sdt_standard_form_2" model="report.paperformat">
+            <field name="name">SDT Standard Form 2</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
         <report id="report_standard_po_menu"
             string="SDT Standard - Purchase Order"
             model="purchase.order"
             report_type="qweb-pdf"
             file="purchase.order"
             name="form_standard_odoo.purchase_order_report"
-            paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+            paperformat="form_standard_odoo.paperformat_sdt_standard_form_2"
             print_report_name="'SDT Standard - Purchase Order - %s' % (object.name)">
         </report>
 
