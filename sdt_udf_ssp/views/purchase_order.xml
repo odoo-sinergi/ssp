@@ -9,7 +9,10 @@
       <field name="arch" type="xml">
         <field name="date_order" position="replace">
           <!-- <attribute name="string"></attribute> -->
-          <field name="date_order" string="Purchase Order Date" force_save="1"/>  
+          <field name="date_order" string="Purchase Order Date" force_save="1" />
+        </field>
+        <field name="name" position="attributes">
+          <attribute name="readonly">True</attribute>
         </field>
       </field>
     </record>
