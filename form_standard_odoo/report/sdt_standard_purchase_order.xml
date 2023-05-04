@@ -7,7 +7,7 @@
             <field name="page_height">0</field>
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">0</field>
+            <field name="margin_top">15</field>
             <field name="margin_bottom">15</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
@@ -53,7 +53,7 @@
         <template id="purchase_order_report_document">
             <t t-call="form_standard_odoo.custom_external_layout_ir">
                 <div name="address" class="col-5 col-offset-7" />
-                <div style="font-Size:12px;font-family: 'Aller', sans-serif; " class="page" >
+                <div style="font-Size:12px;" class="page" >
                     <style type="text/css">
                         tr, td
                         {
