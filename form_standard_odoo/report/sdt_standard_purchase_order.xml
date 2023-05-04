@@ -33,24 +33,25 @@
             </t>
         </template>
 
-        <!-- <template id="sdt_header_internal_layout" inherit_id="web.internal_layout" primary="True">
+        <template id="custom_external_layout_ir" inherit_id="web.internal_layout">
             <xpath expr="//div[@class='header']" position="replace">
                 <div class="header">
+                    <!-- <div class="row" style="font-size: 12pt; font-family: arial;"> -->
                     <div class="row">
-                        <div class="col-9" align="center">
-                            <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:500px;height:100px" />
+                        <div class="col-2"> 
+                        </div>
+                        <div class="col-4">
                         </div>
                         <div class="col-3">
-                            <span>No. Doc : FPUR-006</span>
                         </div>
                     </div>
                 </div>
             </xpath>
-        </template> -->
+        </template>
 
 
         <template id="purchase_order_report_document">
-            <t t-call="web.external_layout">
+            <t t-call="form_standard_odoo.custom_external_layout_ir">
                 <div name="address" class="col-5 col-offset-7" />
                 <div style="font-Size:12px;" class="page">
                     <style type="text/css">
