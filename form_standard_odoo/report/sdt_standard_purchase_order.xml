@@ -132,7 +132,7 @@
                                 <tr>
                                     <td style="border-left: 1px solid; border-bottom: 1px solid;">Send Date</td>
                                     <td style="border-bottom: 1px solid;">:</td>
-                                    <td style="border-bottom: 1px solid; border-right: 1px solid;"><span t-field="doc.date_order"/></td>
+                                    <td style="border-bottom: 1px solid;"><span t-field="doc.date_order"/></td>
                                 </tr>
                             </table>
                         </div>
@@ -168,7 +168,7 @@
                                 <tr>
                                     <td style="border-bottom: 1px solid;">Due Date</td>
                                     <td style="border-bottom: 1px solid;">:</td>
-                                    <td style="border-bottom: 1px solid;"><span t-field="doc.date_planned"/></td>
+                                    <td style="border-bottom: 1px solid;border-right: 1px solid;"><span t-field="doc.date_planned"/></td>
                                 </tr>
                             </table>
                         </div>
