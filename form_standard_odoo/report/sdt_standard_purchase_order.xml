@@ -15,6 +15,22 @@
             <field name="header_spacing">45</field>
             <field name="dpi">90</field>
         </record>
+
+        <template id="custom_external_layout_ir" inherit_id="web.internal_layout">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-2"> 
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
         <report id="report_standard_po_menu"
             string="SDT Standard - Purchase Order"
             model="purchase.order"
@@ -32,23 +48,6 @@
                 </t>
             </t>
         </template>
-
-        <template id="custom_external_layout_ir" inherit_id="web.internal_layout">
-            <xpath expr="//div[@class='header']" position="replace">
-                <div class="header">
-                    <!-- <div class="row" style="font-size: 12pt; font-family: arial;"> -->
-                    <div class="row">
-                        <div class="col-2"> 
-                        </div>
-                        <div class="col-4">
-                        </div>
-                        <div class="col-3">
-                        </div>
-                    </div>
-                </div>
-            </xpath>
-        </template>
-
 
         <template id="purchase_order_report_document">
             <t t-call="form_standard_odoo.custom_external_layout_ir">
