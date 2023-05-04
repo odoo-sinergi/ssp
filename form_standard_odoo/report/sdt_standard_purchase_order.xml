@@ -243,14 +243,21 @@
                             </td>
                         </tr>
                     </table> -->
-                    <p style="page-break-before:always;" />
-                    <div class="row">
+                    <div class="row" style="page-break-inside: avoid;">
                         <div class="col-6">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                             <span>1. Pengiriman barang harus sesuai dengan syarat , harga dan metode pembayaran  syarat sesuai dengan spesifikasi yang diminta <strong>PT. Shin Sam Plus Industry</strong></span><br/><br/>
                             <span>2. Memberitahu kami semua setelah menerima  <strong>Purchase Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong> yang kami  terbitkan</span><br/><br/>
                             <span>3. Untuk semua korespondensi harus di alamatkan ke bagian Pembelian dengan alamat email: purchasing@samplusind.com</span>
                         </div>
                         <div class="col-6">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                             <table class="table" width="100%">
                                 <tr>
                                     <td width="60%"><strong>Total</strong></td>
