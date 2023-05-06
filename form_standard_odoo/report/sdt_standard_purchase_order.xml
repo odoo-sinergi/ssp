@@ -50,7 +50,8 @@
             </t>
         </template>
 
-        <template id="custom_external_layout_ir" inherit_id="web.internal_layout">
+        <!-- Header -->
+        <template id="sdt_header_internal_layout_po" inherit_id="web.internal_layout" primary="True">
             <xpath expr="//div[@class='header']" position="replace">
                 <div class="header" style="font-Size:12px;font-family: 'Aller', sans-serif; ">
                    <div class="row">
@@ -206,7 +207,7 @@
 
 
         <template id="purchase_order_report_document">
-            <t t-call="form_standard_odoo.custom_external_layout_ir">
+            <t t-call="form_standard_odoo.sdt_header_internal_layout_po">
                 <div name="address" class="col-5 col-offset-7" />
                 <div style="font-Size:12px;font-family: 'Aller', sans-serif; " class="page" >
                     <style type="text/css">
