@@ -11,4 +11,5 @@ class ResPartner(models.Model):
     skt = fields.Char(string="SKT")
     sppkp = fields.Char(string="SPPKP")
     fax = fields.Char(string="Fax")
+    attn = fields.Char(string="Attn")
     # department = fields.Char(string="Department")
