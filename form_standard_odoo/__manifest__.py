@@ -29,7 +29,6 @@
     'data': [
         # 'security/ir.model.access.csv',
 
-        # 'report/sdt_standard_good_receipt.xml',
         'report/template.xml',
         'wizard/sdt_payment.xml',
         'views/account_payment.xml',
@@ -42,6 +41,7 @@
         'report/sdt_standard_vendor_bill.xml',
         'report/sdt_standard_good_issue.xml',
         'report/sdt_standard_lampiran_do.xml',
+        'report/sdt_standard_journal_voucher.xml',
     ],
     # only loaded in demonstration mode
 }
