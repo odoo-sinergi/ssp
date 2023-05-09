@@ -1,64 +1,97 @@
 <odoo>
-    <data>
-        <record model="ir.ui.view" id="udf_account_move_inherit_form">
-            <field name="name">udf.account.move.inherit.form</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_form"/>
-            <field name="arch" type="xml">
-                <!-- <xpath expr="//div[@name='journal_div']" position="after">
-                    <field name="picking_tt"/>
-                </xpath> -->
-                <xpath expr="//field[@name='l10n_id_replace_invoice_id']" position="after">
-                  <field name="sale_id" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('state','=','sale')]"/>
-                  <field name="sale_procurement_group_id" invisible="1"/>
-                </xpath>
-                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
-                    <page string="Delivery Order" name="delivery_order" attrs="{'readonly': [('state', '!=', 'draft')]}">
-                      <group name="stock_picking_tt_ids">
-                        <!-- <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False)]"/> -->
-                        <!-- <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False)]"/> -->
-                        <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]"/>
-                      </group>
-                    </page>
-                  </xpath>
-                <xpath expr="//button[@name='action_post']" position="before">
-                  <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-                  <button name="unlink_invoice_number_picking" class="oe_highlight" type="object" string="Remove Data DO" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-              </xpath>
+  <data>
+    <record model="ir.ui.view" id="udf_account_move_inherit_form">
+      <field name="name">udf.account.move.inherit.form</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='l10n_id_replace_invoice_id']" position="after">
+          <field name="sale_id" attrs="{'readonly': [('state', '!=', 'draft')]}"
+            domain="[('partner_id','=',partner_id),('state','=','sale')]" />
+          <field name="po_id"
+            attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}"
+            domain="[('partner_id','=',partner_id),('state','=','purchase')]" />
+          <field name="sale_procurement_group_id" invisible="1" />
+          <field name="purchase_procurement_group_id" invisible="1" />
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+          <!-- DO -->
+          <page string="Delivery Order" name="delivery_order"
+            attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}">
+            <group name="stock_picking_tt_ids">
+              <field name="stock_picking_tt_ids" force_save="1"
+                attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" />
+            </group>
+          </page>
+          <!-- Received -->
+          <page string="Received Order" name="received_order"
+            attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}">
+            <group name="stock_picking_tt_ids">
+              <field name="stock_picking_tt_ids" force_save="1"
+                attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]" />
+            </group>
+          </page>
+        </xpath>
+        <xpath expr="//button[@name='action_post']" position="before">
+          <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data"
+            attrs="{'invisible': [('state', '!=', 'draft')]}" />
+          <button name="unlink_invoice_number_picking" class="oe_highlight" type="object"
+            string="Remove Data DO" attrs="{'invisible': [('state', '!=', 'draft')]}" />
+        </xpath>
 
-                  <xpath expr="//field[@name='stock_picking_tt_ids']" position="inside">
-                    <tree string="Picking list" multi_edit="1" sample="1">
-                      <header>
-                        <button name="do_unreserve" type="object" string="Unreserve"/>
-                        <button name="action_assign" type="object" string="Check Availability"/>
-                      </header>
-                      <field name="company_id" invisible="1"/>
-                      <field name="priority" optional="show" widget="priority" nolabel="1"/>
-                      <field name="name" decoration-bf="1"/>
-                      <field name="picking_do_id" optional="show"/>
-                      <!-- <field name="force_date" optional="show"/> -->
-                      <field name="jitcall" optional="show"/>
-                      <field name="location_id" options="{'no_create': True}" string="From" groups="stock.group_stock_multi_locations" optional="hide"/>
-                      <field name="location_dest_id" options="{'no_create': True}" string="To" groups="stock.group_stock_multi_locations" optional="hide"/>
-                      <field name="partner_id" optional="hide"/>
-                      <!--<field name="is_signed" string="Signed" optional="hide" groups="stock.group_stock_sign_delivery"/>-->
-                      <!--<field name="user_id" optional="hide" widget="many2one_avatar_user"/>-->
-                      <!--<field name="scheduled_date" optional="show" widget="remaining_days" attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>-->
-                      <field name="picking_type_code" invisible="1"/>
-                      <field name="products_availability_state" invisible="1" options="{&quot;lazy&quot;: true}"/>
-                      <field name="products_availability" options="{&quot;lazy&quot;: true}" optional="hide" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'not in', ['confirmed', 'waiting', 'assigned'])]}" decoration-success="state == 'assigned' or products_availability_state == 'available'" decoration-warning="state != 'assigned' and products_availability_state in ('expected', 'available')" decoration-danger="state != 'assigned' and products_availability_state == 'late'"/>
-                      <!--<field name="date_deadline" optional="hide" widget="remaining_days" attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>-->
-                      <field name="date_done" string="Effective Date" optional="hide"/>
-                      <field name="note" optional="hide"/>
-                      <field name="origin" optional="hide"/>
-                      <field name="backorder_id" optional="hide"/>
-                      <field name="picking_type_id" optional="hide"/>
-                      <field name="state" optional="show" widget="badge" decoration-danger="state=='cancel'" decoration-info="state== 'assigned'" decoration-muted="state == 'draft'" decoration-success="state == 'done'" decoration-warning="state not in ('draft','cancel','done','assigned')"/>
-                      <field name="activity_exception_decoration" widget="activity_exception"/>
-                      <field name="json_popover" widget="stock_rescheduling_popover" nolabel="1" attrs="{'invisible': [('json_popover', '=', False)]}"/>
-                    </tree>
-                  </xpath>
-            </field>
-        </record>
-    </data>
+        <xpath expr="//field[@name='stock_picking_tt_ids']" position="inside">
+          <tree string="Picking list" multi_edit="1" sample="1">
+            <header>
+              <button name="do_unreserve" type="object" string="Unreserve" />
+              <button name="action_assign" type="object" string="Check Availability" />
+            </header>
+            <field name="company_id" invisible="1" />
+            <field name="priority" optional="show" widget="priority" nolabel="1" />
+            <field name="name" decoration-bf="1" />
+            <field name="picking_do_id" optional="show" />
+            <!-- <field name="force_date" optional="show"/> -->
+            <field name="jitcall" optional="show" />
+            <field name="location_id" options="{'no_create': True}" string="From"
+              groups="stock.group_stock_multi_locations" optional="hide" />
+            <field name="location_dest_id" options="{'no_create': True}" string="To"
+              groups="stock.group_stock_multi_locations" optional="hide" />
+            <field name="partner_id" optional="hide" />
+            <!--<field
+            name="is_signed" string="Signed" optional="hide"
+            groups="stock.group_stock_sign_delivery"/>-->
+            <!--<field
+            name="user_id" optional="hide" widget="many2one_avatar_user"/>-->
+            <!--<field
+            name="scheduled_date" optional="show" widget="remaining_days"
+            attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>-->
+            <field name="picking_type_code" invisible="1" />
+            <field name="products_availability_state" invisible="1"
+              options="{&quot;lazy&quot;: true}" />
+            <field name="products_availability" options="{&quot;lazy&quot;: true}" optional="hide"
+              attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'not in', ['confirmed', 'waiting', 'assigned'])]}"
+              decoration-success="state == 'assigned' or products_availability_state == 'available'"
+              decoration-warning="state != 'assigned' and products_availability_state in ('expected', 'available')"
+              decoration-danger="state != 'assigned' and products_availability_state == 'late'" />
+            <!--<field
+            name="date_deadline" optional="hide" widget="remaining_days"
+            attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>-->
+            <field name="date_done" string="Effective Date" optional="hide" />
+            <field name="note" optional="hide" />
+            <field name="origin" optional="hide" />
+            <field name="backorder_id" optional="hide" />
+            <field name="picking_type_id" optional="hide" />
+            <field name="state" optional="show" widget="badge" decoration-danger="state=='cancel'"
+              decoration-info="state== 'assigned'" decoration-muted="state == 'draft'"
+              decoration-success="state == 'done'"
+              decoration-warning="state not in ('draft','cancel','done','assigned')" />
+            <field name="activity_exception_decoration" widget="activity_exception" />
+            <field name="json_popover" widget="stock_rescheduling_popover" nolabel="1"
+              attrs="{'invisible': [('json_popover', '=', False)]}" />
+          </tree>
+        </xpath>
+      </field>
+    </record>
+  </data>
 </odoo>
