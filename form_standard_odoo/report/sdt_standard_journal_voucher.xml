@@ -63,31 +63,25 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-2" align="left">
+                        <div class="col-1" align="left">
                             <span><i>Ref. Number</i></span><br/>
                             <span><i>Inv. Id</i></span><br/>
                             <span><i>Po. Number</i></span>
                         </div>
-                        <div class="col-4" align="left">
+                        <div class="col-5" align="left">
                             : <span t-field="doc.name"/><br/>
                             : <span t-field="doc.ref"/><br/>
-                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a">
-                                <span t-field="a.ref" />
-                            </span>
+                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.ref" /></span>
                         </div>
-                        <div class="col-2" align="left">
+                        <div class="col-1" align="left">
                             <span><i>Inv. Date</i></span><br/>
                             <span><i>Company</i></span><br/>
                             <span><i>Tax Id</i></span>
                         </div>
-                        <div class="col-4" align="left">
+                        <div class="col-5" align="left">
                             : <span t-field="doc.date"/><br/>
-                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a">
-                                <span t-field="a.partner_id.name" />
-                            </span><br/>
-                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a">
-                                <span t-field="a.partner_id.vat" />
-                            </span>
+                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.name" /></span><br/>
+                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.vat" /></span>
                         </div>
                     </div>
                     <br/>
