@@ -80,8 +80,10 @@
                         </div>
                         <div class="col-5" align="left">
                             : <span t-field="doc.date"/><br/>
-                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.name" /></span><br/>
-                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.vat" /></span>
+                            : <span t-field="doc.commercial_partner_id.name"/><br/>
+                            : <span t-field="doc.commercial_partner_id.vat"/>
+                            <!-- : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.name" /></span><br/>
+                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.vat" /></span> -->
                         </div>
                     </div>
                     <br/>
@@ -101,8 +103,8 @@
                             <td class="text-center"><span t-esc="LineNum"/></td>
                             <td><span t-field="line.account_id.code"/></td>
                             <td><span t-field="line.account_id.name"/></td>
-                            <td class="text-right"><span t-field="line.debit"/></td>
-                            <td class="text-right"><span t-field="line.credit"/></td>
+                            <td class="text-end"><span t-field="line.debit"/></td>
+                            <td class="text-end"><span t-field="line.credit"/></td>
                             <td><span t-field="line.name"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                             <t t-set="debit" t-value="debit + line.debit"/>
@@ -110,8 +112,8 @@
                         </tr>
                         <tr>
                             <td colspan="3"><Strong>Total</Strong></td>
-                            <td> <span t-field="line.currency_id.symbol"/> <span t-esc="debit" widget="monetary"/></td>
-                            <td> <span t-field="line.currency_id.symbol"/> <span t-esc="credit" widget="monetary"/></td>
+                            <td class="text-end"> <span t-field="line.currency_id.symbol"/> <span t-esc="debit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/></td>
+                            <td class="text-end"> <span t-field="line.currency_id.symbol"/> <span t-esc="credit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/></td>
                             <td></td>
                         </tr>
                     </table>
