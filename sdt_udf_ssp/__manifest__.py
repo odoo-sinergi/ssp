@@ -24,7 +24,6 @@
         'stock',
         'account',
         'sale',
-        'purchase',
     ],
 
     # always loaded

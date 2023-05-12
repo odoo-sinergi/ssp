@@ -106,8 +106,7 @@
                         <div class="col-3" align="left">
                             : <span t-field="doc.client_order_ref"/><br/>
                             : <span t-field="doc.force_date"/><br/>
-                            <!-- : <span t-field="doc.name"/><br/> -->
-                            : <span t-field="doc.x_studio_no_do"/><br/>
+                            : <span t-field="doc.name"/><br/>
                             : <span>-</span><br/>
                             : <span t-field="doc.origin"/><br/>
                             : <span>SALES</span><br/>

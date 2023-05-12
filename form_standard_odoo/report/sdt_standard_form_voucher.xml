@@ -187,25 +187,6 @@
                             </table>
                         </div>
                     </div>
-                    <br/>
-                    <table>
-                        <tr>
-                            <th>COA</th>
-                            <th>Description</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
-                            <th>Remark</th>
-                        </tr>
-                        <p t-foreach="request.env['account.move'].search([('ref', '=', doc.ref)])" t-as="a">
-                        <tr t-foreach="a.line_ids" t-as="line">
-                            <td><span t-field="line.account_id.code"/></td>
-                            <td><span t-field="line.account_id.name"/></td>
-                            <td><span t-field="line.debit"/></td>
-                            <td><span t-field="line.credit"/></td>
-                            <td><span t-field="line.name"/></td>
-                        </tr>
-                        </p>
-                    </table>
                 </div>
             </t>
         </template>
