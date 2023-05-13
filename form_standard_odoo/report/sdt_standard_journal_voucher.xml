@@ -1,0 +1,153 @@
+<odoo>
+    <data>
+        <report id="report_standard_journal_voucher_menu"
+                string="SDT Standard - Journal Voucher"
+                model="account.move"
+                report_type="qweb-pdf"
+                file="account.move"
+                name="form_standard_odoo.standard_journal_voucher_report"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+                print_report_name="'SDT Standard - Journal Voucher - %s' % (object.name)">
+        </report>
+        <template id="standard_journal_voucher_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="form_standard_odoo.standard_journal_voucher_document"></t>
+                </t>
+            </t>
+        </template>
+
+        <template id="standard_journal_voucher_document">
+            <t t-call="web.external_layout">
+                <div name="address" class="col-xs-5 col-xs-offset-7"/>
+                <div style="font-Size:12px;" class="page">
+                    <style type="text/css">
+                      tr, td
+                        {
+                           padding: 5px;
+                           padding-left: 5px;
+                           padding-right: 5px;
+                        }
+                    </style>
+                    <style type="text/css">
+                      th
+                        {
+                           padding: 5px;
+                           padding-left: 5px;
+                           padding-right: 5px;
+                           color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                      table
+                        {
+                           width: 100%;
+                           margin-top: 5px;
+                           margin-bottom: 5px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-2" align="left">
+                            <img t-att-src="'/form_standard_odoo/static/description/logo.png'" style="width:120px;height:120px" /><br/>
+                        </div>
+                        <div class="col-8" align="center" style="font-Size:15px;">
+                            <span align="center">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <strong>JOURNAL VOUCHER</strong>
+                            </span>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-1" align="left">
+                            <span><i>Ref. Number</i></span><br/>
+                            <span><i>Inv. Id</i></span><br/>
+                            <span><i>Po. Number</i></span>
+                        </div>
+                        <div class="col-5" align="left">
+                            : <span t-field="doc.name"/><br/>
+                            : <span t-field="doc.ref"/><br/>
+                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.ref" /></span>
+                        </div>
+                        <div class="col-1" align="left">
+                            <span><i>Inv. Date</i></span><br/>
+                            <span><i>Company</i></span><br/>
+                            <span><i>Tax Id</i></span>
+                        </div>
+                        <div class="col-5" align="left">
+                            : <span t-field="doc.date"/><br/>
+                            : <span t-field="doc.commercial_partner_id.name"/><br/>
+                            : <span t-field="doc.commercial_partner_id.vat"/>
+                            <!-- : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.name" /></span><br/>
+                            : <span t-foreach="request.env['account.move'].search([('name', '=', doc.ref)])" t-as="a"><span t-field="a.partner_id.vat" /></span> -->
+                        </div>
+                    </div>
+                    <br/>
+                    <table>
+                        <tr>
+                            <th>No.</th>
+                            <th>COA</th>
+                            <th>Description</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
+                            <th>Remark</th>
+                        </tr>
+                        <t t-set="LineNum" t-value="1"/>
+                        <t t-set="debit" t-value="0"/>
+                        <t t-set="credit" t-value="0"/>
+                        <tr t-foreach="doc.line_ids" t-as="line">
+                            <td class="text-center"><span t-esc="LineNum"/></td>
+                            <td><span t-field="line.account_id.code"/></td>
+                            <td><span t-field="line.account_id.name"/></td>
+                            <td class="text-end"><span t-field="line.debit"/></td>
+                            <td class="text-end"><span t-field="line.credit"/></td>
+                            <td><span t-field="line.name"/></td>
+                            <t t-set="LineNum" t-value="LineNum+1"/>
+                            <t t-set="debit" t-value="debit + line.debit"/>
+                            <t t-set="credit" t-value="credit + line.credit"/>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><Strong>Total</Strong></td>
+                            <td class="text-end"> <span t-field="line.currency_id.symbol"/> <span t-esc="debit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/></td>
+                            <td class="text-end"> <span t-field="line.currency_id.symbol"/> <span t-esc="credit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-4" align="center">
+                            <span><strong>Input By</strong></span>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span>__________________________________________________</span>
+                        </div>
+                        <div class="col-4" align="center">
+                        </div>
+                        <div class="col-4" align="center">
+                            <span><strong>Verified By</strong></span>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span>__________________________________________________</span>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
