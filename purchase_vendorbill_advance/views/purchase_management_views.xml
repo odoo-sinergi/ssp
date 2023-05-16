@@ -19,7 +19,7 @@
             >
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//button[@name='action_create_invoice']" position="before">
+            <!-- <xpath expr="//button[@name='action_create_invoice']" position="before">
                 <button
                     name="%(purchase_vendorbill_advance.action_view_purchase_advance_payment_inv)d"
                     string="Create Vendor Bill"
@@ -27,8 +27,8 @@
                     class="btn-primary"
                     attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}"
                 />
-            </xpath>
-            <xpath expr="//button[@name='action_create_invoice']" position="before">
+            </xpath> -->
+            <!-- <xpath expr="//button[@name='action_create_invoice']" position="before">
                 <button
                     name="%(purchase_vendorbill_advance.action_view_purchase_advance_payment_inv)d"
                     string="Create Vendor Bill"
@@ -36,7 +36,7 @@
                     context="{'default_advance_payment_method': 'percentage'}"
                     attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced'))]}"
                 />
-            </xpath>
+            </xpath> -->
             <xpath
                 expr="//field[@name='order_line']/tree/field[@name='product_id']"
                 position="after"
