@@ -24,7 +24,7 @@
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">120</field>
-            <field name="margin_bottom">100</field>
+            <field name="margin_bottom">20</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False" />
@@ -54,18 +54,20 @@
         <template id="sdt_header_internal_layout_po" inherit_id="web.internal_layout" primary="True">
             <xpath expr="//div[@class='header']" position="replace">
                 <div class="header" style="font-Size:12px;font-family: 'Aller', sans-serif; ">
-                   <div class="row">
+                    <div class="row">
                         <div class="col-9" align="right">
-                            <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:500px;height:100px" />
+                            <img t-att-src="'/form_standard_odoo/static/description/header.png'"
+                                style="width:500px;height:100px" />
                         </div>
                         <div class="col-3" align="right">
                             <span>No. Doc : FPUR-006</span>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <span align="center">
                         <p style="border-top: 1px solid">
-                            JL. PERMATA RAYA LOT E-1 KIIC RT 00 RW 00, SUKALUYU TELUKJAMBE TIMUR KARAWANG JAWA BARAT
+                            JL. PERMATA RAYA LOT E-1 KIIC RT 00 RW 00, SUKALUYU TELUKJAMBE TIMUR
+                            KARAWANG JAWA BARAT
                         </p>
                     </span>
                     <span align="center">
@@ -73,41 +75,58 @@
                             Telp: +6221-8911-2100 (Hunting) Fax. +6267-8637-292
                         </p>
                     </span>
-                    <span><strong>Purchase Order No : <span t-field="doc.name"/></strong></span>
-                    <br/>
+                    <span>
+                        <strong>Purchase Order No : <span t-field="doc.name" /></strong>
+                    </span>
+                    <br />
                     <div class="row">
                         <div class="col-6">
                             <table class="table">
                                 <tr>
                                     <td style="border-top: 1px solid; border-left: 1px solid;">To</td>
                                     <td style="border-top: 1px solid">:</td>
-                                    <td style="border-top: 1px solid"><span t-field="doc.partner_id.name"/></td>
+                                    <td style="border-top: 1px solid">
+                                        <span t-field="doc.partner_id.name" />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="border-left: 1px solid;">Attn</td>
                                     <td>:</td>
-                                    <td><span>-</span></td>
+                                    <td>
+                                        <span>-</span>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <td style="border-left: 1px solid;">Telp</td>
                                     <td>:</td>
-                                    <td><span t-field="doc.partner_id.phone"/></td>
+                                    <td>
+                                        <span t-field="doc.partner_id.phone" />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="border-left: 1px solid;"><span>Fax</span></td>
+                                    <td style="border-left: 1px solid;">
+                                        <span>Fax</span>
+                                    </td>
                                     <td>:</td>
-                                    <td><span t-field="doc.partner_id.x_studio_fax"/></td>
+                                    <td>
+                                        <span t-field="doc.partner_id.x_studio_fax" />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="border-left: 1px solid;">From</td>
                                     <td>:</td>
-                                    <td><span>Purchasing</span></td>
+                                    <td>
+                                        <span>Purchasing</span>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="border-left: 1px solid; border-bottom: 1px solid;">Send Date</td>
+                                    <td style="border-left: 1px solid; border-bottom: 1px solid;">Send
+                                        Date</td>
                                     <td style="border-bottom: 1px solid;">:</td>
-                                    <td style="border-bottom: 1px solid;"><span t-field="doc.date_order"/></td>
+                                    <td style="border-bottom: 1px solid;">
+                                        <span t-field="doc.date_order" />
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -116,92 +135,137 @@
                                 <tr>
                                     <td style="border-top: 1px solid">Place of Delivery</td>
                                     <td style="border-top: 1px solid">:</td>
-                                    <td style="border-top: 1px solid; border-right: 1px solid;"><span>PT. Shin Sam Plus Industry</span></td>
+                                    <td style="border-top: 1px solid; border-right: 1px solid;">
+                                        <span>PT. Shin Sam Plus
+                                            Industry</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Terms of Payment</td>
                                     <td>:</td>
                                     <td style="border-right: 1px solid;">
-                                        <span t-field="doc.payment_term_id.name"/>
+                                        <span t-field="doc.payment_term_id.name" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Currency</td>
                                     <td>:</td>
-                                    <td style="border-right: 1px solid;"><span t-field="doc.currency_id.name"/></td>
+                                    <td style="border-right: 1px solid;">
+                                        <span t-field="doc.currency_id.name" />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td><span>Your Reff</span></td>
+                                    <td>
+                                        <span>Your Reff</span>
+                                    </td>
                                     <td>:</td>
-                                    <td style="border-right: 1px solid;"><span t-field="doc.partner_ref"/></td>
+                                    <td style="border-right: 1px solid;">
+                                        <span t-field="doc.partner_ref" />
+                                    </td>
                                 </tr>
-                                <tr>
+                                <tr t-if="doc.origin">
                                     <td>PR. No</td>
                                     <td>:</td>
                                     <td style="border-right: 1px solid;"><span t-field="doc.origin"/></td>
                                 </tr>
+                                <tr t-if="not doc.origin">
+                                    <td>PR. No</td>
+                                    <td>:</td>
+                                    <td style="border-right: 1px solid;"><span>-</span></td>
+                                </tr>
                                 <tr>
                                     <td style="border-bottom: 1px solid;">Due Date</td>
                                     <td style="border-bottom: 1px solid;">:</td>
-                                    <td style="border-bottom: 1px solid;border-right: 1px solid;"><span t-field="doc.date_planned"/></td>
+                                    <td style="border-bottom: 1px solid;border-right: 1px solid;">
+                                        <span
+                                            t-field="doc.date_planned" />
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="footer" style="font-Size:12px;font-family: 'Aller', sans-serif; ">
-                    <!-- <div class="row" style="page-break-inside: avoid;"> -->
+                <!-- <div class="footer" style="font-Size:12px;font-family: 'Aller', sans-serif; ">
                     <div class="row">
                         <div class="col-6">
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <span>1. Pengiriman barang harus sesuai dengan syarat, harga dan metode pembayaran  syarat sesuai dengan spesifikasi yang diminta <strong>PT. Shin Sam Plus Industry</strong></span><br/><br/>
-                            <span>2. Memberitahu kami segera setelah menerima  <strong>Purchase Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong> yang kami  terbitkan</span><br/><br/>
-                            <span>3. Untuk semua korespondensi harap di alamatkan ke bagian Pembelian dengan alamat email: purchasing@samplusind.com</span>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <span>1. Pengiriman barang harus sesuai dengan syarat, harga dan metode
+                                pembayaran syarat sesuai dengan spesifikasi yang diminta <strong>PT.
+                                Shin Sam Plus Industry</strong></span>
+                            <br />
+                            <br />
+                            <span>2. Memberitahu kami segera setelah menerima  <strong>Purchase
+                                Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong>
+                                yang kami terbitkan</span>
+                            <br />
+                            <br />
+                            <span>3. Untuk semua korespondensi harap di alamatkan ke bagian
+                                Pembelian dengan alamat email:
+                                purchasing@samplusind.com</span>
                         </div>
                         <div class="col-6">
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
                             <table class="table" width="100%">
                                 <tr>
-                                    <td width="60%"><strong>Total</strong></td>
-                                    <td><span t-field="doc.amount_untaxed"/></td>
+                                    <td width="60%">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_untaxed" />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Ppn</strong></td>
-                                    <td><span t-field="doc.amount_tax"/></td>
+                                    <td>
+                                        <strong>Ppn</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_tax" />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Grand Total</strong></td>
-                                    <td><span t-field="doc.amount_total"/></td>
+                                    <td>
+                                        <strong>Grand Total</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_total" />
+                                    </td>
                                 </tr>
                             </table>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <span align="right">                                                          <u>                                                                    </u></span>
-                            <br/>
-                            <span>                                                          Authorized by :</span>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <span>                                                          <strong>Ign. Dadio Pranoto</strong></span>
-                            <br/>
-                            <br/>
-                            <span>Confirmed by Supplier, .....................................................</span>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <span
+                                align="right">
+                                                                                          <u>
+                                                                                                    </u></span>
+                            <br />
+                            <span>                                                          Authorized
+                                by :</span>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <span>                                                          <strong>Ign.
+                                Dadio
+                                    Pranoto</strong></span>
+                            <br />
+                            <br />
+                            <span>Confirmed by Supplier,
+                                .....................................................</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
         </template>
 
@@ -209,7 +273,7 @@
         <template id="purchase_order_report_document">
             <t t-call="form_standard_odoo.sdt_header_internal_layout_po">
                 <div name="address" class="col-5 col-offset-7" />
-                <div style="font-Size:12px;font-family: 'Aller', sans-serif; " class="page" >
+                <div style="font-Size:12px;font-family: 'Aller', sans-serif; " class="page">
                     <style type="text/css">
                         tr, td
                         {
@@ -240,7 +304,8 @@
                         <thead>
                             <tr style="border: 1px solid">
                                 <th width="2%" style="border-top: 1px solid">No.</th>
-                                <th width="40%" style="border-top: 1px solid">Descriptions of Goods/ Services</th>
+                                <th width="40%" style="border-top: 1px solid">Descriptions of Goods/
+                                    Services</th>
                                 <th width="10%" style="border-top: 1px solid">QTY</th>
                                 <th width="13%" style="border-top: 1px solid">Unit</th>
                                 <th width="15%" style="border-top: 1px solid">Unit Price</th>
@@ -248,19 +313,126 @@
                             </tr>
                         </thead>
                         <tbody class="lines_tbody">
-                            <t t-set="LineNum" t-value="1"/>
+                            <t t-set="LineNum" t-value="1" />
                             <tr style="border: 1px solid" t-foreach="doc.order_line" t-as="line">
-                                <td class="text-center"><span><t t-esc="LineNum"/></span></td>
-                                <td><span t-field="line.name"/></td>
-                                <td class="text-right"><span t-field="line.product_qty"/></td>
-                                <td><span t-field="line.product_uom"/></td>
-                                <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
-                                <td align ="right"><span t-field="line.price_subtotal"/></td>
-                                <t t-set="LineNum" t-value="LineNum+1"/>
+                                <td class="text-center">
+                                    <span>
+                                        <t t-esc="LineNum" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <span t-field="line.name" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="line.product_qty" />
+                                </td>
+                                <td>
+                                    <span t-field="line.product_uom" />
+                                </td>
+                                <td align="right">
+                                    <span t-field="line.currency_id.symbol" /> <span t-field="line.price_unit" />
+                                </td>
+                                <td align="right">
+                                    <span t-field="line.price_subtotal" />
+                                </td>
+                                <t t-set="LineNum" t-value="LineNum+1" />
+                            </tr>
+                            <tr>
+                                <td
+                                    style="border-right: 1px solid white; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black;">
+                                    <strong>Notes</strong>
+                                </td>
+                                <td
+                                    style="border-left: 1px solid white; border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black;"
+                                    colspan="5">
+                                    <span t-field="doc.notes" />
+                                </td>
+                                <!--<td
+                                style="border-right: 1px solid white; border-top: 1px solid black;
+                                border-left: 1px solid black; border-bottom: 1px solid
+                                black;"><strong>Notes</strong></td>-->
+                                <!--<td
+                                style="border-left: 1px solid white; border-top: 1px solid black;
+                                border-right: 1px solid black; border-bottom: 1px solid black;"
+                                colspan="5"><spant-field="doc.notes"/></td>-->
                             </tr>
                         </tbody>
                     </table>
-                    
+                    <div class="row" style="page-break-inside: avoid;">
+                        <!-- <div class="row"> -->
+                        <div class="col-6">
+                            <br />
+                            <br />
+                            <span>1. Pengiriman barang harus sesuai dengan syarat, harga dan metode
+                                pembayaran syarat sesuai dengan spesifikasi yang diminta <strong>PT.
+                                Shin Sam Plus Industry</strong></span>
+                            <br />
+                            <br />
+                            <span>2. Memberitahu kami segera setelah menerima  <strong>Purchase
+                                    Order</strong> jika anda tidak dapat memenuhi <strong>Purchase
+                                Order</strong> yang kami terbitkan</span>
+                            <br />
+                            <br />
+                            <span>3. Untuk semua korespondensi harap di alamatkan ke bagian
+                                Pembelian dengan alamat email: purchasing@samplusind.com</span>
+                        </div>
+                        <div class="col-6">
+                            <br />
+                            <br />
+                            <table class="table" width="100%">
+                                <tr>
+                                    <td width="60%">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_untaxed" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Ppn</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_tax" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Grand Total</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_total" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <span align="right">
+                                                                                          <u>
+                                                                                                    </u></span>
+                            <br />
+                            <span>                                                          Authorized
+                                by :</span>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <span>                                                          <strong>Ign.
+                                Dadio Pranoto</strong></span>
+                            <br />
+                            <br />
+                            <span>Confirmed by Supplier,
+                                .....................................................</span>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+
                 </div>
             </t>
         </template>
