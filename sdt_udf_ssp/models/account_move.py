@@ -286,7 +286,7 @@ class AccountMove(models.Model):
                 for stock_move in stock_picking_tt_id.move_ids_without_package :
                     move_id.append(stock_move.id )
                     if stock_move.product_id.categ_id.property_valuation == 'real_time':
-                        account = stock_move.product_id.categ_id.property_stock_account_output_categ_id.id
+                        account = stock_move.product_id.categ_id.property_account_income_categ_id.id
                     else:
                         account = account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
                     # account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
