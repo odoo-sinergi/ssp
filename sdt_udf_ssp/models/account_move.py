@@ -11,6 +11,7 @@ class AccountMove(models.Model):
     # picking_tt_ids = fields.Many2many(string='Stock Picking DO',comodel_name='stock.picking', relation='account_move_stock_picking_tt',column1='move_id',column2='Picking_tt_id',)
     # fields fix
     stock_picking_tt_ids = fields.Many2many(string='DO',comodel_name='stock.picking', relation='account_picking_tt_rel',column1='move_id',column2='picking_id',)
+    stock_picking_po_ids = fields.Many2many(string='RO',comodel_name='stock.picking', relation='account_picking_po_rel',column1='move_id',column2='picking_id',)
     # picking_tt = fields.Boolean(string='Picking DO',)
     sale_id = fields.Many2one(comodel_name='sale.order',string='Sales Order',store=True)
     sale_procurement_group_id = fields.Many2one(comodel_name='procurement.group',string='Sale Procurement Group', related='sale_id.procurement_group_id',readonly=True, store=True)
@@ -23,19 +24,32 @@ class AccountMove(models.Model):
         self.create_invoice_line()
     
     def unlink_invoice_number_picking (self):
-        for stock_picking_tt_id in self.stock_picking_tt_ids :
-            if stock_picking_tt_id :
-                stock_picking_tt_id.invoice_id = False
-        self.invoice_line_ids.sudo().unlink()
-        self.stock_picking_tt_ids = False
+        if self.sale_id :
+            for stock_picking_tt_id in self.stock_picking_tt_ids :
+                if stock_picking_tt_id :
+                    stock_picking_tt_id.invoice_id = False
+            self.invoice_line_ids.sudo().unlink()
+            self.stock_picking_tt_ids = False
+
+        if self.po_id :
+            for stock_picking_po_id in self.stock_picking_po_ids :
+                if stock_picking_po_id :
+                    stock_picking_po_id.invoice_id = False
+            self.invoice_line_ids.sudo().unlink()
+            self.stock_picking_po_ids = False
         
     
     def action_post(self):
         res = super().action_post()
         for data in self:
-            for stock_picking_tt_id in data.stock_picking_tt_ids :
-                if stock_picking_tt_id :
-                    stock_picking_tt_id.invoice_id = data.id
+            if self.sale_id :
+                for stock_picking_tt_id in data.stock_picking_tt_ids :
+                    if stock_picking_tt_id :
+                        stock_picking_tt_id.invoice_id = data.id
+            if self.po_id :
+                for stock_picking_po_id in data.stock_picking_po_ids :
+                    if stock_picking_po_id :
+                        stock_picking_po_id.invoice_id = data.id
         return res
 
     # @api.onchange('stock_picking_tt_ids')
@@ -271,7 +285,11 @@ class AccountMove(models.Model):
             for stock_picking_tt_id in self.stock_picking_tt_ids :
                 for stock_move in stock_picking_tt_id.move_ids_without_package :
                     move_id.append(stock_move.id )
-                    account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
+                    if stock_move.product_id.categ_id.property_valuation == 'real_time':
+                        account = stock_move.product_id.categ_id.property_account_income_categ_id.id
+                    else:
+                        account = account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
+                    # account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
                     so_line = stock_move.sale_line_id
                     semua_data_invoice.append((0,0,{
                         "name": so_line.name,
@@ -342,6 +360,7 @@ class AccountMove(models.Model):
                                 pk[2]['quantity'] = qty_var
                                 
             self.invoice_line_ids = pack
+            # SO
             for stock_picking_tt_id in self.stock_picking_tt_ids :
                 if stock_picking_tt_id :
                     stock_picking_tt_id.invoice_id = self.id
@@ -351,9 +370,11 @@ class AccountMove(models.Model):
             aml_obj = self.env["account.move.line"]
             move_id = []
             semua_data_invoice = []
-            for stock_picking_tt_id in self.stock_picking_tt_ids :
+            for stock_picking_tt_id in self.stock_picking_po_ids :
                 for stock_move in stock_picking_tt_id.move_ids_without_package :
                     move_id.append(stock_move.id )
+
+                    # account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
                     if stock_move.product_id.categ_id.property_valuation == 'real_time':
                         account = stock_move.product_id.categ_id.property_stock_account_input_categ_id.id
                     else:
@@ -433,8 +454,10 @@ class AccountMove(models.Model):
                                 
             self.invoice_line_ids = pack
             self.invoice_date = datetime.today().strftime('%Y-%m-%d')
-            for stock_picking_tt_id in self.stock_picking_tt_ids :
-                if stock_picking_tt_id :
-                    stock_picking_tt_id.invoice_id = self.id
+            # PO
+            for stock_picking_po_id in self.stock_picking_po_ids :
+                if stock_picking_po_id :
+                    stock_picking_po_id.invoice_id = self.id
             x = 1
+    
     
