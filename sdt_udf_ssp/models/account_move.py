@@ -288,8 +288,8 @@ class AccountMove(models.Model):
                     if stock_move.product_id.categ_id.property_valuation == 'real_time':
                         account = stock_move.product_id.categ_id.property_stock_account_output_categ_id.id
                     else:
-                        account = stock_move.product_id.property_account_income_id.id
-                    # account = stock_move.product_id.property_account_income_id.id
+                        account = account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
+                    # account = stock_move.product_id.property_account_income_id.id or stock_move.product_id.categ_id.property_account_income_categ_id.id
                     so_line = stock_move.sale_line_id
                     semua_data_invoice.append((0,0,{
                         "name": so_line.name,
