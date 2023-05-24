@@ -398,7 +398,10 @@ class AccountMove(models.Model):
                 stock_move_2 = self.env['stock.move'].search([('origin_returned_move_id', 'in', tuple(move_id))])
                 if stock_move_2 :
                     for sm2 in stock_move_2 :
-                        account_2 = sm2.product_id.property_account_income_id.id or sm2.product_id.categ_id.property_account_income_categ_id.id
+                        if sm2.product_id.categ_id.property_valuation == 'real_time':
+                            account_2 = sm2.product_id.categ_id.property_stock_account_input_categ_id.id
+                        else:
+                            account_2 = sm2.product_id.categ_id.property_account_expense_categ_id.id
                         po_line_2 = sm2.purchase_line_id
                         semua_data_invoice.append((0,0,{
                             "name": po_line_2.name,
