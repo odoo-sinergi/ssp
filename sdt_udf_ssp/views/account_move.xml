@@ -9,33 +9,43 @@
                     <field name="picking_tt"/>
                 </xpath> -->
         <xpath expr="//field[@name='l10n_id_replace_invoice_id']" position="after">
-          <field name="sale_id" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
+          <field name="sale_id"
+            attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
             domain="[('partner_id','=',partner_id),('state','=','sale')]" />
           <field name="po_id"
             attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}"
             domain="[('partner_id','=',partner_id),('state','=','purchase')]" />
           <field name="sale_procurement_group_id" invisible="1" />
           <field name="purchase_procurement_group_id" invisible="1" />
+          <field name="is_generate" readonly="1" invisible="1" />
         </xpath>
         <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
           <!-- DO -->
-          <page string="Delivery Order" name="delivery_order" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}">
+          <page string="Delivery Order" name="delivery_order"
+            attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}">
             <group name="stock_picking_tt_ids">
-              <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" />
+              <!-- <field name="stock_picking_tt_ids" force_save="1"
+                attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" /> -->
+              <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 1)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" />
             </group>
           </page>
           <!-- Received -->
-          <page string="Received Order" name="received_order" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}">
+          <page string="Received Order" name="received_order"
+            attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}">
             <group name="stock_picking_po_ids">
-              <field name="stock_picking_po_ids" force_save="1" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]" />
+              <!-- <field name="stock_picking_po_ids" force_save="1"
+                attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]" /> -->
+                <field name="stock_picking_po_ids" force_save="1" attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 2)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]"/>
             </group>
           </page>
         </xpath>
         <xpath expr="//button[@name='action_post']" position="before">
           <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data"
-            attrs="{'invisible': [('state', '!=', 'draft')]}" />
+            attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')]}" />
           <button name="unlink_invoice_number_picking" class="oe_highlight" type="object"
-            string="Remove Data DO" attrs="{'invisible': [('state', '!=', 'draft')]}" />
+            string="Remove Data DO" attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_generate', '=', 'n')]}" />
         </xpath>
 
         <xpath expr="//field[@name='stock_picking_tt_ids']" position="inside">
