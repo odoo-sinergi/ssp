@@ -30,7 +30,7 @@ class StockMove(models.Model):
 				# if move.production_id:
 				# 	force_date = move.production_id.mrp_date
 
-		res = super(StockMove, self)._action_done(cancel_backorder=cancel_backorder)
+		res = super()._action_done(cancel_backorder=cancel_backorder)
 
 		if self.env.user.has_group('stock_force_date_app.group_stock_force_date'):
 			if force_date:
@@ -41,7 +41,7 @@ class StockMove(models.Model):
 				local_date = pytz.utc.localize(force_date).astimezone(local)
 				user_date = local_date.replace(tzinfo=None)
 
-				for move in res:
+				for move in self:
 					move.write({'date':force_date})
 					if move.move_line_ids:
 						for move_line in move.move_line_ids:
