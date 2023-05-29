@@ -463,6 +463,22 @@ class AccountMove(models.Model):
                     stock_picking_po_id.invoice_id = self.id
             x = 1
         self.is_generate = 'y'
+<<<<<<< HEAD
+=======
+
+    
+    @api.depends('line_ids','invoice_line_ids')  
+    def _compute_total_pph(self):
+        for i in self :
+            total_pph = 0.0
+            for line in i.line_ids:
+                if line.account_id.code == '155.200' :
+                    total_pph = line.debit
+
+            i.update({
+                'total_pph' : total_pph
+              })
+>>>>>>> c7ebc22c673afc64ab9e3006aa2f4af74314ee1f
     
     
     @api.depends('line_ids','invoice_line_ids')  
