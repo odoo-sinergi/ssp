@@ -7,4 +7,4 @@ from . import stock_picking
 from . import stock_scrap
 from . import stock_landed_cost
 from . import stock_valuation_layer_revaluation
-from . import account_move
+# from . import account_move
