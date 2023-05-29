@@ -133,7 +133,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Pph</strong></td>
-                                    <td></td>
+                                    <td><span t-field="doc.total_pph"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Ppn</strong></td>

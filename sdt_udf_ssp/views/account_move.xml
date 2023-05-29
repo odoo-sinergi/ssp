@@ -98,6 +98,9 @@
               attrs="{'invisible': [('json_popover', '=', False)]}" />
           </tree>
         </xpath>
+        <xpath expr="//field[@name='tax_totals']" position="before">
+          <field name="total_pph" force_save="1" invisible="1" readonly="1"/>
+        </xpath>
       </field>
     </record>
   </data>
