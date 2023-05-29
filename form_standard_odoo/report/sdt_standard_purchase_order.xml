@@ -17,14 +17,14 @@
         </record>
 
         <record id="paperformat_sdt_standard_form_2" model="report.paperformat">
-            <field name="name">SDT Standard Form 2</field>
+            <field name="name">SDT Standard Form PO</field>
             <field name="default" eval="True" />
             <field name="format">A4</field>
             <field name="page_height">0</field>
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">120</field>
-            <field name="margin_bottom">20</field>
+            <field name="margin_bottom">90</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False" />
@@ -140,11 +140,18 @@
                                             Industry</span>
                                     </td>
                                 </tr>
-                                <tr>
+                               <tr t-if="doc.payment_term_id">
                                     <td>Terms of Payment</td>
                                     <td>:</td>
                                     <td style="border-right: 1px solid;">
                                         <span t-field="doc.payment_term_id.name" />
+                                    </td>
+                                </tr>
+                                <tr t-if="not doc.payment_term_id">
+                                    <td>Terms of Payment</td>
+                                    <td>:</td>
+                                    <td style="border-right: 1px solid;">
+                                        <span>-</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -185,11 +192,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="footer" style="font-Size:12px;font-family: 'Aller', sans-serif; ">
-                    <div class="row">
+
+                <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
+                    <div class="row" style="page-break-inside: avoid;">
                         <div class="col-6">
-                            <br />
-                            <br />
                             <br />
                             <br />
                             <span>1. Pengiriman barang harus sesuai dengan syarat, harga dan metode
@@ -198,17 +204,14 @@
                             <br />
                             <br />
                             <span>2. Memberitahu kami segera setelah menerima  <strong>Purchase
-                                Order</strong> jika anda tidak dapat memenuhi <strong>Purchase Order</strong>
-                                yang kami terbitkan</span>
+                                    Order</strong> jika anda tidak dapat memenuhi <strong>Purchase
+                                Order</strong> yang kami terbitkan</span>
                             <br />
                             <br />
                             <span>3. Untuk semua korespondensi harap di alamatkan ke bagian
-                                Pembelian dengan alamat email:
-                                purchasing@samplusind.com</span>
+                                Pembelian dengan alamat email: purchasing@samplusind.com</span>
                         </div>
                         <div class="col-6">
-                            <br />
-                            <br />
                             <br />
                             <br />
                             <table class="table" width="100%">
@@ -242,8 +245,7 @@
                             <br />
                             <br />
                             <br />
-                            <span
-                                align="right">
+                            <span align="right">
                                                                                           <u>
                                                                                                     </u></span>
                             <br />
@@ -257,15 +259,14 @@
                             <br />
                             <br />
                             <span>                                                          <strong>Ign.
-                                Dadio
-                                    Pranoto</strong></span>
+                                Dadio Pranoto</strong></span>
                             <br />
                             <br />
                             <span>Confirmed by Supplier,
                                 .....................................................</span>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </xpath>
         </template>
 
@@ -347,92 +348,10 @@
                                     colspan="5">
                                     <span t-field="doc.notes" />
                                 </td>
-                                <!--<td
-                                style="border-right: 1px solid white; border-top: 1px solid black;
-                                border-left: 1px solid black; border-bottom: 1px solid
-                                black;"><strong>Notes</strong></td>-->
-                                <!--<td
-                                style="border-left: 1px solid white; border-top: 1px solid black;
-                                border-right: 1px solid black; border-bottom: 1px solid black;"
-                                colspan="5"><spant-field="doc.notes"/></td>-->
                             </tr>
                         </tbody>
                     </table>
-                    <div class="row" style="page-break-inside: avoid;">
-                        <!-- <div class="row"> -->
-                        <div class="col-6">
-                            <br />
-                            <br />
-                            <span>1. Pengiriman barang harus sesuai dengan syarat, harga dan metode
-                                pembayaran syarat sesuai dengan spesifikasi yang diminta <strong>PT.
-                                Shin Sam Plus Industry</strong></span>
-                            <br />
-                            <br />
-                            <span>2. Memberitahu kami segera setelah menerima  <strong>Purchase
-                                    Order</strong> jika anda tidak dapat memenuhi <strong>Purchase
-                                Order</strong> yang kami terbitkan</span>
-                            <br />
-                            <br />
-                            <span>3. Untuk semua korespondensi harap di alamatkan ke bagian
-                                Pembelian dengan alamat email: purchasing@samplusind.com</span>
-                        </div>
-                        <div class="col-6">
-                            <br />
-                            <br />
-                            <table class="table" width="100%">
-                                <tr>
-                                    <td width="60%">
-                                        <strong>Total</strong>
-                                    </td>
-                                    <td>
-                                        <span t-field="doc.amount_untaxed" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Ppn</strong>
-                                    </td>
-                                    <td>
-                                        <span t-field="doc.amount_tax" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Grand Total</strong>
-                                    </td>
-                                    <td>
-                                        <span t-field="doc.amount_total" />
-                                    </td>
-                                </tr>
-                            </table>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <span align="right">
-                                                                                          <u>
-                                                                                                    </u></span>
-                            <br />
-                            <span>                                                          Authorized
-                                by :</span>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <span>                                                          <strong>Ign.
-                                Dadio Pranoto</strong></span>
-                            <br />
-                            <br />
-                            <span>Confirmed by Supplier,
-                                .....................................................</span>
-                        </div>
-                    </div>
-                    <!-- </div> -->
-
+                    
                 </div>
             </t>
         </template>
