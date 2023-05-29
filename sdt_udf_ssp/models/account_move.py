@@ -17,6 +17,8 @@ class AccountMove(models.Model):
     sale_procurement_group_id = fields.Many2one(comodel_name='procurement.group',string='Sale Procurement Group', related='sale_id.procurement_group_id',readonly=True, store=True)
     po_id = fields.Many2one(comodel_name='purchase.order',string='Purchase Order',store=True)
     purchase_procurement_group_id = fields.Many2one(comodel_name='procurement.group',string='Purchase Procurement Group', related='po_id.group_id',readonly=True, store=True)
+    is_generate = fields.Selection(string='is_generate', selection=[('y', 'Y'), ('n', 'N')], default='n')
+    total_pph = fields.Float(string='Total PPH',compute='_compute_total_pph')
    
 
     def unlink_move_line (self):
@@ -37,6 +39,7 @@ class AccountMove(models.Model):
                     stock_picking_po_id.invoice_id = False
             self.invoice_line_ids.sudo().unlink()
             self.stock_picking_po_ids = False
+        self.is_generate = 'n'
         
     
     def action_post(self):
@@ -459,5 +462,17 @@ class AccountMove(models.Model):
                 if stock_picking_po_id :
                     stock_picking_po_id.invoice_id = self.id
             x = 1
+        self.is_generate = 'y'
     
     
+    @api.depends('line_ids','invoice_line_ids')  
+    def _compute_total_pph(self):
+        for i in self :
+            total_pph = 0.0
+            for line in i.line_ids:
+                if line.account_id.code == '155.200' :
+                    total_pph = line.debit
+
+            i.update({
+                'total_pph' : total_pph
+              })
