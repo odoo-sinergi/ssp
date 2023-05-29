@@ -24,11 +24,9 @@
           <page string="Delivery Order" name="delivery_order"
             attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}">
             <group name="stock_picking_tt_ids">
-              <!-- <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': [('state',
-              '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
-              domain="[('partner_id','=',partner_id),('picking_type_code', '=',
-              'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=',
-              sale_procurement_group_id)]" /> -->
+              <!-- <field name="stock_picking_tt_ids" force_save="1"
+                attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" /> -->
               <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 1)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" />
             </group>
           </page>

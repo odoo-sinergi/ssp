@@ -463,7 +463,7 @@ class AccountMove(models.Model):
                     stock_picking_po_id.invoice_id = self.id
             x = 1
         self.is_generate = 'y'
-
+    
     
     @api.depends('line_ids','invoice_line_ids')  
     def _compute_total_pph(self):
@@ -476,5 +476,3 @@ class AccountMove(models.Model):
             i.update({
                 'total_pph' : total_pph
               })
-    
-    
