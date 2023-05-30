@@ -225,7 +225,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <strong>Ppn</strong>
+                                        <strong>Taxes</strong>
                                     </td>
                                     <td>
                                         <span t-field="doc.amount_tax" />
