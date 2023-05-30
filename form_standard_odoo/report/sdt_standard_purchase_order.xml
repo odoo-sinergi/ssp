@@ -196,31 +196,49 @@
                 <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
                     <div class="row" style="page-break-inside: avoid;">
                         <div class="col-6">
-                            <br />
-                            <br />
+                            <br/>
+                            <br/>
                             <span>1. Pengiriman barang harus sesuai dengan syarat, harga dan metode
                                 pembayaran serta sesuai dengan spesifikasi yang diminta <strong>PT.
                                 Shin Sam Plus Industry</strong></span>
-                            <br />
-                            <br />
+                            <br/>
+                            <br/>
                             <span>2. Memberitahu kami segera setelah menerima  <strong>Purchase
                                     Order</strong> jika anda tidak dapat memenuhi <strong>Purchase
                                 Order</strong> yang kami terbitkan</span>
-                            <br />
-                            <br />
+                            <br/>
+                            <br/>
                             <span>3. Untuk semua korespondensi harap di alamatkan ke bagian
                                 Pembelian dengan alamat email: purchasing@samplusind.com</span>
+                                
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span>Confirmed by Supplier,
+                                .....................................................</span>
                         </div>
                         <div class="col-6">
-                            <br />
-                            <br />
+                            <br/>
+                            <br/>
                             <table class="table" width="100%">
                                 <tr>
                                     <td width="60%">
                                         <strong>Total</strong>
                                     </td>
                                     <td>
-                                        <span t-field="doc.amount_untaxed" />
+                                        <span t-field="doc.amount_untaxed"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -228,7 +246,7 @@
                                         <strong>Taxes</strong>
                                     </td>
                                     <td>
-                                        <span t-field="doc.amount_tax" />
+                                        <span t-field="doc.amount_tax"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -236,34 +254,30 @@
                                         <strong>Grand Total</strong>
                                     </td>
                                     <td>
-                                        <span t-field="doc.amount_total" />
+                                        <span t-field="doc.amount_total"/>
                                     </td>
                                 </tr>
                             </table>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                             <span align="right">
+                            <span>                                                          <b>Authorized</b>
+                                <b>by :</b></span>
+                            <br/>
                                                                                           <u>
-                                                                                                    </u></span>
-                            <br />
-                            <span>                                                          Authorized
-                                by :</span>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
+                                                                                                    </u></span>                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                             <span>                                                          <strong>Ign.
                                 Dadio Pranoto</strong></span>
-                            <br />
-                            <br />
-                            <span>Confirmed by Supplier,
-                                .....................................................</span>
+                            
                         </div>
                     </div>
                 </div>
