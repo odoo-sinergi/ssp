@@ -110,7 +110,6 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Ppn</strong></td>
-                                    <!-- <td><span t-esc="doc.amount_tax - doc.total_pph" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: line.currency_id}"/></td> -->
                                     <td><span t-field="doc.ppn" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                                 </tr>
                                 <tr>

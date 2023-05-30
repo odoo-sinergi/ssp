@@ -470,13 +470,17 @@ class AccountMove(models.Model):
     def _compute_total_pph(self):
         for i in self :
             total_pph = 0.0
-            ppn = 0.0
             for line in i.line_ids:
                 if line.account_id.code == '155.200' :
                     total_pph = line.debit
-            ppn = i.amount_tax - total_pph
 
-            i.update({
-                'total_pph' : total_pph,
-                'pph' : ppn
-              })
+            if i.amount_tax - i.total_pph > 0 :
+                i.update({
+                    'total_pph' : total_pph,
+                    'ppn' : i.amount_tax - i.total_pph
+                })
+            else :
+                i.update({
+                    'total_pph' : total_pph,
+                    'ppn' : 0.0
+                })
