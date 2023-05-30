@@ -474,7 +474,7 @@ class AccountMove(models.Model):
             for line in i.line_ids:
                 if line.account_id.code == '155.200' :
                     total_pph = line.debit
-            ppn = i.amount_tax - total_pph 
+            ppn = i.amount_tax - total_pph
 
             i.update({
                 'total_pph' : total_pph,
