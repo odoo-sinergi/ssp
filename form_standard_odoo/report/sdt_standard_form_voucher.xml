@@ -2,9 +2,9 @@
     <data>
         <report id="report_standard_form_voucher_menu"
                 string="SDT Standard - Form Voucher"
-                model="account.payment"
+                model="account.move"
                 report_type="qweb-pdf"
-                file="account.payment"
+                file="account.move"
                 name="form_standard_odoo.standard_form_voucher_report"
                 paperformat="form_standard_odoo.paperformat_sdt_standard_form"
                 print_report_name="'SDT Standard - Form Voucher - %s' % (object.name)">
@@ -91,15 +91,18 @@
                             <table class="table" width="100%" style="border: 1px solid;">
                                 <tr>
                                     <td width="50%">Prepared Date :</td>
-                                    <td width="50%"></td>
+                                    <!-- <td width="50%"></td> -->
+                                    <td width="50%"><span t-field="doc.invoice_date"/></td>
                                 </tr>
                                 <tr>
                                     <td>Payment Date :</td>
-                                    <td><span t-field="doc.date"/></td>
+                                    <!-- <td><span t-field="doc.date"/></td> -->
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>Voucher No. :</td>
-                                    <td><span t-field="doc.name"/></td>
+                                    <!-- <td><span t-field="doc.name"/></td> -->
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>CHQ/ BG. No. :</td>
@@ -115,18 +118,25 @@
                             <span>Amount :</span><br/>
                             <span>Inv No. :</span><br/>
                             <span>Inv Month :</span><br/>
-                            <span>Description :</span><br/>
-                            <span>Remarks :</span>
+                            <span>Description :</span>
+                            <!-- <span>Remarks :</span> -->
                         </div>
                         <div class="col-6" align="left">
-                            <!-- <span><u>                                                                                                                                                                                                        </u></span><br/> -->
+                            <span t-field="doc.partner_id.name"/><br/>
+                            <span t-field="doc.amount_residual"/><br/>
+                            <span t-field="doc.name"/><br/>
+                            <span t-esc="doc.get_day(doc.date)"/><br/>
+                            <span t-field="doc.note"/>
+                            <!-- <span><u>                                                                                                                      </u></span> -->
+                        </div>
+                        <!-- <div class="col-6" align="left">
                             <span t-field="doc.partner_id.name"/><br/>
                             <span t-field="doc.amount"/><br/>
                             <span t-field="doc.bill_id.ref"/><br/>
                             <span t-esc="doc.get_day(doc.date)"/><br/>
                             <span t-field="doc.description"/><br/>
                             <span><u>                                                                                                                      </u></span>
-                        </div>
+                        </div> -->
                         <div class="col-2">
                         </div>
                         <div class="col-2">

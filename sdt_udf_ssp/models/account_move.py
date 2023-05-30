@@ -19,6 +19,7 @@ class AccountMove(models.Model):
     purchase_procurement_group_id = fields.Many2one(comodel_name='procurement.group',string='Purchase Procurement Group', related='po_id.group_id',readonly=True, store=True)
     is_generate = fields.Selection(string='is_generate', selection=[('y', 'Y'), ('n', 'N')], default='n')
     total_pph = fields.Float(string='Total PPH',compute='_compute_total_pph')
+    ppn = fields.Float(string='PPN',compute='_compute_total_pph')
    
 
     def unlink_move_line (self):
@@ -473,6 +474,13 @@ class AccountMove(models.Model):
                 if line.account_id.code == '155.200' :
                     total_pph = line.debit
 
-            i.update({
-                'total_pph' : total_pph
-              })
+            if i.amount_tax - i.total_pph > 0 :
+                i.update({
+                    'total_pph' : total_pph,
+                    'ppn' : i.amount_tax - i.total_pph
+                })
+            else :
+                i.update({
+                    'total_pph' : total_pph,
+                    'ppn' : 0.0
+                })

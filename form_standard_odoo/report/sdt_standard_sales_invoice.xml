@@ -8,12 +8,12 @@
             <field name="page_height">0</field>
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">117</field>
+            <field name="margin_top">110</field>
             <field name="margin_bottom">100</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">110</field>
+            <field name="header_spacing">100</field>
             <field name="dpi">80</field>
         </record>
 
@@ -110,7 +110,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Ppn</strong></td>
-                                    <td><span t-field="doc.amount_tax"/></td>
+                                    <td><span t-field="doc.ppn" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Grand Total</strong></td>
@@ -187,7 +187,6 @@
                            margin-bottom: 10px;
                         }
                     </style>
-                    <br/>
                     <table class="table" width="100%" style="border: 1px solid">
                         <tr>
                             <th width="2%">No</th>
