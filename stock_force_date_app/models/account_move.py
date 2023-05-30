@@ -52,6 +52,8 @@ class AccountMove(models.Model):
                 # Retrieve accounts needed to generate the price difference.
                 debit_pdiff_account = line.product_id.property_account_creditor_price_difference \
                                 or line.product_id.categ_id.property_account_creditor_price_difference_categ
+                # debit_pdiff_account = line.product_id.property_account_expense_id \
+                #                 or line.product_id.categ_id.property_account_expense_categ_id
                 debit_pdiff_account = move.fiscal_position_id.map_account(debit_pdiff_account)
                 if not debit_pdiff_account:
                     continue
@@ -150,12 +152,12 @@ class AccountMove(models.Model):
                         'price_unit': price_unit_val_dif,
                         'price_subtotal': line.quantity * price_unit_val_dif,
                         'account_id': debit_pdiff_account.id,
-                        'analytic_account_id': line.analytic_account_id.id,
-                        'analytic_tag_ids': [(6, 0, line.analytic_tag_ids.ids)],
-                        'exclude_from_invoice_tab': True,
-                        'is_anglo_saxon_line': True,
+                        # 'analytic_account_id': line.analytic_account_id.id,
+                        # 'analytic_tag_ids': [(6, 0, line.analytic_tag_ids.ids)],
+                        # 'exclude_from_invoice_tab': True,
+                        # 'is_anglo_saxon_line': True,
                     }
-                    vals.update(line._get_fields_onchange_subtotal(price_subtotal=vals['price_subtotal']))
+                    # vals.update(line._get_fields_onchange_subtotal(price_subtotal=vals['price_subtotal']))
                     lines_vals_list.append(vals)
 
                     # Correct the amount of the current line.
@@ -169,11 +171,11 @@ class AccountMove(models.Model):
                         'price_unit': -price_unit_val_dif,
                         'price_subtotal': line.quantity * -price_unit_val_dif,
                         'account_id': line.account_id.id,
-                        'analytic_account_id': line.analytic_account_id.id,
-                        'analytic_tag_ids': [(6, 0, line.analytic_tag_ids.ids)],
-                        'exclude_from_invoice_tab': True,
-                        'is_anglo_saxon_line': True,
+                        # 'analytic_account_id': line.analytic_account_id.id,
+                        # 'analytic_tag_ids': [(6, 0, line.analytic_tag_ids.ids)],
+                        # 'exclude_from_invoice_tab': True,
+                        # 'is_anglo_saxon_line': True,
                     }
-                    vals.update(line._get_fields_onchange_subtotal(price_subtotal=vals['price_subtotal']))
+                    # vals.update(line._get_fields_onchange_subtotal(price_subtotal=vals['price_subtotal']))
                     lines_vals_list.append(vals)
         return lines_vals_list

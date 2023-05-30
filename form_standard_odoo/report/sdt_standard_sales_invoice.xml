@@ -1,12 +1,29 @@
 <odoo>
     <data>
+
+        <record id="paperformat_sdt_standard_form_sale_invoice" model="report.paperformat">
+            <field name="name">SDT Sale Invoice Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">117</field>
+            <field name="margin_bottom">100</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">110</field>
+            <field name="dpi">80</field>
+        </record>
+
         <report id="report_standard_sales_invoice_menu"
                 string="SDT Standard - Invoices"
                 model="account.move"
                 report_type="qweb-pdf"
                 file="account.move"
                 name="form_standard_odoo.standard_sales_invoice_report"
-                paperformat="form_standard_odoo.paperformat_sdt_standard_form"
+                paperformat="form_standard_odoo.paperformat_sdt_standard_form_sale_invoice"
                 print_report_name="'SDT Standard - Invoices - %s' % (object.name)">
         </report>
         <template id="standard_sales_invoice_report">
@@ -17,35 +34,9 @@
             </t>
         </template>
 
-        <template id="standard_sales_invoice_document">
-            <t t-call="web.external_layout">
-                <div name="address" class="col-xs-5 col-xs-offset-7"/>
-                <div style="font-Size:12px;" class="page">
-                    <style type="text/css">
-                      tr, td
-                        {
-                           padding: 4px;
-                           padding-left: 7px;
-                           padding-right: 7px;
-                        }
-                    </style>
-                    <style type="text/css">
-                      th
-                        {
-                           padding: 4px;
-                           padding-left: 7px;
-                           padding-right: 7px;
-                           color: black;
-                        }
-                    </style>
-                    <style type="text/css">
-                      table
-                        {
-                           width: 100%;
-                           margin-top: 5px;
-                           margin-bottom: 10px;
-                        }
-                    </style>
+        <template id="sdt_header_internal_layout_sale_inv" inherit_id="web.internal_layout" primary="True">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
                     <div class="row">
                         <div class="col-8" align="left">
                             <img t-att-src="'/form_standard_odoo/static/description/header.png'" style="width:350px;height:80px" /><br/>
@@ -101,27 +92,9 @@
                             </td>
                         </tr>
                     </table>
-                    <br/>
-                    <table class="table" width="100%" style="border: 1px solid">
-                        <tr>
-                            <th width="2%">No</th>
-                            <th width="10">Qty</th>
-                            <th width="10">Unit</th>
-                            <th width="40">Description</th>
-                            <th width="20">Unit Price</th>
-                            <th width="18">Amount</th>
-                        </tr>
-                        <t t-set="LineNum" t-value="1"/>
-                        <tr style="border: 1px solid" t-foreach="doc.invoice_line_ids" t-as="line">
-                            <td class="text-center"><span><t t-esc="LineNum"/></span></td>
-                            <td class="text-right"><span t-field="line.quantity"/></td>
-                            <td class="text-left"><span t-field="line.product_uom_id.name"/></td>
-                            <td><span t-field="line.name"/></td>
-                            <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
-                            <td align ="right"><span t-field="line.price_subtotal"/></td>
-                            <t t-set="LineNum" t-value="LineNum+1"/>
-                        </tr>
-                    </table>
+                </div>
+
+                <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
                     <div class="row">
                         <div class="col-8">
                         </div>
@@ -133,7 +106,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Pph</strong></td>
-                                    <td><span t-field="doc.total_pph"/></td>
+                                    <td><span t-field="doc.total_pph" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Ppn</strong></td>
@@ -179,6 +152,61 @@
                                 <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
                             </th>
                         </tr>                      
+                    </table>
+                </div>
+            </xpath>
+            
+        </template>
+
+        <template id="standard_sales_invoice_document">
+            <t t-call="form_standard_odoo.sdt_header_internal_layout_sale_inv">
+                <div name="address" class="col-xs-5 col-xs-offset-7"/>
+                <div style="font-Size:11px;" class="page">
+                    <style type="text/css">
+                      tr, td
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                        }
+                    </style>
+                    <style type="text/css">
+                      th
+                        {
+                           padding: 4px;
+                           padding-left: 7px;
+                           padding-right: 7px;
+                           color: black;
+                        }
+                    </style>
+                    <style type="text/css">
+                      table
+                        {
+                           width: 100%;
+                           margin-top: 5px;
+                           margin-bottom: 10px;
+                        }
+                    </style>
+                    <br/>
+                    <table class="table" width="100%" style="border: 1px solid">
+                        <tr>
+                            <th width="2%">No</th>
+                            <th width="10">Qty</th>
+                            <th width="10">Unit</th>
+                            <th width="40">Description</th>
+                            <th width="20">Unit Price</th>
+                            <th width="18">Amount</th>
+                        </tr>
+                        <t t-set="LineNum" t-value="1"/>
+                        <tr style="border: 1px solid" t-foreach="doc.invoice_line_ids" t-as="line">
+                            <td class="text-center"><span><t t-esc="LineNum"/></span></td>
+                            <td class="text-right"><span t-field="line.quantity"/></td>
+                            <td class="text-left"><span t-field="line.product_uom_id.name"/></td>
+                            <td><span t-field="line.name"/></td>
+                            <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
+                            <td align ="right"><span t-field="line.price_subtotal"/></td>
+                            <t t-set="LineNum" t-value="LineNum+1"/>
+                        </tr>
                     </table>
                 </div>
             </t>
