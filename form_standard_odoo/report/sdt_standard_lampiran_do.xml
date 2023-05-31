@@ -87,23 +87,31 @@
                         <thead>
                             <tr>
                                 <th style="border: 1px solid" class="text-center" width="2%">No</th>
-                                <th style="border: 1px solid" class="text-center" width="20%">DO NUMBER</th>
-                                <th style="border: 1px solid" class="text-center" width="20%">DO DATE</th>
-                                <th style="border: 1px solid" class="text-center" width="18%">JITCALL NUMBER</th>
-                                <th style="border: 1px solid" class="text-center" width="20%">PO Number</th>
-                                <th style="border: 1px solid" class="text-center" width="20%">REMARK</th>
+                                <th style="border: 1px solid" class="text-center" width="10%">SO Number</th>
+                                <th style="border: 1px solid" class="text-center" width="10%">Product Code</th>
+                                <th style="border: 1px solid" class="text-center" width="30%">Product Name</th>
+                                <th style="border: 1px solid" class="text-center" width="10%">DO Number</th>
+                                <th style="border: 1px solid" class="text-center" width="10%">DO Date</th>
+                                <th style="border: 1px solid" class="text-center" width="10%">Quantity</th>
+                                <th style="border: 1px solid" class="text-center" width="3%">Unit</th>
+                                <th style="border: 1px solid" class="text-center" width="15%">Remark</th>
                             </tr>
                         </thead>
                         <tbody class="lines_tbody">
                             <t t-set="LineNum" t-value="1"/>
-                            <tr t-foreach="doc.stock_picking_tt_ids" t-as="line">
-                                <td style="border: 1px solid" class="text-center"><span><t t-esc="LineNum"/></span></td>
-                                <td style="border: 1px solid" class="text-center"><span t-field="line.name"/></td>
-                                <td style="border: 1px solid" class="text-center"><span t-field="line.force_date"/></td>
-                                <td style="border: 1px solid" class="text-center"><span t-field="line.jitcall"/></td>
-                                <td style="border: 1px solid" class="text-center"><span t-field="line.origin"/></td>
-                                <td style="border: 1px solid" class="text-center"><span t-field="line.note"/></td>
-                                <t t-set="LineNum" t-value="LineNum+1"/>
+                            <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                <tr t-foreach="line.sale_line_ids.move_ids.filtered(lambda l: l.picking_id.id in doc.stock_picking_tt_ids.ids)" t-as="move_id">
+                                    <td style="border: 1px solid" class="text-center"><span><t t-esc="LineNum"/></span></td>
+                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.picking_id.origin"/></td>
+                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.product_id.default_code"/></td>
+                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.product_id.name"/></td>
+                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.picking_id.name"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="move_id.picking_id.force_date"/></td>
+                                    <td style="border: 1px solid; text-align: right;" class="text-right"><span t-field="move_id.quantity_done"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.picking_id.note"/></td>
+                                    <t t-set="LineNum" t-value="LineNum+1"/>
+                                </tr>
                             </tr>
                         </tbody>
                     </table>
