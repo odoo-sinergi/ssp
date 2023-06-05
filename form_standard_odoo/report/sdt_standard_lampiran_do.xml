@@ -1,12 +1,28 @@
 <odoo>
     <data>
+        <record id="paperformat_sdt_lampiran_do" model="report.paperformat">
+            <field name="name">SDT Standard Lampiran Delivery Order</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">8</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
         <report id="report_standard_lampiran_do_menu"
                 string="SDT Standard - Lampiran Delivery Order"
                 model="account.move"
                 report_type="qweb-pdf"
                 file="account.move"
                 name="form_standard_odoo.standard_lampiran_do_report"
-                paperformat="form_standard_odoo.paperformat_sdt_standard_form_cash_advance"
+                paperformat="form_standard_odoo.paperformat_sdt_lampiran_do"
                 print_report_name="'SDT Standard - Invoices - %s' % (object.name)">
         </report>
         <template id="standard_lampiran_do_report">
@@ -16,9 +32,26 @@
                 </t>
             </t>
         </template>
+        <template id="internal_layout" inherit_id="web.internal_layout" primary="True">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header" style="margin-top:6pt; margin-bottom:10px;">
+                    <div class="row">
+                        
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="row">
+                       
+                    </div>
+                    <div class="text-muted" style="text-align: right; font-Size:10pt;">
+                        Hal <span class="page"/> : <span class="topage"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
 
         <template id="standard_lampiran_do_document">
-            <t t-call="web.external_layout">
+            <t t-call="form_standard_odoo.internal_layout">
                 <div name="address" class="col-xs-5 col-xs-offset-7"/>
                 <div style="font-Size:12px;" class="page">
                     <style type="text/css">
@@ -105,10 +138,10 @@
                                 <t t-set="total_line" t-value="0"/>
                                 <tr t-foreach="line.sale_line_ids.move_ids.filtered(lambda l: l.picking_id.id in doc.stock_picking_tt_ids.ids)" t-as="move_id">
                                     <t t-if="line_x == 1">
-                                        <td class="text-center"><span><t t-esc="LineNum"/></span></td>
-                                        <td class="text-left"><span t-field="move_id.picking_id.origin"/></td>
-                                        <td class="text-left"><span t-field="move_id.product_id.default_code"/></td>
-                                        <td class="text-left"><span t-field="move_id.product_id.name"/></td>
+                                        <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                                        <td class="text-left"><strong><span t-field="move_id.picking_id.origin"/></strong></td>
+                                        <td class="text-left"><strong><span t-field="move_id.product_id.default_code"/></strong></td>
+                                        <td class="text-left"><strong><span t-field="move_id.product_id.name"/></strong></td>
                                         <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
                                         <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
                                         <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options='{"widget": "float", "precision": 0}'/></td>
@@ -137,9 +170,9 @@
                                     <td class="text-left"></td>
                                     <td class="text-left"></td>
                                     <td class="text-left"></td>
-                                    <td style="text-align: right;" class="text-right">Total :</td>
-                                    <td style="text-align: right;" class="text-right"><span t-esc="total_line" t-options='{"widget": "float", "precision": 0}'/></td>
-                                    <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                    <td style="text-align: right;" class="text-right"><strong>Total :</strong></td>
+                                    <td style="text-align: right;" class="text-right"><strong><span t-esc="total_line" t-options='{"widget": "float", "precision": 0}'/></strong></td>
+                                    <td class="text-center"><strong><span t-field="move_id.product_uom.name"/></strong></td>
                                     <td class="text-left"></td>
                                 </tr>
                                 <t t-set="LineNum" t-value="LineNum+1"/>
