@@ -100,18 +100,49 @@
                         <tbody class="lines_tbody">
                             <t t-set="LineNum" t-value="1"/>
                             <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                <t t-set="len_line" t-value="line._get_initial(line.sale_line_ids.move_ids.filtered(lambda l: l.picking_id.id in doc.stock_picking_tt_ids.ids))"/>
+                                <t t-set="line_x" t-value="1"/>
+                                <t t-set="total_line" t-value="0"/>
                                 <tr t-foreach="line.sale_line_ids.move_ids.filtered(lambda l: l.picking_id.id in doc.stock_picking_tt_ids.ids)" t-as="move_id">
-                                    <td style="border: 1px solid" class="text-center"><span><t t-esc="LineNum"/></span></td>
-                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.picking_id.origin"/></td>
-                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.product_id.default_code"/></td>
-                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.product_id.name"/></td>
-                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.picking_id.name"/></td>
-                                    <td style="border: 1px solid" class="text-center"><span t-field="move_id.picking_id.force_date"/></td>
-                                    <td style="border: 1px solid; text-align: right;" class="text-right"><span t-field="move_id.quantity_done"/></td>
-                                    <td style="border: 1px solid" class="text-center"><span t-field="move_id.product_uom.name"/></td>
-                                    <td style="border: 1px solid" class="text-left"><span t-field="move_id.picking_id.note"/></td>
-                                    <t t-set="LineNum" t-value="LineNum+1"/>
+                                    <t t-if="line_x == 1">
+                                        <td class="text-center"><span><t t-esc="LineNum"/></span></td>
+                                        <td class="text-left"><span t-field="move_id.picking_id.origin"/></td>
+                                        <td class="text-left"><span t-field="move_id.product_id.default_code"/></td>
+                                        <td class="text-left"><span t-field="move_id.product_id.name"/></td>
+                                        <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
+                                        <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                        <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options='{"widget": "float", "precision": 0}'/></td>
+                                        <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                        <td class="text-left"><span t-field="move_id.picking_id.note"/></td>
+
+                                    </t>
+                                    <t t-elif="line_x &gt; 1 and line_x &lt;= len_line">
+                                        <td class="text-center"></td>
+                                        <td class="text-left"></td>
+                                        <td class="text-left"></td>
+                                        <td class="text-left"></td>
+                                        <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
+                                        <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                        <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options='{"widget": "float", "precision": 0}'/></td>
+                                        <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                        <td class="text-left"><span t-field="move_id.picking_id.note"/></td>
+
+                                    </t>
+                                    <t t-set="line_x" t-value="line_x+1"/>
+                                    <t t-set="total_line" t-value="total_line+move_id.quantity_done"/>
                                 </tr>
+                                <tr>
+                                    <td class="text-center"></td>
+                                    <td class="text-left"></td>
+                                    <td class="text-left"></td>
+                                    <td class="text-left"></td>
+                                    <td class="text-left"></td>
+                                    <td style="text-align: right;" class="text-right">Total :</td>
+                                    <td style="text-align: right;" class="text-right"><span t-esc="total_line" t-options='{"widget": "float", "precision": 0}'/></td>
+                                    <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                    <td class="text-left"></td>
+                                </tr>
+                                <t t-set="LineNum" t-value="LineNum+1"/>
                             </tr>
                         </tbody>
                     </table>
