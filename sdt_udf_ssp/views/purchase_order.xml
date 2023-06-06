@@ -11,6 +11,9 @@
           <!-- <attribute name="string"></attribute> -->
           <field name="date_order" string="Purchase Order Date" force_save="1" />
         </field>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='products']/field[@name='order_line']/tree[1]/field[@name='qty_received']" position="after">
+          <field name="outstanding" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}"/>
+        </xpath>
       </field>
     </record>
 

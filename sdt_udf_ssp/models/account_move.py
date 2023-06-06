@@ -55,6 +55,19 @@ class AccountMove(models.Model):
                     if stock_picking_po_id :
                         stock_picking_po_id.invoice_id = data.id
         return res
+    
+    def button_cancel(self):
+        res = super().button_cancel()
+        for data in self:
+            if data.stock_picking_tt_ids :
+                for stock_picking_tt_id in data.stock_picking_tt_ids :
+                    if stock_picking_tt_id.invoice_id :
+                        stock_picking_tt_id.invoice_id = False
+            if data.stock_picking_po_ids :
+                for stock_picking_po_id in data.stock_picking_po_ids :
+                    if stock_picking_po_id.invoice_id :
+                        stock_picking_po_id.invoice_id = False
+        return res
 
     # @api.onchange('stock_picking_tt_ids')
     # def onchange_stock_picking_tt_ids(self):
