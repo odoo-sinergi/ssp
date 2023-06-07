@@ -22,4 +22,12 @@ class AccountMove(models.Model):
     
 
     def get_day(self, date):
-        return convert_day.get_day(date, 'id')    
+        return convert_day.get_day(date, 'id')
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+    _template = 'form_standard_odoo.standard_lampiran_do_document'
+
+    def _get_initial(self, product_line):
+        len_product_line = len(product_line.ids)
+        return len_product_line
