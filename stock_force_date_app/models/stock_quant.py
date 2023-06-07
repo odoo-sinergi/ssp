@@ -32,6 +32,7 @@ class StockQuant(models.Model):
 		for quant in self:
 			force_date = quant.accounting_date or fields.Date.today()
 			for move in moves:
+				move.update({'date':force_date})
 				for move_line in move.move_line_ids:
 					move_line.update({'date':force_date})
 				for valuation in move.stock_valuation_layer_ids:
