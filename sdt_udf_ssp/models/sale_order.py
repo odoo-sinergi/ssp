@@ -18,11 +18,13 @@ class SaleOrderLine(models.Model):
     _inherit="sale.order.line"
 
     outstanding = fields.Float(string='Outstanding', compute='_get_outstanding')
-
+    
     @api.depends('qty_delivered','product_uom_qty')
     def _get_outstanding(self):
         for rec in self:
             if rec.qty_delivered:
                 rec.outstanding = rec.product_uom_qty - rec.qty_delivered
+                for move_id in rec.move_ids.filtered(lambda l: l.state not in ['done','cancel']):
+                    move_id.outstanding = rec.outstanding
             else:
                 rec.outstanding = rec.product_uom_qty

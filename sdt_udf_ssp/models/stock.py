@@ -109,32 +109,7 @@ class StockPicking(models.Model):
 class StockMove(models.Model):
     _inherit='stock.move'
 
-    # outstanding = fields.Float(string='Outstanding', compute='_get_outstanding')
-    outstanding = fields.Float(string='Outstanding')
-
-    def _get_outstanding(self):
-        for rec in self:
-            if rec.purchase_line_id:
-                rec.outstanding = rec.product_uom_qty - rec.purchase_line_id.qty_received
-            elif rec.sale_line_id:
-                rec.outstanding = rec.product_uom_qty - rec.sale_line_id.qty_delivered
-            else:
-                rec.outstanding = rec.product_uom_qty
-
-# class ReturnPicking(models.TransientModel):
-#     _inherit = 'stock.return.picking'
-
-#     def _create_returns(self):
-#         res = super(ReturnPicking, self)._create_returns()
-#         for i in self :
-#             for product_return_move in i.product_return_moves:
-#                 for return_move_id in product_return_move.move_id.returned_move_ids.filtered(lambda l: l.state not in ['done','cancel']) :
-#                     if return_move_id.purchase_line_id:
-#                         return_move_id.outstanding = return_move_id.sale_line_id.outstanding
-#                     elif return_move_id.sale_line_id:
-#                         return_move_id.outstanding = return_move_id.sale_line_id.outstanding
-#         return res
-    
+    outstanding = fields.Float(string='Outstanding')    
 
     
 
