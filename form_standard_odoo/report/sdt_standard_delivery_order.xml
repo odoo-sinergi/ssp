@@ -91,6 +91,7 @@
                     <br/>
                     <div class="row">
                         <div class="col-8" align="center">
+                            <br/><br/><br/>
                             <h5><strong>DELIVERY ORDER</strong></h5>
                         </div>
                         <div class="col-1" align="left">
@@ -125,11 +126,12 @@
                         </thead>
                         <t t-set="LineNum" t-value="1"/>
                         <tr t-foreach="doc.move_ids_without_package" t-as="line">
+                            <t t-set="product_name" t-value="line.product_id.name[0:41]"/>
                             <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
                             <td><strong><span t-field="line.quantity_done"/></strong></td>
                             <td><strong><span t-field="line.product_uom.name"/></strong></td>
                             <td></td>
-                            <td><span t-field="line.product_id.name"/></td>
+                            <td><span t-esc="product_name"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                     </table>
