@@ -7,7 +7,7 @@ class AccountMove(models.Model):
     _template = 'form_standard_odoo.standard_sales_invoice_document'
 
     def terbilang_idr(self):
-        return terbilang.terbilang(self.amount_total, 'idr', 'id')
+        return terbilang.terbilang(self.amount_total, 'idr', 'en')
 
     def render_html(self, data=None):
         report_obj = self.env['report']
