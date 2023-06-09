@@ -64,28 +64,23 @@
                         }
                     </style>
                     <div class="row">
-                        <div class="col-8" align="left">
-                            <span><h5><strong>PT SHIN SAM-PLUS INDUSTRY</strong></h5></span>
+                        <div class="col-5" align="left">
+                            <span><h7><strong>PT SHIN SAM-PLUS INDUSTRY</strong></h7></span><br/>
                             <span>JL. PERMATA RAYA LOT E1 KIIC</span><br/>
                             <span>KARAWANG (0267) 8057292</span>
                         </div>
-                        <div class="col-4" align="right">
-                            <span><strong>FPPIC-015</strong></span>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-6" align="left">
-                        </div>
-                        <div class="col-6" align="left">
-                            <span>KEPADA YTH:</span><br/>
+                        
+                        <div class="col-5" align="left">
+                            <span>KEPADA YTH:</span><br/><br/>
                             <span t-field="doc.partner_id.name"/><br/>
                             <span t-field="doc.partner_id.street"/>, 
                             <span t-field="doc.partner_id.city"/>, 
                             <span t-field="doc.partner_id.state_id.name"/>, 
                             <span t-field="doc.partner_id.zip"/><br/>
                             <span t-field="doc.partner_id.country_id.name"/>
-
+                        </div>
+                        <div class="col-2" align="right">
+                            <span><strong>FPPIC-015</strong></span>
                         </div>
                     </div>
                     <br/>
@@ -95,14 +90,12 @@
                             <h5><strong>DELIVERY ORDER</strong></h5>
                         </div>
                         <div class="col-1" align="left">
-                            <span>Cust. Ref.</span><br/>
-                            <span>Date</span><br/>
-                            <span>DO No</span><br/>
-                            <span>DO Rev</span><br/>
-                            <span>PO No</span><br/>
-                            <span>Status</span><br/>
-                            <span>Driver</span><br/>
-                            <span>No.Pol</span>
+                            <span><strong>Cust. Ref.</strong></span><br/>
+                            <span><strong>Date</strong></span><br/>
+                            <span><strong>DO No</strong></span><br/>
+                            <span><strong>DO Rev</strong></span><br/>
+                            <span><strong>PO No</strong></span><br/>
+                            <span><strong>Status</strong></span><br/>
                         </div>
                         <div class="col-3" align="left">
                             : <span t-field="doc.client_order_ref"/><br/>
@@ -111,10 +104,17 @@
                             : <span>-</span><br/>
                             : <span t-field="doc.origin"/><br/>
                             : <span>SALES</span><br/>
-                            : <span t-field="doc.driver"/><br/>
-                            : <span t-field="doc.no_polisi"/>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-2" align="left">
+                            <span><strong>Jitcall Number</strong></span>
+                        </div>
+                        <div class="col-10" align="left">
+                            : <span t-field="doc.jitcall"/>
+                        </div>
+                        
+                    </div>        
                     <br/>
                     <table class="table" width="100%">
                         <thead>
@@ -128,13 +128,25 @@
                         <tr t-foreach="doc.move_ids_without_package" t-as="line">
                             <t t-set="product_name" t-value="line.product_id.name[0:41]"/>
                             <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                            <td><strong><span t-field="line.quantity_done"/></strong></td>
+                            <td align="right"><strong><span t-field="line.quantity_done"/></strong></td>
                             <td><strong><span t-field="line.product_uom.name"/></strong></td>
-                            <td></td>
+                            <td/>
                             <td><span t-esc="product_name"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                     </table>
+                    <br/>
+                    <div class="row">
+                      <div class="col-2" align="left">
+                            <span><strong>Driver</strong></span><br/>
+                            <span><strong>No. Pol</strong></span>
+                      </div>
+                      <div class="col-2" align="left">
+                            : <span t-field="doc.driver"/><br/>
+                            : <span t-field="doc.no_polisi"/>
+                      </div>      
+                    </div>
+                    <br/>
                     <br/>
                     <div class="row">
                         <div class="col-1" align="center">
