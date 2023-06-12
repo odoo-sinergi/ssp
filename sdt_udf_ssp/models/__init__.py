@@ -5,7 +5,7 @@ from . import sale_order
 # from . import account_payment
 # from . import res_partner
 # from . import project
-# from . import product
+from . import product
 # from . import mrp_bom
 # from . import purchase_report
 from . import stock
