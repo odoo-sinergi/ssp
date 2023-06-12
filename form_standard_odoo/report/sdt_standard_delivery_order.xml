@@ -39,23 +39,6 @@
             <t t-call="form_standard_odoo.sdt_header_internal_layout">
                 <div style="font-Size:14px;" class="page">
                     <style type="text/css">
-                        tr, td
-                        {
-                            padding: 4px;
-                            padding-left: 7px;
-                            padding-right: 7px;
-                        }
-                    </style>
-                    <style type="text/css">
-                        th
-                        {
-                            padding: 4px;
-                            padding-left: 7px;
-                            padding-right: 7px;
-                            color: black;
-                        }
-                    </style>
-                    <style type="text/css">
                         table
                         {
                             width: 100%;
@@ -71,7 +54,7 @@
                         </div>
                         
                         <div class="col-5" align="left">
-                            <span>KEPADA YTH:</span><br/><br/>
+                            <span>KEPADA YTH:</span><br/>
                             <span t-field="doc.partner_id.name"/><br/>
                             <span t-field="doc.partner_id.street"/>, 
                             <span t-field="doc.partner_id.city"/>, 
@@ -83,19 +66,18 @@
                             <span><strong>FPPIC-015</strong></span>
                         </div>
                     </div>
-                    <br/>
                     <div class="row">
-                        <div class="col-8" align="center">
+                        <div class="col-7" align="center">
                             <br/><br/><br/>
                             <h5><strong>DELIVERY ORDER</strong></h5>
                         </div>
-                        <div class="col-1" align="left">
+                        <div class="col-2" align="left">
                             <span><strong>Cust. Ref.</strong></span><br/>
                             <span><strong>Date</strong></span><br/>
                             <span><strong>DO No</strong></span><br/>
                             <span><strong>DO Rev</strong></span><br/>
                             <span><strong>PO No</strong></span><br/>
-                            <span><strong>Status</strong></span><br/>
+                            <!--<span><strong>Status</strong></span><br/>-->
                         </div>
                         <div class="col-3" align="left">
                             : <span t-field="doc.client_order_ref"/><br/>
@@ -103,39 +85,42 @@
                             : <span t-field="doc.name"/><br/>
                             : <span>-</span><br/>
                             : <span t-field="doc.origin"/><br/>
-                            : <span>SALES</span><br/>
+                            <!--: <span>SALES</span><br/>-->
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2" align="left">
                             <span><strong>Jitcall Number</strong></span>
                         </div>
-                        <div class="col-10" align="left">
+                        <div class="col-5" align="left">
                             : <span t-field="doc.jitcall"/>
                         </div>
-                        
+                        <div class="col-2">
+                          <span><strong>Status</strong></span><br/>
+                        </div>
+                        <div class="col-3">
+                          : <span>SALES</span><br/>
+                        </div>
                     </div>        
-                    <br/>
-                    <table class="table" width="100%">
+                    <table width="100%">
                         <thead>
-                            <th width="8%">No</th>
-                            <th width="12%">QTY</th>
-                            <th width="12%">BOX/TRO</th>
-                            <th width="28%">PART NO</th>
-                            <th width="40%">ITEM</th>
+                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="6%">No</th>
+                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="10%">QTY</th>
+                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="10%">BOX/TRO</th>
+                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="14%">PART NO</th>
+                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="60%">ITEM</th>
                         </thead>
                         <t t-set="LineNum" t-value="1"/>
                         <tr t-foreach="doc.move_ids_without_package" t-as="line">
-                            <t t-set="product_name" t-value="line.product_id.name[0:41]"/>
-                            <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                            <td align="right"><strong><span t-field="line.quantity_done"/></strong></td>
-                            <td><strong><span t-field="line.product_uom.name"/></strong></td>
-                            <td><span t-field="line.product_id.part_no"/></td>
-                            <td><span t-esc="product_name"/></td>
+                            <t t-set="product_name" t-value="line.product_id.name[0:45]"/>
+                            <td style="border: 1px solid; border-style: dashed; padding: 1px;" class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                            <td style="border: 1px solid; border-style: dashed; padding: 1px;" align="right"><strong><span t-field="line.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></strong></td>
+                            <td style="border: 1px solid; border-style: dashed; padding: 1px;" class="text-center"><strong><span t-field="line.product_uom.name"/></strong></td>
+                            <td style="border: 1px solid; border-style: dashed; padding: 1px;"><span t-field="line.product_id.part_no"/></td>
+                            <td style="border: 1px solid; border-style: dashed; padding: 1px;"><span t-esc="product_name"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                     </table>
-                    <br/>
                     <div class="row">
                       <div class="col-2" align="left">
                             <span><strong>Driver</strong></span><br/>
@@ -146,8 +131,6 @@
                             : <span t-field="doc.no_polisi"/>
                       </div>      
                     </div>
-                    <br/>
-                    <br/>
                     <div class="row">
                         <div class="col-1" align="center">
                         </div>
