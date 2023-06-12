@@ -35,7 +35,7 @@
         # 'views/account_payment.xml',
         # 'views/res_partner.xml',
         # 'views/project.xml',
-        # 'views/product.xml',
+        'views/product.xml',
         # 'views/mrp_bom.xml',
         'views/stock.xml',
         'views/account_move.xml',
