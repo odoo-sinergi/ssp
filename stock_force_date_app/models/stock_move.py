@@ -18,19 +18,21 @@ class StockMove(models.Model):
 						force_date = move.picking_id.force_date
 					else:
 						force_date = move.picking_id.scheduled_date
-				if move.scrapped==True:
+				elif move.scrapped==True:
 					scrap_id = self.env['stock.scrap'].search([('name', '=', move.reference)])
 					if scrap_id:
 						if scrap_id.force_date:
 							force_date = scrap_id.force_date
 						else:
 							force_date = scrap_id.date_done
+				elif move.date != force_date:
+					force_date = move.date
 				# if move.raw_material_production_id:
 				# 	force_date = move.raw_material_production_id.mrp_date
 				# if move.production_id:
 				# 	force_date = move.production_id.mrp_date
 
-		res = super()._action_done(cancel_backorder=cancel_backorder)
+		res = super(StockMove, self)._action_done(cancel_backorder=cancel_backorder)
 
 		if self.env.user.has_group('stock_force_date_app.group_stock_force_date'):
 			if force_date:
@@ -41,7 +43,7 @@ class StockMove(models.Model):
 				local_date = pytz.utc.localize(force_date).astimezone(local)
 				user_date = local_date.replace(tzinfo=None)
 
-				for move in self:
+				for move in res:
 					move.write({'date':force_date})
 					if move.move_line_ids:
 						for move_line in move.move_line_ids:
