@@ -57,7 +57,7 @@ class StockMove(models.Model):
 							# 	account_move.write({'ref':move.inventory_id.name})
 							if curr!=False:
 								if curr!=company_curr:
-									cur_rate = self._get_new_rates(self.company_id, force_date)
+									cur_rate = self._get_new_rates(self.company_id, force_date, curr)
 									for aml in account_move.line_ids:
 										debit=aml.debit
 										credit=aml.credit
@@ -79,11 +79,11 @@ class StockMove(models.Model):
 
 		return res
 
-	def _get_new_rates(self, company, date):
-		query = """SELECT r.rate FROM res_currency_rate r WHERE r.name <= %s
-					AND r.company_id = %s ORDER BY r.company_id, r.name DESC LIMIT 1
+	def _get_new_rates(self, company, date,curr):
+		query = """SELECT r.inverse_rate FROM res_currency_rate r WHERE r.name <= %s
+					AND r.company_id = %s AND currency_id=%s ORDER BY r.company_id, r.name DESC LIMIT 1
 				"""
-		self._cr.execute(query, (date, company.id,))
+		self._cr.execute(query, (date, company.id,curr))
 		currency_rates = self._cr.fetchone()[0]
 		return currency_rates
 
