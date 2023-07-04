@@ -5,7 +5,7 @@
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_form"/>
             <field name="arch" type="xml">
-                <field name="partner_type" position="before">
+                <field name="payment_type" position="before">
                     <field name="down_payment"/>
                     <field name="reset_draft" invisible="1" />
                     <field name="account_dp" attrs="{'invisible': [('down_payment','=',False)]}" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True,'no_open':True}"/>

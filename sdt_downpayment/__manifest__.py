@@ -30,6 +30,8 @@
 		'security/ir.model.access.csv',
         'views/udf_account_payment_view.xml',
         'views/sdt_downpayment_account.xml',
+        'views/udf_account_journal_view.xml',
+        'views/udf_account_view.xml',
         'report/sdt_down_payment_report.xml',
     ],
     # only loaded in demonstration mode

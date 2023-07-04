@@ -104,9 +104,11 @@ class AccountVoucher(models.Model):
                 credit_sum = 0.0
                 amount_currency=0
                 
+                journal_dp_obj=self.env['account.journal'].search([('down_payment','=',True)])
                 move = {
                     'name': label,
-                    'journal_id': journal.id,
+                    # 'journal_id': journal.id,
+                    'journal_id': journal_dp_obj.id,
                     'date': rec.date,
                     'ref': memo,
                 }
@@ -138,7 +140,7 @@ class AccountVoucher(models.Model):
                     amount = rec.amount*rate
                 else:
                     amount = rec.amount
-                    currency = False
+                    currency = rec.currency_id.id
                     amount_currency = 0
 
                 debit_line = (0, 0, {
@@ -148,10 +150,14 @@ class AccountVoucher(models.Model):
                     'journal_id': journal.id,
                     'ref': memo,
                     'date': rec.date,
-                    'amount_currency': amount_currency,
                     'currency_id': currency,
                     'debit': amount,
                     'credit': 0.0,
+                    # 'amount_currency': amount_currency,
+                    'amount_currency': amount,
+                    'balance': amount,
+                    'amount_residual': amount,
+                    'amount_residual_currency': amount,
                     # 'analytic_account_id': line['analytic_account_id'],
                 })
                 line_ids.append(debit_line)
@@ -163,10 +169,15 @@ class AccountVoucher(models.Model):
                     'journal_id': journal.id,
                     'ref': memo,
                     'date': rec.date,
-                    'amount_currency': amount_currency*-1,
+                    # 'amount_currency': amount_currency*-1,
                     'currency_id': currency,
                     'debit': 0.0,
                     'credit': amount,
+
+                    'amount_currency': amount *-1,
+                    'balance': amount*-1,
+                    'amount_residual': amount*-1,
+                    'amount_residual_currency': amount*-1,
                     # 'analytic_account_id': line['analytic_account_id'],
                 })
                 line_ids.append(credit_line)
@@ -175,10 +186,19 @@ class AccountVoucher(models.Model):
                 move_id = self.env['account.move'].create(move)
                 move_id.action_post()
                 rec.journal_dp = move_id
+                move_id.amount_payment = amount
                 move_line_obj=self.env['account.move.line'].search([('move_id','=',move_id.id)])
                 if move_line_obj:
                     move_line_obj.write({'payment_id':rec.id})
-
+                
+                # for move_line in move_line_obj :
+                #     if move_line.account_id.id ==  rec.account_dp.id:
+                #         move_line.debit = rec.amount
+                #         move_line.balance = rec.amount
+                #         move_line.amount_currency = rec.amount
+                #         move_line.amount_residual = rec.amount
+                #         move_line.amount_residual_currency = rec.amount
+                #     x= 1
                 #simpan ke table downpayment
                 downpayment_obj = self.env['sdt.downpayment']
                 new_dp = downpayment_obj.create({
@@ -203,7 +223,16 @@ class AccountVoucher(models.Model):
                     'amount_currency': amount_currency,
                 })
 
+        # move_line_debit_obj=self.env['account.move.line'].search([('move_id','=',move_id.id),('account_id','=',move_line_obj.account_id.ids[0])])
+        # move_line_credit_obj=self.env['account.move.line'].search([('move_id','=',move_id.id),('account_id','=',move_line_obj.account_id.ids[1])])
+        
+        # for move_line_debit in move_line_debit_obj:
+        #     if move_line_debit :
+        #         move_line_debit.write({'debit':amount})
 
+        # for move_line_credit in move_line_credit_obj:
+        #     if move_line_credit :
+        #         move_line_credit.write({'debit':amount})
         return res
 
     @api.depends('ji_count')
