@@ -38,14 +38,14 @@
             <!-- <t t-call="web.external_layout"> -->
             <t t-call="form_standard_odoo.sdt_header_internal_layout">
                 <div style="font-Size:14px;" class="page">
-                    <style type="text/css">
+                    <!-- <style type="text/css">
                         table
                         {
                             width: 100%;
                             margin-top: 5px;
                             margin-bottom: 10px;
                         }
-                    </style>
+                    </style> -->
                     <div class="row">
                         <div class="col-5" align="left">
                             <span><h7><strong>PT SHIN SAM-PLUS INDUSTRY</strong></h7></span><br/>
@@ -102,22 +102,22 @@
                           : <span>SALES</span><br/>
                         </div>
                     </div>        
-                    <table width="100%">
-                        <thead>
-                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="6%">No</th>
-                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="10%">QTY</th>
-                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="10%">BOX/TRO</th>
-                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="14%">PART NO</th>
-                            <th style="border: 1px solid; border-style: dashed; padding: 4px;" width="60%">ITEM</th>
-                        </thead>
+                    <table class="table" width="100%">
+                        <tr>
+                            <th style="padding: 4px; border-left: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" width="6%">No</th>
+                            <th style="padding: 4px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">QTY</th>
+                            <th style="padding: 4px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">BOX/TRO</th>
+                            <th style="padding: 4px; border-top: 1px solid; border-bottom: 1px solid;" width="14%">PART NO</th>
+                            <th style="padding: 4px; border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;" width="60%">ITEM</th>
+                        </tr>
                         <t t-set="LineNum" t-value="1"/>
                         <tr t-foreach="doc.move_ids_without_package" t-as="line">
                             <t t-set="product_name" t-value="line.product_id.name[0:45]"/>
-                            <td style="border: 1px solid; border-style: dashed; padding: 1px;" class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                            <td style="border: 1px solid; border-style: dashed; padding: 1px;" align="right"><strong><span t-field="line.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></strong></td>
-                            <td style="border: 1px solid; border-style: dashed; padding: 1px;" class="text-center"><strong><span t-field="line.product_uom.name"/></strong></td>
-                            <td style="border: 1px solid; border-style: dashed; padding: 1px;"><span t-field="line.product_id.part_no"/></td>
-                            <td style="border: 1px solid; border-style: dashed; padding: 1px;"><span t-esc="product_name"/></td>
+                            <td style="padding: 4px; border-left: 1px solid; 1px solid; border-bottom: 1px solid;" class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                            <td style="padding: 4px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></strong></td>
+                            <td style="padding: 4px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.product_uom.name"/></strong></td>
+                            <td style="padding: 4px; border-bottom: 1px solid;"><span t-field="line.product_id.part_no"/></td>
+                            <td style="padding: 4px; border-right: 1px solid; 1px solid; border-bottom: 1px solid;"><span t-esc="product_name"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                     </table>
