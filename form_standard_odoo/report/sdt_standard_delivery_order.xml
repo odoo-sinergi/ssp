@@ -104,20 +104,20 @@
                     </div>        
                     <table class="table" width="100%">
                         <tr>
-                            <th style="padding: 4px; border-left: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" width="6%">No</th>
-                            <th style="padding: 4px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">QTY</th>
-                            <th style="padding: 4px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">BOX/TRO</th>
-                            <th style="padding: 4px; border-top: 1px solid; border-bottom: 1px solid;" width="14%">PART NO</th>
-                            <th style="padding: 4px; border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;" width="60%">ITEM</th>
+                            <th style="padding: 3px; border-left: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" width="6%">No</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">QTY</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">BOX/TRO</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="14%">PART NO</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;" width="60%">ITEM</th>
                         </tr>
                         <t t-set="LineNum" t-value="1"/>
                         <tr t-foreach="doc.move_ids_without_package" t-as="line">
                             <t t-set="product_name" t-value="line.product_id.name[0:45]"/>
-                            <td style="padding: 4px; border-left: 1px solid; 1px solid; border-bottom: 1px solid;" class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                            <td style="padding: 4px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></strong></td>
-                            <td style="padding: 4px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.product_uom.name"/></strong></td>
-                            <td style="padding: 4px; border-bottom: 1px solid;"><span t-field="line.product_id.part_no"/></td>
-                            <td style="padding: 4px; border-right: 1px solid; 1px solid; border-bottom: 1px solid;"><span t-esc="product_name"/></td>
+                            <td style="padding: 1px; border-left: 1px solid; 1px solid; border-bottom: 1px solid;" class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                            <td style="padding: 1px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></strong></td>
+                            <td style="padding: 1px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.product_uom.name"/></strong></td>
+                            <td style="padding: 1px; border-bottom: 1px solid;"><span t-field="line.product_id.part_no"/></td>
+                            <td style="padding: 1px; border-right: 1px solid; 1px solid; border-bottom: 1px solid;"><span t-esc="product_name"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                     </table>
