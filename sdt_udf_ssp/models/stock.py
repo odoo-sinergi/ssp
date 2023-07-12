@@ -14,6 +14,7 @@ class StockPicking(models.Model):
     procurement_group_id = fields.Integer(string='Procurement Group', related='group_id.id', readonly=True, store=True )
     surat_jalan = fields.Char(string='Surat Jalan',)
     client_order_ref = fields.Char(string='Customer Reference',)
+    c_time = fields.Char(string='Delv. Cycle',)
 
 
     # @api.onchange('move_ids_without_package')

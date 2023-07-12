@@ -75,7 +75,7 @@
                             <span><strong>Cust. Ref.</strong></span><br/>
                             <span><strong>Date</strong></span><br/>
                             <span><strong>DO No</strong></span><br/>
-                            <span><strong>DO Rev</strong></span><br/>
+                            <span><strong>Delv. Cycle</strong></span><br/>
                             <span><strong>PO No</strong></span><br/>
                             <!--<span><strong>Status</strong></span><br/>-->
                         </div>
@@ -83,7 +83,7 @@
                             : <span t-field="doc.client_order_ref"/><br/>
                             : <span t-field="doc.force_date"/><br/>
                             : <span t-field="doc.name"/><br/>
-                            : <span>-</span><br/>
+                            : <span t-field="doc.c_time"/><br/>
                             : <span t-field="doc.origin"/><br/>
                             <!--: <span>SALES</span><br/>-->
                         </div>
@@ -96,23 +96,23 @@
                             : <span t-field="doc.jitcall"/>
                         </div>
                         <div class="col-2">
-                          <span><strong>Status</strong></span><br/>
+                            <span><strong>Status</strong></span><br/>
                         </div>
                         <div class="col-3">
-                          : <span>SALES</span><br/>
+                            : <span>SALES</span><br/>
                         </div>
                     </div>        
                     <table class="table" width="100%">
                         <tr>
                             <th style="padding: 3px; border-left: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" width="6%">No</th>
-                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">QTY</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="8%">QTY</th>
                             <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="10%">BOX/TRO</th>
-                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="14%">PART NO</th>
-                            <th style="padding: 3px; border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;" width="60%">ITEM</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-bottom: 1px solid;" width="23%">PART NO</th>
+                            <th style="padding: 3px; border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;" width="55%">ITEM</th>
                         </tr>
                         <t t-set="LineNum" t-value="1"/>
                         <tr t-foreach="doc.move_ids_without_package" t-as="line">
-                            <t t-set="product_name" t-value="line.product_id.name[0:45]"/>
+                            <t t-set="product_name" t-value="line.product_id.name[0:48]"/>
                             <td style="padding: 1px; border-left: 1px solid; 1px solid; border-bottom: 1px solid;" class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
                             <td style="padding: 1px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></strong></td>
                             <td style="padding: 1px; border-bottom: 1px solid;" class="text-center"><strong><span t-field="line.product_uom.name"/></strong></td>
@@ -122,14 +122,14 @@
                         </tr>
                     </table>
                     <div class="row">
-                      <div class="col-2" align="left">
+                        <div class="col-2" align="left">
                             <span><strong>Driver</strong></span><br/>
                             <span><strong>No. Pol</strong></span>
-                      </div>
-                      <div class="col-2" align="left">
+                        </div>
+                        <div class="col-2" align="left">
                             : <span t-field="doc.driver"/><br/>
                             : <span t-field="doc.no_polisi"/>
-                      </div>      
+                        </div>      
                     </div>
                     <div class="row">
                         <div class="col-1" align="center">
