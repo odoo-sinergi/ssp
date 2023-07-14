@@ -132,12 +132,15 @@
                                     <td width="67%"><span t-field="doc.amount_untaxed"/></td>
                                 </tr>
                                 <tr>
+                                    <t t-set="line_id" t-value="doc.line_ids.filtered(lambda l: l.account_id.id == 34)"/>
                                     <td><strong>Pph</strong></td>
-                                    <td></td>
+                                    <td><span t-if="line_id" t-field="line_id.credit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                                 </tr>
                                 <tr>
+                                    <t t-set="line_id" t-value="doc.line_ids.filtered(lambda l: l.account_id.id == 38)"/>
                                     <td><strong>Ppn</strong></td>
-                                    <td><span t-field="doc.amount_tax"/></td>
+                                    <!-- <td><span t-field="doc.amount_tax"/></td> -->
+                                    <td><span t-if="line_id" t-field="line_id.debit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Grand Total</strong></td>
