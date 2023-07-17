@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-8">
                         </div>
                         <div class="col-4">
@@ -119,7 +119,7 @@
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div> -->
                     <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
                     <br/>
                     <br/>
@@ -211,6 +211,39 @@
                             <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
                             <td align ="right"><span t-field="line.price_subtotal"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td width="33%"><strong>Sub Total</strong></td>
+                            <td width="67%"><span t-field="doc.amount_untaxed"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Pph</strong></td>
+                            <td><span t-field="doc.total_pph" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <t t-set="line_id" t-value="doc.line_ids.filtered(lambda l: l.account_id.id == 39)"/>
+                            <td><strong>Ppn</strong></td>
+                            <td><span t-if="line_id" t-field="line_id.credit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Grand Total</strong></td>
+                            <td><span t-field="doc.amount_total"/></td>
                         </tr>
                     </table>
                 </div>
