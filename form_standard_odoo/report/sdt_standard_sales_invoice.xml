@@ -92,34 +92,51 @@
                             </td>
                         </tr>
                     </table>
+                    <br/>
+                    <div class="row" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
+                        <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
+                        <br/>
+                        <br/>
+                        <table style="border: 1px solid" class="table" width="100%">
+                            <tr>
+                                <th>Acknowledge by :</th>
+                                <th>NOTES / Remark</th>
+                            </tr>  
+                            <tr>
+                                <th>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <span><u>Annisul Fuad</u></span><br/>
+                                    Accounting Dept
+                                </th>
+                                <th>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    Please kindly email the transfer copy to :<br/>
+                                    <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
+                                </th>
+                            </tr>                      
+                        </table>
+                    </div>
                 </div>
 
-                <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
-                    <!-- <div class="row">
-                        <div class="col-8">
-                        </div>
-                        <div class="col-4">
-                            <table class="table" width="100%">
-                                <tr>
-                                    <td width="33%"><strong>Sub Total</strong></td>
-                                    <td width="67%"><span t-field="doc.amount_untaxed"/></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Pph</strong></td>
-                                    <td><span t-field="doc.total_pph" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
-                                </tr>
-                                <tr>
-                                    <t t-set="line_id" t-value="doc.line_ids.filtered(lambda l: l.account_id.id == 39)"/>
-                                    <td><strong>Ppn</strong></td>
-                                    <td><span t-if="line_id" t-field="line_id.credit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Grand Total</strong></td>
-                                    <td><span t-field="doc.amount_total"/></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div> -->
+                <!-- <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
                     <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
                     <br/>
                     <br/>
@@ -159,7 +176,7 @@
                             </th>
                         </tr>                      
                     </table>
-                </div>
+                </div> -->
             </xpath>
             
         </template>
