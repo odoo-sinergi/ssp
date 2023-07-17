@@ -171,11 +171,11 @@
                     <table class="table" width="100%" style="border: 1px solid">
                         <tr>
                             <th width="2%">No</th>
-                            <th width="10">Qty</th>
-                            <th width="10">Unit</th>
-                            <th width="40">Description</th>
-                            <th width="20">Unit Price</th>
-                            <th width="18">Amount</th>
+                            <th width="10%">Qty</th>
+                            <th width="10%">Unit</th>
+                            <th width="40%">Description</th>
+                            <th width="20%">Unit Price</th>
+                            <th width="18%">Amount</th>
                         </tr>
                         <t t-set="LineNum" t-value="1"/>
                         <tr style="border: 1px solid" t-foreach="doc.invoice_line_ids" t-as="line">
