@@ -47,7 +47,7 @@
                             <table class="table" width="100%" style="border: 1px solid;">
                                 <tr>
                                     <td width="60%" >Invoice No.</td>
-                                    <td width="40%" ><span t-field="doc.name"/></td>
+                                    <td width="40%" ><span t-field="doc.x_studio_inv_no"/></td>
                                 </tr>
                                 <tr>
                                     <td>Date</td>

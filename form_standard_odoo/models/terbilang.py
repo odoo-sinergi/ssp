@@ -21,7 +21,7 @@ def terbilang(number, currency, bhs):
     end_word = english_number(int(lis[1]), bhs)
     cents_number = int(lis[1])
     cents_name = (cents_number > 1) and 'Sen' or 'sen'
-    final_result_sen = start_word + end_word + units_name #+ ' ' + cents_name
+    final_result_sen = start_word + ' point ' + end_word + units_name#+ ' ' + cents_name
     final_result = start_word + units_name
     if end_word == 'Nol' or end_word == 'Zero':
         final_result = final_result
@@ -55,7 +55,6 @@ def _convert_nnn(val, bhs):
         to_19 = dic['to_19']
     (mod, rem) = (val % 100, val // 100)
     if rem == 1:
-        # word = 'Seratus'
         word = 'One Hundred'
         if mod > 0:
             word = word + ' '
