@@ -92,46 +92,6 @@
                             </td>
                         </tr>
                     </table>
-                    <br/>
-                    <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
-                    <br/>
-                    <br/>
-                    <table style="border: 1px solid" class="table" width="100%">
-                        <tr>
-                            <th>Acknowledge by :</th>
-                            <th>NOTES / Remark</th>
-                        </tr>  
-                        <tr>
-                            <th>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <span><u>Annisul Fuad</u></span><br/>
-                                Accounting Dept
-                            </th>
-                            <th>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                Please kindly email the transfer copy to :<br/>
-                                <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
-                            </th>
-                        </tr>                      
-                    </table>
                 </div>
 
                 <!-- <div class="footer" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
@@ -261,6 +221,48 @@
                             <td><span t-field="doc.amount_total"/></td>
                         </tr>
                     </table>
+                    <br/>
+                    <div class="row" style="font-Size:11px;font-family: 'Aller', sans-serif; ">
+                        <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
+                        <br/>
+                        <br/>
+                        <table style="border: 1px solid" class="table" width="100%">
+                            <tr>
+                                <th>Acknowledge by :</th>
+                                <th>NOTES / Remark</th>
+                            </tr>  
+                            <tr>
+                                <th>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <span><u>Annisul Fuad</u></span><br/>
+                                    Accounting Dept
+                                </th>
+                                <th>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    Please kindly email the transfer copy to :<br/>
+                                    <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
+                                </th>
+                            </tr>                      
+                        </table>
+                    </div>
                 </div>
             </t>
         </template>
