@@ -26,8 +26,11 @@
             <group name="stock_picking_tt_ids">
               <!-- <field name="stock_picking_tt_ids" force_save="1"
                 attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 1)]}"
-                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" /> -->
-              <field name="stock_picking_tt_ids" force_save="1" attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 1)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" />
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=',
+              'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" /> -->
+              <field name="stock_picking_tt_ids" force_save="1"
+                attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 1)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'outgoing'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', sale_procurement_group_id)]" />
             </group>
           </page>
           <!-- Received -->
@@ -36,8 +39,12 @@
             <group name="stock_picking_po_ids">
               <!-- <field name="stock_picking_po_ids" force_save="1"
                 attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('journal_id', '!=', 2)]}"
-                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]" /> -->
-                <field name="stock_picking_po_ids" force_save="1" attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 2)]}" domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]"/>
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=',
+              'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]"
+              /> -->
+              <field name="stock_picking_po_ids" force_save="1"
+                attrs="{'readonly': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')],'invisible': [('journal_id', '!=', 2)]}"
+                domain="[('partner_id','=',partner_id),('picking_type_code', '=', 'incoming'),('state', '=', 'done'),('invoice_id', '=', False),('group_id', '=', purchase_procurement_group_id)]" />
             </group>
           </page>
         </xpath>
@@ -45,9 +52,9 @@
           <button name="unlink_move_line" class="oe_highlight" type="object" string="Generate Data"
             attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_generate', '=', 'y')]}" />
           <button name="unlink_invoice_number_picking" class="oe_highlight" type="object"
-            string="Remove Data DO" attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_generate', '=', 'n')]}" />
+            string="Remove Data DO"
+            attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_generate', '=', 'n')]}" />
         </xpath>
-
         <xpath expr="//field[@name='stock_picking_tt_ids']" position="inside">
           <tree string="Picking list" multi_edit="1" sample="1">
             <header>
@@ -60,10 +67,8 @@
             <field name="picking_do_id" optional="show" />
             <!-- <field name="force_date" optional="show"/> -->
             <field name="jitcall" optional="show" />
-            <field name="location_id" options="{'no_create': True}" string="From"
-              groups="stock.group_stock_multi_locations" optional="hide" />
-            <field name="location_dest_id" options="{'no_create': True}" string="To"
-              groups="stock.group_stock_multi_locations" optional="hide" />
+            <field name="location_id" options="{'no_create': True}" string="From" groups="stock.group_stock_multi_locations" optional="hide" />
+            <field name="location_dest_id" options="{'no_create': True}" string="To" groups="stock.group_stock_multi_locations" optional="hide" />
             <field name="partner_id" optional="hide" />
             <!--<field
             name="is_signed" string="Signed" optional="hide"
@@ -99,9 +104,12 @@
           </tree>
         </xpath>
         <xpath expr="//field[@name='tax_totals']" position="before">
-          <field name="total_pph" force_save="1" invisible="1" readonly="1"/>
-          <field name="ppn" force_save="1" invisible="1" readonly="1"/>
+          <field name="total_pph" force_save="1" invisible="1" readonly="1" />
+          <field name="ppn" force_save="1" invisible="1" readonly="1" />
         </xpath>
+        <!-- <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/label[1]" position="before">
+          <field name="invoice_no" string="Inv No." />
+        </xpath> -->
       </field>
     </record>
   </data>

@@ -20,6 +20,8 @@ class AccountMove(models.Model):
     is_generate = fields.Selection(string='is_generate', selection=[('y', 'Y'), ('n', 'N')], default='n')
     total_pph = fields.Float(string='Total PPH',compute='_compute_total_pph')
     ppn = fields.Float(string='PPN',compute='_compute_total_pph')
+    # invoice_no = fields.Char(string='Invoice No',)
+    
    
 
     def unlink_move_line (self):
