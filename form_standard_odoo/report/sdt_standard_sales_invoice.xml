@@ -9,7 +9,7 @@
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">110</field>
-            <field name="margin_bottom">55</field>
+            <field name="margin_bottom">5</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False"/>
@@ -123,7 +123,7 @@
                     <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
                     <br/>
                     <br/> -->
-                    <table style="border: 1px solid" class="table" width="100%">
+                    <!-- <table style="border: 1px solid" class="table" width="100%">
                         <tr>
                             <th>Acknowledge by :</th>
                             <th>NOTES / Remark</th>
@@ -139,7 +139,7 @@
                                 <br/>
                                 <br/>
                                 <br/>
-                                <!-- <br/> -->
+                                <br/>
                                 <span><u>Annisul Fuad</u></span><br/>
                                 Accounting Dept
                             </th>
@@ -153,12 +153,12 @@
                                 <br/>
                                 <br/>
                                 <br/>
-                                <!-- <br/> -->
+                                <br/>
                                 Please kindly email the transfer copy to :<br/>
                                 <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
                             </th>
                         </tr>                      
-                    </table>
+                    </table> -->
                     <div class="row">
                     <div name="footer_left_column" class="col-8 text-start">
                     </div>
@@ -222,40 +222,76 @@
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
                         <tr>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
                             <td><strong>Sub Total</strong></td>
                             <td align ="right"><span t-field="doc.amount_untaxed"/></td>
                         </tr>
                         <tr>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
                             <td><strong>Pph</strong></td>
                             <td align ="right"><span t-field="doc.total_pph" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                         </tr>
                         <tr>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
                             <t t-set="line_id" t-value="doc.line_ids.filtered(lambda l: l.account_id.id == 39)"/>
                             <td><strong>Ppn</strong></td>
                             <td align ="right"><span t-if="line_id" t-field="line_id.credit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
                         </tr>
                         <tr>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
-                            <td style="border: 0px solid"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
                             <td><strong>Grand Total</strong></td>
                             <td align ="right"><span t-field="doc.amount_total"/></td>
                         </tr>
                     </table>
                     <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
+                    <table style="border: 1px solid" class="table" width="100%">
+                        <tr>
+                            <th>Acknowledge by :</th>
+                            <th>NOTES / Remark</th>
+                        </tr>  
+                        <tr>
+                            <th>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <!-- <br/> -->
+                                <span><u>Annisul Fuad</u></span><br/>
+                                Accounting Dept
+                            </th>
+                            <th>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <!-- <br/> -->
+                                Please kindly email the transfer copy to :<br/>
+                                <span style="color:#0070C0;;"><u>accfinance@samplusind.com</u></span>
+                            </th>
+                        </tr>                      
+                    </table>
                 </div>
             </t>
         </template>
