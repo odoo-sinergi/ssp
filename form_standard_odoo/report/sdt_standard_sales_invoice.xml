@@ -202,8 +202,8 @@
                            margin-bottom: 10px;
                         }
                     </style>
-                    <table class="table" width="100%" style="border: 1px solid">
-                        <tr>
+                    <table class="table" width="100%">
+                        <tr style="border: 1px solid">
                             <th width="2%">No</th>
                             <th width="10">Qty</th>
                             <th width="10">Unit</th>
@@ -214,45 +214,45 @@
                         <t t-set="LineNum" t-value="1"/>
                         <tr style="border: 1px solid" t-foreach="doc.invoice_line_ids" t-as="line">
                             <td class="text-center"><span><t t-esc="LineNum"/></span></td>
-                            <td align ="right"><span t-field="line.quantity"/></td>
+                            <td align="right"><span t-field="line.quantity"/></td>
                             <td class="text-left"><span t-field="line.product_uom_id.name"/></td>
                             <td><span t-field="line.name"/></td>
-                            <td align ="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
-                            <td align ="right"><span t-field="line.price_subtotal"/></td>
+                            <td align="right"><span t-field="line.currency_id.symbol"/><span t-field="line.price_unit"/></td>
+                            <td align="right"><span t-field="line.price_subtotal"/></td>
                             <t t-set="LineNum" t-value="LineNum+1"/>
                         </tr>
-                        <tr>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
+                        <tr style="border: 0px;">
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
                             <td><strong>Sub Total</strong></td>
-                            <td align ="right"><span t-field="doc.amount_untaxed"/></td>
+                            <td align="right"><span t-field="doc.amount_untaxed"/></td>
                         </tr>
-                        <tr>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
+                        <tr style="border: 0px;">
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
                             <td><strong>Pph</strong></td>
-                            <td align ="right"><span t-field="doc.total_pph" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
+                            <td align="right"><span t-field="doc.total_pph" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: line.currency_id}"/></td>
                         </tr>
-                        <tr>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
+                        <tr style="border: 0px;">
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
                             <t t-set="line_id" t-value="doc.line_ids.filtered(lambda l: l.account_id.id == 39)"/>
                             <td><strong>Ppn</strong></td>
-                            <td align ="right"><span t-if="line_id" t-field="line_id.credit" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/></td>
+                            <td align="right"><span t-if="line_id" t-field="line_id.credit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: line.currency_id}"/></td>
                         </tr>
-                        <tr>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
+                        <tr style="border: 0px;">
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
+                            <td style="border: 0px;"/>
                             <td><strong>Grand Total</strong></td>
-                            <td align ="right"><span t-field="doc.amount_total"/></td>
+                            <td align="right"><span t-field="doc.amount_total"/></td>
                         </tr>
                     </table>
                     <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
