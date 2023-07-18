@@ -258,7 +258,7 @@
                         </tr>
                     </table>
                     <p><i><strong>Counted : <span t-esc="doc.terbilang_idr()"/></strong></i></p>
-                    <table style="border: 1px solid" class="table" width="100%">
+                    <table style="border: 1px solid; page-break-inside: avoid;" class="table" width="100%">
                         <tr>
                             <th>Acknowledge by :</th>
                             <th>NOTES / Remark</th>
