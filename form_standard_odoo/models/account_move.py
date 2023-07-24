@@ -31,3 +31,13 @@ class AccountMoveLine(models.Model):
     def _get_initial(self, product_line):
         len_product_line = len(product_line.ids)
         return len_product_line
+    
+    def cek_qty(self, move_id):
+        line_retur = self.env['stock.move'].search([('origin_returned_move_id', '=', move_id.id)])
+        if not line_retur:
+            if move_id.quantity_done > 0:
+                return move_id.quantity_done
+        else:
+            qty_retur = sum(line_retur.mapped("quantity_done"))
+            qty = move_id.quantity_done - qty_retur
+            return qty

@@ -139,31 +139,36 @@
                                 <t t-set="line_x" t-value="1"/>
                                 <t t-set="total_line" t-value="0"/>
                                 <tr t-foreach="line.sale_line_ids.move_ids.filtered(lambda l: l.picking_id.id in doc.stock_picking_tt_ids.ids)" t-as="move_id">
-                                    <t t-if="line_x == 1">
-                                        <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                                        <!--<td class="text-left"><strong><span t-field="move_id.picking_id.origin"/></strong></td>-->
-                                        <td class="text-left"><strong><span t-field="move_id.product_id.default_code"/></strong></td>
-                                        <td class="text-left"><strong><span t-field="move_id.product_id.name"/></strong></td>
-                                        <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
-                                        <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
-                                        <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
-                                        <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
-                                        <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
-                                    </t>
-                                    <t t-elif="line_x &gt; 1 and line_x &lt;= len_line">
-                                        <td class="text-center"/>
-                                        <!--<td class="text-left"/>-->
-                                        <td class="text-left"/>
-                                        <td class="text-left"/>
-                                        <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
-                                        <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
-                                        <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
-                                        <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
-                                        <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
+                                    <t t-set="cek_qty" t-value="line.cek_qty(move_id)"/>
+                                    <t t-if="cek_qty > 0">
+                                        <t t-if="line_x == 1">
+                                            <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                                            <!--<td class="text-left"><strong><span t-field="move_id.picking_id.origin"/></strong></td>-->
+                                            <td class="text-left"><strong><span t-field="move_id.product_id.default_code"/></strong></td>
+                                            <td class="text-left"><strong><span t-field="move_id.product_id.name"/></strong></td>
+                                            <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
+                                            <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
+                                            <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
+                                            <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                            <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
+                                        </t>
+                                        <t t-elif="line_x &gt; 1 and line_x &lt;= len_line">
+                                            <td class="text-center"/>
+                                            <!--<td class="text-left"/>-->
+                                            <td class="text-left"/>
+                                            <td class="text-left"/>
+                                            <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
+                                            <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
+                                            <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
+                                            <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
+                                            <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
 
+                                        </t>
+                                        <t t-set="line_x" t-value="line_x+1"/>
+                                        <t t-set="total_line" t-value="total_line+move_id.quantity_done"/>
                                     </t>
-                                    <t t-set="line_x" t-value="line_x+1"/>
-                                    <t t-set="total_line" t-value="total_line+move_id.quantity_done"/>
+                                    <t t-else="">
+                                    </t>
                                 </tr>
                                 <tr>
                                     <td class="text-center"/>
