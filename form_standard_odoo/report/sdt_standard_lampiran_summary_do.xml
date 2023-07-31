@@ -97,7 +97,6 @@
                             
                             <strong><span style="font-Size:15px;">Customer : </span><span style="font-Size:15px;" t-field="doc.partner_id.name"/></strong><br/>
                             <span style="font-Size:15px;">Invoice No : </span> <span style="font-Size:15px;" t-field="doc.x_studio_inv_no"/><br/>
-                            <!-- <span style="font-Size:15px;">SO Number : </span> <span style="font-Size:15px;" t-field="doc.sale_id"/><br/> -->
                             <span style="font-Size:15px;">PO Number : </span> <span style="font-Size:15px;" t-field="doc.ref"/><br/>
                         </div>
                     </div>
@@ -106,18 +105,14 @@
                         <thead>
                             <tr>
                                 <th style="border: 1px solid" class="text-center" width="2%">No</th>
-                                <!-- <th style="border: 1px solid" class="text-center" width="10%">Product Code</th> -->
-                                <!-- <th style="border: 1px solid" class="text-center" width="35%">Product Name</th> -->
                                 <th style="border: 1px solid" class="text-center" width="50%">DO Number</th>
                                 <th style="border: 1px solid" class="text-center" width="28%">DO Date</th>
-                                <!-- <th style="border: 1px solid" class="text-center" width="10%">Quantity</th> -->
-                                <!-- <th style="border: 1px solid" class="text-center" width="3%">Unit</th> -->
                                 <th style="border: 1px solid" class="text-center" width="20%">No. Jitcall/OKM</th>
                             </tr>
                         </thead>
                         <tbody class="lines_tbody">
                             <t t-set="LineNum" t-value="1"/>
-                            <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                            <!-- <tr t-foreach="doc.invoice_line_ids" t-as="line">
                                 <t t-set="len_line" t-value="line._get_initial(line.sale_line_ids.move_ids.filtered(lambda l: l.picking_id.id in doc.stock_picking_tt_ids.ids))"/>
                                 <t t-set="line_x" t-value="1"/>
                                 <t t-set="total_line" t-value="0"/>
@@ -126,22 +121,14 @@
                                     <t t-if="cek_qty &gt; 0">
                                         <t t-if="line_x == 1">
                                             <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                                            <!-- <td class="text-left"><strong><span t-field="move_id.product_id.default_code"/></strong></td>
-                                            <td class="text-left"><strong><span t-field="move_id.product_id.name"/></strong></td> -->
                                             <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
                                             <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
-                                            <!-- <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
-                                            <td class="text-center"><span t-field="move_id.product_uom.name"/></td> -->
                                             <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
                                         </t>
                                         <t t-elif="line_x &gt; 1 and line_x &lt;= len_line">
                                             <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
-                                            <!--<td class="text-left"/>-->
-                                            <!--<td class="text-left"/>-->
                                             <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
                                             <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
-                                            <!--<td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>-->
-                                            <!--<td class="text-center"><span t-field="move_id.product_uom.name"/></td>-->
                                             <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
 
                                         </t>
@@ -152,6 +139,13 @@
                                     <t t-else="">
                                     </t>
                                 </tr>
+                            </tr> -->
+                            <tr t-foreach="doc.stock_picking_tt_ids" t-as="line">
+                                <td class="text-center"><span><strong><t t-esc="LineNum"/></strong></span></td>
+                                <td class="text-left"><span t-field="line.name"/></td>
+                                <td class="text-center"><span t-field="line.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
+                                <td class="text-left"><span t-field="line.jitcall"/></td>
+                                <t t-set="LineNum" t-value="LineNum+1"/>
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: right;" class="text-right"><strong>Total DO</strong></td>
