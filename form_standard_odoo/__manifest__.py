@@ -43,6 +43,7 @@
         'report/sdt_standard_good_issue.xml',
         'report/sdt_standard_lampiran_do.xml',
         'report/sdt_standard_journal_voucher.xml',
+        'report/sdt_standard_lampiran_summary_do.xml',
     ],
     # only loaded in demonstration mode
 }
