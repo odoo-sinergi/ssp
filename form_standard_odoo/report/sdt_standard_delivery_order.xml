@@ -95,11 +95,11 @@
                         <div class="col-5" align="left">
                             : <span t-field="doc.jitcall"/>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2" align="left">
                             <span><strong>Status</strong></span><br/>
                         </div>
-                        <div class="col-3">
-                            : <span>SALES</span><br/>
+                        <div class="col-3" align="left">
+                            : <span t-field="doc.status_do"/><br/>
                         </div>
                     </div>        
                     <table class="table" width="100%">

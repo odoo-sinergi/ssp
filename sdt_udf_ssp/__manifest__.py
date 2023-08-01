@@ -41,6 +41,7 @@
         'views/account_move.xml',
         'views/sale_order.xml',
         'views/purchase_order.xml',
+        'views/stock_picking.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
