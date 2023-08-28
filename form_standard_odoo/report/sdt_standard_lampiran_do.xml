@@ -148,7 +148,7 @@
                                             <td class="text-left"><strong><span t-field="move_id.product_id.name"/></strong></td>
                                             <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
                                             <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
-                                            <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
+                                            <td style="text-align: right;" class="text-right"><span t-field="move_id.sdt_qty_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
                                             <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
                                             <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
                                         </t>
@@ -159,13 +159,13 @@
                                             <td class="text-left"/>
                                             <td class="text-left"><span t-field="move_id.picking_id.name"/></td>
                                             <td class="text-center"><span t-field="move_id.picking_id.force_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
-                                            <td style="text-align: right;" class="text-right"><span t-field="move_id.quantity_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
+                                            <td style="text-align: right;" class="text-right"><span t-field="move_id.sdt_qty_done" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/></td>
                                             <td class="text-center"><span t-field="move_id.product_uom.name"/></td>
                                             <td class="text-left"><span t-field="move_id.picking_id.jitcall"/></td>
 
                                         </t>
                                         <t t-set="line_x" t-value="line_x+1"/>
-                                        <t t-set="total_line" t-value="total_line+move_id.quantity_done"/>
+                                        <t t-set="total_line" t-value="total_line+move_id.sdt_qty_done"/>
                                     </t>
                                     <t t-else="">
                                     </t>
