@@ -110,7 +110,9 @@ class StockPicking(models.Model):
 class StockMove(models.Model):
     _inherit='stock.move'
 
-    outstanding = fields.Float(string='Outstanding')    
+    outstanding = fields.Float(string='Outstanding')
+    sdt_qty_done = fields.Float(string='Sdt Qty Done',)
+    sdt_qty_return = fields.Float(string='Sdt Qty Return',)
 
     
 

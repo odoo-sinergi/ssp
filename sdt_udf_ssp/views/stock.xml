@@ -37,6 +37,15 @@
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_id'][2]" position="after">
                     <field name="c_time" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
                 </xpath>
+                <xpath expr="//button[@name='button_validate'][1]" position="after">
+                    <button name="ambil_move_line" string="Check Retur" type="object" class="oe_highlight" data-hotkey="v"/>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked'][1]" position="replace">
+                    <button name="action_toggle_is_locked" attrs="{'invisible': ['|', ('state', 'in', ('draft','cancel')), ('is_locked', '=', False)]}" string="Unlock" groups="base.group_system" type="object" help="If the picking is unlocked you can edit initial demand (for a draft picking) or done quantities (for a done picking)." data-hotkey="l"/>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked'][2]" position="replace">
+                    <button name="action_toggle_is_locked" attrs="{'invisible': [('is_locked', '=', True)]}" string="Lock" groups="base.group_system" type="object" data-hotkey="l"/>
+                </xpath>
                 
             </field>
         </record>
