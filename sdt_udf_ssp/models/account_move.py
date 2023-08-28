@@ -302,6 +302,7 @@ class AccountMove(models.Model):
             move_id = []
             semua_data_invoice = []
             for stock_picking_tt_id in self.stock_picking_tt_ids :
+                stock_picking_tt_id.ambil_move_line()
                 for stock_move in stock_picking_tt_id.move_ids_without_package :
                     move_id.append(stock_move.id )
                     if stock_move.product_id.categ_id.property_valuation == 'real_time':
