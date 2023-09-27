@@ -175,7 +175,7 @@ class SDTReturnGoodsIssued(models.Model):
         header_trans = {'name': self.name,
                         # 'company_id': self.company_id.id,
                         # 'scheduled_date': self.date_issued,
-                        'force_date': self.force_date,
+                        # 'force_date': self.force_date,
                         'location_id': self.location_from.id,
                         'location_dest_id': self.location_to.id,
                         'picking_type_id': self.picking_type_id.id,
