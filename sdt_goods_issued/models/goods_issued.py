@@ -109,7 +109,7 @@ class SDTGoodsIssued(models.Model):
         cek = self.env.cr.fetchone()[0]
         if cek:
             sql_query="""insert into stock_quant (product_id,company_id,location_id,lot_id,quantity,reserved_quantity,in_date,create_uid,create_date,write_uid,write_date)
-                select a.product_id,a.company_id,a.location_id,a.lot_id,a.qty_done,0,(now() AT TIME ZONE 'UTC'),%s,(now() AT TIME ZONE 'UTC'),%s 
+                select a.product_id,a.company_id,a.location_id,a.lot_id,a.qty_done,0,(now() AT TIME ZONE 'UTC'),%s,(now() AT TIME ZONE 'UTC'),%s,(now() AT TIME ZONE 'UTC') 
                 from stock_move_line a left join stock_quant b on a.product_id=b.product_id and a.location_id=b.location_id 
                 where a.picking_id=%s and b.product_id is null;
                 """
@@ -128,7 +128,7 @@ class SDTGoodsIssued(models.Model):
         cek2 = self.env.cr.fetchone()[0]
         if cek2:
             sql_query="""insert into stock_quant (product_id,company_id,location_id,lot_id,quantity,reserved_quantity,in_date,create_uid,create_date,write_uid,write_date)
-                select a.product_id,a.company_id,a.location_id,a.lot_id,a.qty_done*-1,0,(now() AT TIME ZONE 'UTC'),%s,(now() AT TIME ZONE 'UTC'),%s 
+                select a.product_id,a.company_id,a.location_id,a.lot_id,a.qty_done*-1,0,(now() AT TIME ZONE 'UTC'),%s,(now() AT TIME ZONE 'UTC'),%s,(now() AT TIME ZONE 'UTC')
                 from stock_move_line a left join stock_quant b on a.product_id=b.product_id and a.location_id=b.location_dest_id 
                 where a.picking_id=%s and b.product_id is null;
                 """
