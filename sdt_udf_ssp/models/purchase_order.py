@@ -13,6 +13,16 @@ class PurchaseOrder(models.Model):
                     for move in picking_id.move_ids_without_package:
                         move.outstanding = move.purchase_line_id.outstanding
         return res
+    
+    @api.model
+    def _get_picking_type(self, company_id):
+        picking_type = self.env['stock.picking.type'].search([('code', '=', 'incoming'), ('id', '=', 1)])
+        if not picking_type:
+            picking_type = self.env['stock.picking.type'].search([('code', '=', 'incoming'), ('warehouse_id.company_id', '=', company_id)])
+        if not picking_type:
+            picking_type = self.env['stock.picking.type'].search([('code', '=', 'incoming'), ('warehouse_id', '=', False)])
+        return picking_type[:1]
+    
 class PurchaseOrderLine(models.Model):
     _inherit='purchase.order.line'
 
